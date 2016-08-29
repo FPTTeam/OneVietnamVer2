@@ -58,7 +58,7 @@ namespace OneVietnam.Models
     {
         [Required(ErrorMessage = "Địa chỉ email là trường bắt buộc")]
         [Display(Name = "Email")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Địa chỉ email không hợp lệ")]
         public string Email { get; set; }        
         [Required(ErrorMessage = "Mật khẩu là trường bắt buộc")]
         [DataType(DataType.Password)]
@@ -76,7 +76,7 @@ namespace OneVietnam.Models
         [Display(Name = "Họ và tên")]
         public string UserName { get; set; }
         [Required(ErrorMessage = "Địa chỉ email là trường bắt buộc")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Địa chỉ email không hợp lệ")]
         [Display(Name = "Email")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Giới tính là trường bắt buộc")]
@@ -103,7 +103,7 @@ namespace OneVietnam.Models
     public class ResetPasswordViewModel
     {
         [Required(ErrorMessage = "Địa chỉ email là trường bắt buộc")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Địa chỉ email không hợp lệ")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
@@ -124,7 +124,7 @@ namespace OneVietnam.Models
     public class ForgotPasswordViewModel
     {
         [Required(ErrorMessage = "Địa chỉ Email là trường bắt buộc")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Địa chỉ email không hợp lệ")]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }

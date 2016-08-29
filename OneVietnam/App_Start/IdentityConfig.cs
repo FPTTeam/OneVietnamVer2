@@ -32,12 +32,7 @@ namespace OneVietnam.BLL
         public ApplicationUserManager(UserStore store)
             : base(store)
         {
-            this._userStore = store;
-            //this.UserValidator = new UserValidator<ApplicationUser>(this)
-            //{
-            //    AllowOnlyAlphanumericUserNames = false,
-            //    RequireUniqueEmail = true
-            //};
+            this._userStore = store;            
             this.UserValidator = new CustomUserValidator<ApplicationUser>(this)
             {
                 AllowOnlyAlphanumericUserNames =false,

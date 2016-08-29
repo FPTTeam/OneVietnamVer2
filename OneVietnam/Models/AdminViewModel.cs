@@ -11,9 +11,9 @@ namespace OneVietnam.Models
     {
         public string Id { get; set; }
 
-        [Required(AllowEmptyStrings = false)]
+        [Required(AllowEmptyStrings = false,ErrorMessage = "Địa chỉ email là trường bắt buộc")]
         [Display(Name = "Email")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Địa chỉ email không hợp lệ")]
         public string Email { get; set; }
 
         public IEnumerable<SelectListItem> RolesList { get; set; }
