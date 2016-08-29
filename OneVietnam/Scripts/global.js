@@ -326,15 +326,55 @@
             // set flag
             isStamped = !isStamped;
         });
-       
-        $('#stamp-button2')
+
+        $('#btnCancelCreatePost')
             .on('click',
-                function () {
-                    document.location = "/Newsfeed?ShowPostDetailPage";
+                function() {
+                    history.pushState(null, null, "/Newsfeed");
+                    $('body,html')
+                        .animate({
+                                scrollTop: 0 
+                            },
+                            500);
+                    $grid.isotope('layout');
+                    $("#CreatePostForm").data('validator').resetForm();
+                    $("#CreatePostForm").find("#result").html("");
+                    $("#CreatePostForm").find('#Title, #Description, #TagsInput').val('');
+                    getCurrentLocation();
+
+                    ImgList.splice(0, ImgList.length);
+                    $(".validation-summary-errors ul li").remove();
+                    $(".validation-summary-errors")
+                        .addClass('validation-summary-valid')
+                        .removeClass('validation-summary-errors');
+                    $("#CreatePostForm")[0].reset();
+
                     $(".stamp").toggleClass("hides");
                     $(".edits").toggleClass("edits-cl");
                     $(".plus").toggleClass("plus-cl");
-                
+                    isStamped = !isStamped;
+                });
+
+        $('#stamp-button2')
+            .on('click',
+                function () {
+                    //document.location = "/Newsfeed?ShowPostDetailPage";
+                    $(".stamp").toggleClass("hides");
+                    $(".edits").toggleClass("edits-cl");
+                    $(".plus").toggleClass("plus-cl");
+
+                    
+                    $("#CreatePostForm").data('validator').resetForm();
+                    $("#CreatePostForm").find("#result").html("");
+                    $("#CreatePostForm").find('#Title, #Description, #TagsInput').val('');
+                    getCurrentLocation();
+
+                    ImgList.splice(0, ImgList.length);
+                    $(".validation-summary-errors ul li").remove();
+                    $(".validation-summary-errors")
+                        .addClass('validation-summary-valid')
+                        .removeClass('validation-summary-errors');
+                    $("#CreatePostForm")[0].reset();
                 });
 
         // ===== Scroll to Top ==== 
