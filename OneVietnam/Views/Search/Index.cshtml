@@ -16,16 +16,16 @@
     </div>
     <div class="nine wide column">
         <div class="ui pointing secondary two item tabular menu">
-            <div class="item active" data-tab="post">
+            <div class="item @ViewBag.TabPost" data-tab="post">
                 Bài Viết
             </div>
-            <div class="item" data-tab="friend">
+            <div class="item @ViewBag.TabUser" data-tab="friend">
                 Bạn Bè
             </div>
 
         </div>
 
-        <div class="ui tab active" data-tab="post">
+        <div class="ui tab @ViewBag.TabPost" data-tab="post">
 
             <div class="post grids">
                 <div class="grid-sizer"></div>
@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <div class="ui tab" data-tab="friend">
+        <div class="ui tab @ViewBag.TabUser" data-tab="friend">
             <div class="friend grids">
                     <div class="grid-sizer"></div>
                 <div class="gutter-sizer"></div>

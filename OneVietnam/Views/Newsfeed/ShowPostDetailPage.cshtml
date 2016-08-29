@@ -3,6 +3,7 @@
     <div class="four wide column"></div>
   
     @using Microsoft.AspNet.Identity
+@using OneVietnam.Controllers
 @using OneVietnam.Models
     @model OneVietnam.Models.PostViewModel
         <div class="seven wide column">
@@ -95,8 +96,8 @@
 
                 <div class="extra content">
                            @{
-                        string url = "http://www.phimmoi.net/phim/nguoi-vo-tuyet-voi-3976/";
-                        string iframeUrl = "https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A51801%2FPost%2FShowPostDetailPageDetail%3FpostId%3D" + Model.Id + "&amp;src=sdkpreparse";
+                               string url = "https://onevietnam.azurewebsites.net/Newsfeed/ShowPostDetailPage/" + Model.Id ;
+                               string iframeUrl = "https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A51801%2FPost%2FShowPostDetailPageDetail%3FpostId%3D" + Model.Id + "&amp;src=sdkpreparse";
                     }
 
                     <div class="fb-like" data-href="@url" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
@@ -109,7 +110,41 @@
 
 
                         // In your JavaScript
-                       
+
+                        function finished_rendering() {
+                            $.ajax({
+                                type: 'GET',
+                                url: '/Newsfeed/_suggestedPost',
+                                data: { postId: '@Model.Id', pageNum: 1 },
+                                success: function (data) {
+                                    if (data != '') {
+                                        var $items = $(data);
+                                        $('.suggest.grids').isotope({
+                                            itemSelector: '.grid-item',
+                                            percentPosition: true,
+                                            masonry: {
+                                                columnWidth: '.grid-sizer',
+                                                gutter: '.gutter-sizer'
+                                            }
+                                        });
+                                        $(".suggestText").removeClass("hides");
+                                        $("#forSuggests").html($items);
+                                        $(".suggest.grids").isotope('appended', $items);
+                                        $(".suggest.grids").isotope('layout');
+                                        $(".suggest.grids").imagesLoaded().progress(function () {
+                                            $(".suggest.grids").isotope('layout');
+                                        });
+
+                                    }
+
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    console.log("Can not load more data infiniteScroll");
+                                }
+                            });
+
+                        };
+
 
                             function onCommentCreate(commentID) {
                                 $.ajax({
@@ -146,6 +181,21 @@
     </div>
 
 </div>
+    <div class="five wide column"></div>
+    <div class="ui two wide column forHide"></div>
 
+    <div class="twelve wide column">
+        <h2 style="text-align: center" class="suggestText hides">
+            Có thể bạn quan tâm
+        </h2>
+        <div class="suggest grids">
+            <div class="grid-sizer"></div>
+            <div class="gutter-sizer"></div>
 
+            <div class="ui link cards" id="forSuggests">
+
+            </div>
+        </div>
+    </div>
+    <div class="ui two wide column forHide"></div>
 </div>

@@ -1,5 +1,5 @@
 ﻿<div class="ui small modal" id="addPhoneModal">
-<p class="header" id="title"></p>
+<p class="header" id="title" style="text-align: center"></p>
 <div class="content">
 <h4> Chọn quốc gia</h4>
 <div class="ui search selection dropdown" id="countryDr">
@@ -462,61 +462,65 @@
 </div>
 
 </div>
-<script>
+@section scripts{
+    <script>
     
-    $("#add")
-        .on("click",
-            function () {
-                $("#add").addClass("loading");
-                var phoneNum = $("#phonetext").val();
-                $.ajax({
-                    type: 'GET',
-                    data: { phoneNumber: phoneNum },
-                    url: "/Timeline/AddPhoneNumber",
-                    success: function (partialResult) {
-                        $("#add").removeClass("loading");
-                        $(".code").removeClass("hides");
-                    }
-                });
-            });
-    $("#delete")
-      .on("click",
-          function () {
-              $("#delete").addClass("loading");
-              $.ajax({
-                  type: 'GET',
-                  url: "/Timeline/RemovePhoneNumber",
-                  success: function (partialResult) {
-                     
-                          $("#PhoneNumber").val("");
-                          $('#addPhoneModal').modal('hide');
-                         
-                    
-                  }
-              });
-          });
-    $("#check")
-        .on("click",
-            function () {
-                $("#add").text("Gửi lại");
-                $("#check").addClass("loading");
-                var phoneNum = $("#phonetext").val();
-                var codeNum = $("#codetext").val();
-                $.ajax({
-                    type: 'GET',
-                    data: { phoneNumber: phoneNum,code:codeNum },
-                    url: "/Timeline/VerifyPhoneNumber",
-                    success: function (result) {                        
-                        $("#check").removeClass("loading");
-                        if (result === "1") {
-                            $("#PhoneNumber").val(phoneNum);
-                            $('#addPhoneModal').modal('hide');
-                           
-                        } else {
-                            $("#errorText").removeClass("hides");
+        $("#add")
+            .on("click",
+                function() {
+                    $("#add").addClass("loading");
+                    var phoneNum = $("#phonetext").val();
+                    $.ajax({
+                        type: 'GET',
+                        data: { phoneNumber: phoneNum },
+                        url: "/Timeline/AddPhoneNumber",
+                        success: function(partialResult) {
+                            $("#add").removeClass("loading");
+                            $(".code").removeClass("hides");
+                            $("#errorText").addClass("hides");
                         }
-                       
-                    }
+                    });
                 });
-            });
-</script>
+        $("#delete")
+            .on("click",
+                function() {
+                    $("#delete").addClass("loading");
+                    $.ajax({
+                        type: 'GET',
+                        url: "/Timeline/RemovePhoneNumber",
+                        success: function(partialResult) {
+                            $("#delete").removeClass("loading");
+                            $("#PhoneNumber").val("");
+                            $("#errorText").addClass("hides");
+                            $("#phonetext").val("");
+                            $('#addPhoneModal').modal('hide');
+
+
+                        }
+                    });
+                });
+        $("#check")
+            .on("click",
+                function() {
+                    $("#add").text("Gửi lại");
+                    $("#check").addClass("loading");
+                    var phoneNum = $("#phonetext").val();
+                    var codeNum = $("#codetext").val();
+                    $.ajax({
+                        type: 'GET',
+                        data: { phoneNumber: phoneNum, code: codeNum },
+                        url: "/Timeline/VerifyPhoneNumber",
+                        success: function(result) {
+                            $("#check").removeClass("loading");
+                            if (result === "1") {
+                                $("#PhoneNumber").val(phoneNum);
+                                $('#addPhoneModal').modal('hide');
+
+                            } else {
+                                $("#errorText").removeClass("hides");
+                            }
+
+                        }
+                    });
+                });
+    </script>}

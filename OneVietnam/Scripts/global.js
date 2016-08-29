@@ -1,10 +1,7 @@
 ﻿$(document)
     .ready(function () {
-        $("#countryDr").dropdown({
-            onChange: function (value, text, $selectedItem) {
-                $("#phonetext").val("+"+$selectedItem.attr("data-value"));
-            }
-        });
+      
+        
 //        $('.ui.sticky')
 //  .sticky({
 //      context: '#context'

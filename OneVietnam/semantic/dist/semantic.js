@@ -1,4 +1,4 @@
- /*
+﻿ /*
  * # Semantic UI - 2.2.0
  * https://github.com/Semantic-Org/Semantic-UI
  * http://www.semantic-ui.com/
@@ -13201,6 +13201,9 @@ $.fn.search = function(parameters) {
                 return false;
               }
               if ($result.length > 0 && $result.context.id !== "dvSearchUsers") {
+                  if ($result.context.id === "SearchUsers") {
+                      location.href = "/Search/Index?query=" + module.get.value() + "&tabNum=2";
+                  }else{}
                   location.href = "/Search/Index?query=" + module.get.value();
                   return false;;
               }
@@ -14131,7 +14134,7 @@ $.fn.search.settings = {
 
   error : {
     source      : 'Cannot search. No source used, and Semantic API module was not included',
-    noResults   : 'Your search returned no results',
+    noResults   : 'Không có kết quả nào',
     logging     : 'Error in debug logging, exiting.',
     noEndpoint  : 'No search endpoint was specified',
     noTemplate  : 'A valid template name was not specified.',
@@ -14210,7 +14213,7 @@ $.fn.search.settings = {
         // message type
         if(type == 'empty') {
           html += ''
-            + '<div class="header">No Results</div class="header">'
+            + '<div class="header">Trống</div class="header">'
             + '<div class="description">' + message + '</div class="description">'
           ;
         }

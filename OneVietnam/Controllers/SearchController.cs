@@ -17,12 +17,20 @@ namespace OneVietnam.Controllers
     {
         // GET: Search
         [AllowAnonymous]
-        public async Task<ActionResult> Index(string query, int? pageNum)
+        public async Task<ActionResult> Index(string query, int? pageNum,int?tabNum)
         {
-            //todo
-
-
+            tabNum = tabNum ?? 1;
             pageNum = pageNum ?? 1;
+            if (tabNum == 1)
+            {
+                ViewBag.TabPost = "active";
+                ViewBag.TabUser = "";
+            }
+            else
+            {
+                ViewBag.TabPost = "";
+                ViewBag.TabUser = "active";
+            }
             ViewBag.IsEndOfRecords = false;
 
             BaseFilter filter;
@@ -45,7 +53,7 @@ namespace OneVietnam.Controllers
             if (listPost.Count < filter.ItemsPerPage) ViewBag.IsEndOfRecords = true;
 
             ViewBag.Posts = listPost;
-            ViewBag.Query = query;
+            ViewBag.Query = query;            
             return View();
         }
         //todo
