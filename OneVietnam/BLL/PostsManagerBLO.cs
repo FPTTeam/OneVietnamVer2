@@ -63,7 +63,7 @@ namespace OneVietnam.BLL
         public async Task<List<Post>> FindPostByTagsAsync(List<Tag> tags, string postId)
         {            
             var builder = Builders<Post>.Filter;
-            var filter = builder.Ne(p => p.Id, postId);
+            var filter = builder.Ne(p => p.Id, postId)&builder.Eq("DeletedFlag",false)&builder.Eq("Status",true);
             var lockFilter = builder.Eq("LockedFlag", false);
             var filterTag = builder.AnyEq("Tags",tags[0]);
             for (int i = 1; i < tags.Count; i++)
@@ -195,7 +195,7 @@ namespace OneVietnam.BLL
         public async Task<List<Post>> FindAllDescenderAsync(BaseFilter basefilter)
         {
             var builder = Builders<Post>.Filter;
-            var filter = builder.Eq("DeletedFlag", false) & builder.Eq("LockedFlag",false);
+            var filter = builder.Eq("DeletedFlag", false) & builder.Eq("LockedFlag",false)&builder.Eq("Status",true);
             var sort = Builders<Post>.Sort.Descending("CreatedDate");
             return await Store.FindAllAsync(basefilter, filter, sort);
         }
