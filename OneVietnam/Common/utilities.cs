@@ -20,7 +20,8 @@ namespace OneVietnam
             string result;
             if (timeDiff.TotalDays >= 30)
             {
-                result = "từ " +createdDate.Date.ToShortDateString();
+                //Tailm :delete "Tu"
+                result = createdDate.Date.ToShortDateString();
             }
             else if (timeDiff.TotalHours >= 24)
             {

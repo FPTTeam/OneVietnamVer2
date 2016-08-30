@@ -93,11 +93,11 @@
     var grid = $(".post.grids");
     var moreRowsUrl;
     var currentTab = $(".ui.tab.active").attr("data-tab");
-    if (currentTab === "friend") {
+    if (currentTab === "friend") {        
         moreRowsUrl = '@Url.Action("_userResult","Search", new { query = query })';
         grid = $(".friend.grids");
         forLoad = $("#friendScroll");
-    } else {
+    } else {        
         moreRowsUrl = '@Url.Action("Index","Search", new { query =query })';
         grid = $(".post.grids");
         forLoad = $("#postScroll");

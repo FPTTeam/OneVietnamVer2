@@ -4,16 +4,14 @@
 
 var scrollHandler = function () {
     if (hasReachedEndOfInfiniteScroll === false &&
-            ($(window).scrollTop() >= ($(document).height() - $(window).height()-100))) {
+            ($(window).scrollTop() >= ($(document).height() - $(window).height() - 100))) {        
         loadMoreToInfiniteScrollTable(moreRowsUrl);
     }
 }
 $('.filter-items').on('click', '.item', function () {
-    page = 0;
-    
+    page = 0;    
     $(forLoad).empty();
      filterValue = $(this).attr('data-filter');
-
     loadMoreToInfiniteScrollTable(moreRowsUrl);
 
 

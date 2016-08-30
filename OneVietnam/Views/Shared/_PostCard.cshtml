@@ -63,35 +63,7 @@
     }
     <div class="content clickable ">
         <div class="meta">
-            @{
-                DateTime start = DateTime.Now;
-                // Do some work
-                TimeSpan timeDiff = DateTime.Now - @Model.CreatedDate;
-
-            }
-            @{
-
-                        if (timeDiff.TotalDays >= 30)
-                        {
-            <span>  Tạo ngày @Model.CreatedDate.Date </span>
-                        }
-                        else if (timeDiff.TotalHours >= 24)
-                        {
-            <span>@Math.Round(timeDiff.TotalDays) ngày trước </span>
-                        }
-                        else if (timeDiff.TotalMinutes >= 60)
-                        {
-            <span>@Math.Round(timeDiff.TotalHours) giờ trước </span>
-                        }
-                        else if (timeDiff.TotalSeconds >= 60)
-                        {
-            <span>@Math.Round(timeDiff.TotalMinutes) phút trước </span>
-                        }
-                        else
-                        {
-            <span>Vừa xong </span>
-                        }
-            }
+            <span>  @Model.TimeInterval </span>            
         </div>
         <div class="header ">
             @Model.Title
