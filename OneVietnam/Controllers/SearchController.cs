@@ -19,6 +19,11 @@ namespace OneVietnam.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Index(string query, int? pageNum,int?tabNum)
         {
+            if (query == null || query.Trim().Length<2)
+            {
+                return RedirectToAction("Index", "Newsfeed");
+            }
+            
             tabNum = tabNum ?? 1;
             pageNum = pageNum ?? 1;
             if (tabNum == 1)
@@ -55,14 +60,7 @@ namespace OneVietnam.Controllers
             ViewBag.Posts = listPost;
             ViewBag.Query = query;            
             return View();
-        }
-        //todo
-        //public async Task<ActionResult> UsersResult(string query)
-        //{
-        //    var baseFilter = new BaseFilter();
-        //    var users = await UserManager.TextSearchUsers(query, baseFilter).ConfigureAwait(false);
-        //    return View();
-        //}
+        }        
         private ApplicationUserManager _userManager;
         public ApplicationUserManager UserManager
         {

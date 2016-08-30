@@ -13203,8 +13203,10 @@ $.fn.search = function(parameters) {
               if ($result.length > 0 && $result.context.id !== "dvSearchUsers" && $result.context.id !== "dvSearchPostTitle") {
                   if ($result.context.id === "SearchUsers") {
                       location.href = "/Search/Index?query=" + module.get.value() + "&tabNum=2";
-                  }else{}
-                  location.href = "/Search/Index?query=" + module.get.value();
+                  }else
+                  {
+                      location.href = "/Search/Index?query=" + module.get.value() + "&tabNum=1";
+                  }                  
                   return false;;
               }
             }
