@@ -284,6 +284,7 @@
     <Compile Include="BLL\Abstract\AbstractManager.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Common\utilities.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\NewsfeedController.cs" />
     <Compile Include="Controllers\TimelineController.cs" />
     <Compile Include="CustomResources.Designer.cs">
@@ -588,6 +589,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Timeline\_ReportUser.cshtml" />
     <Content Include="Views\Shared\_addPhoneNumber.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
+    <None Include="Views\Error\PageNotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

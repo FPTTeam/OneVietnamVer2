@@ -46,7 +46,7 @@
             <div id="avatarUpload" class="hides">
                 @using (Html.BeginForm("ChangeAvatar", "Timeline", FormMethod.Post, new { enctype = "multipart/form-data", @class = "ui form", @id = "uploader" }))
                 {
-                    <input type="file" id="fileInput" name="fileInput" onchange="submitAvatar()" />
+                    <input type="file" id="fileInput" name="fileInput" onchange="submitAvatar()" accept="image/*" />
                     <input type="submit" id="btnUpload" name="btnUpload" />
                 }
             </div>
@@ -65,7 +65,7 @@
             <div id="coverUpload" class="hides">
                 @using (Html.BeginForm("ChangeCover", "Timeline", FormMethod.Post, new { enctype = "multipart/form-data", @class = "ui form", @id = "uploads" }))
                 {
-                    <input type="file" id="fileInputs" name="fileInput" onchange="submitCover()" />
+                    <input type="file" id="fileInputs" name="fileInput" onchange="submitCover()" accept="image/*" />
                     <input type="submit" id="btnUploads" name="btnUploads" />
                 }
             </div>
