@@ -107,7 +107,15 @@
                     </div>
                     <i class="world icon"></i>
                     <a class="item" onclick="location.href = '@Url.Action("ShowMap", "Map", new {@Model.PostLocation.XCoordinate, @Model.PostLocation.YCoordinate, @Model.PostType, postId = @Model.Id})'">@Model.PostLocation.Address</a>
-
+                    <div>
+                        @if (Model.Tags != null && Model.Tags.Count > 0)
+                        {
+                            foreach (var tag in Model.Tags)
+                            {
+                                <a class="ui teal tag label">@tag.TagText</a>
+                            }
+                        }
+                    </div>
                     <div class="extra content">
                         @{
                             string url = "https://onevietnam.azurewebsites.net/Newsfeed/ShowPostDetailPage/" + Model.Id;
