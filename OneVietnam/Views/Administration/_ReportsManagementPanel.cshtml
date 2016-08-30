@@ -55,7 +55,7 @@
                                     <label id="lblShowHandlerName_@Model[index].Id">
                                         @if (Model[index].HandlerId != null)
                                         {
-                                            @Model[index].HandlerName
+                                            <a href="@Url.Action("Index", "Timeline", new {Id = Model[index].HandlerId})">@Model[index].HandlerName</a>                                            
 
                                         }
                                     </label>
