@@ -58,7 +58,7 @@
                     if (Model.Illustrations != null && Model.Illustrations.Count > 1)
                     {
 
-                        <div class="carousel" data-flickity>
+                        <div class="carousel" style="margin-bottom: 30px" data-flickity>
                             @foreach (var ill in Model.Illustrations)
                             {
                                 <div class="carousel-cell"><img src="@ill.PhotoLink" class="center-cropped"/>
