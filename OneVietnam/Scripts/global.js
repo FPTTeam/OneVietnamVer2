@@ -355,7 +355,14 @@
         $('#stamp-button2')
             .on('click',
                 function () {
-                    //document.location = "/Newsfeed?ShowPostDetailPage";
+                    
+                    if (window.location.href.indexOf("Newsfeed") === -1) {
+                        document.location = "/Newsfeed?ShowPostDetailPage";
+                        $(".stamp").toggleClass("hides");
+                        $(".edits").toggleClass("edits-cl");
+                        $(".plus").toggleClass("plus-cl");
+                        return;
+                    }                                        
                     $(".stamp").toggleClass("hides");
                     $(".edits").toggleClass("edits-cl");
                     $(".plus").toggleClass("plus-cl");

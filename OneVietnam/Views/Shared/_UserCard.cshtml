@@ -16,8 +16,12 @@
     </div>
     <div class="extra content">
         <div class="ui two buttons">
-            <a class="ui basic green button" href="javascript: register_popup('@Model.UserId','@Model.UserName','@Model.Avatar')">Nhắn tin</a>
-            <div class="ui basic red button" id="reportUser_@Model.UserId">Báo cáo</div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a class="ui basic green button" href="javascript: register_popup('@Model.UserId','@Model.UserName','@Model.Avatar')">Nhắn tin</a>
+                <div class="ui basic red button" id="reportUser_@Model.UserId">Báo cáo</div>
+            }
+            
         </div>
     </div>
     <div id="ShowReportUser_@Model.UserId">
