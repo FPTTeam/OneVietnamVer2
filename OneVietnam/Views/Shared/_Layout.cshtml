@@ -244,11 +244,12 @@
                     //Create a function that the hub can call back to display messages.
                     myHub.client.addChatMessage = function (id, name, message, avatar) {
                         register_popup(id, name, avatar);
-                        // Add the message to the page.
-                        $("#" + id + "Conversation")
+                        if (document.getElementById(id) != null) {
+                            // Add the message to the page.                        
+                            $("#" + id + "Conversation")
                             .append('<div class="item"><div class="content" style="margin-left:0.5em"><p class="receiveMessage">' + htmlEncode(message) + '</p></div></div>');
-                        $("#" + id + "Conversation").scrollTop(document.getElementById(id + "Conversation").scrollHeight);
-
+                            $("#" + id + "Conversation").scrollTop(document.getElementById(id + "Conversation").scrollHeight);
+                        }                        
                     };
                     myHub.client.pushNotification = function () {
                         if ($('#NotificationsNo').text() == '') {

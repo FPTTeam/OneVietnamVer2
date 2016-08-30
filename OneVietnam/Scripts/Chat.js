@@ -57,6 +57,7 @@ function register_popup(id, name, avatarSrc) {
         if (id == popups[iii]) {
             Array.remove(popups, iii);
             popups.unshift(id);
+            $("#" + id + "Conversation").scrollTop(document.getElementById(id + "Conversation").scrollHeight);
             calculate_popups();
             return;
         }
@@ -78,7 +79,6 @@ function register_popup(id, name, avatarSrc) {
     seenConversation(id);
     $("#" + id + "Conversation").text("");
     getConversationById(id);
-
 }
 function seenConversation(id) {
     if (document.getElementById(id + "Conversations") == null) return;
