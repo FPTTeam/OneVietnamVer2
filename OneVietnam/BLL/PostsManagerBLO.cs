@@ -79,9 +79,14 @@ namespace OneVietnam.BLL
             var sort = Builders<Post>.Sort.MetaTextScore("TextMatchScore").Ascending("CreatedDate");
             return await Store.FullTextSearch(query, filter, sort).ConfigureAwait(false);
         }
-
+        public async Task<List<BsonDocument>> FullTextSearchAdminPosts(string query, BaseFilter filter)
+        {
+            var sort = Builders<Post>.Sort.MetaTextScore("TextMatchScore").Ascending("CreatedDate");
+            return await Store.FullTextSearchAdminPost(query, filter, sort).ConfigureAwait(false);
+        }
         public PostManager(PostStore store) : base(store)
         {
+            Store = store;
         }
 
         public async Task<List<Post>> FindAllActiveAdminPostAsync()

@@ -190,6 +190,51 @@ namespace OneVietnam.Controllers
             };
             return Json(searchResult, JsonRequestBehavior.AllowGet);
         }
+
+        public async Task<ActionResult> AdminSearch(string query)
+        {
+            var filter = new BaseFilter
+            {
+                CurrentPage = 1,
+                ItemsPerPage = Constants.ResultMaximumNumber
+            };
+
+            var result = await PostManager.FullTextSearchAdminPosts(query, filter);
+            var list = new List<SearchResultItem>();
+            foreach (var item in result)
+            {
+                var searchItem = new SearchResultItem
+                {
+                    Url = Url.Action("ShowPostDetailPage", "Newsfeed", new { Id = item["_id"].ToString() })
+                };
+                //searchItem.Description = item["Description"].AsString.Substring(0,Math.Min(200, item["Description"].AsString.Length));
+                if (item["Description"].AsString.Length > Constants.DescriptionMaxLength)
+                {
+                    searchItem.Description = item["Description"].AsString.Substring(0, Constants.DescriptionMaxLength) + "...";
+                }
+                else
+                {
+                    searchItem.Description = item["Description"].AsString;
+                }
+                if (item["Title"].AsString.Length > Constants.TitleMaxLength)
+                {
+                    searchItem.Title = item["Title"].AsString.Substring(0, Constants.TitleMaxLength) + "...";
+                }
+                else
+                {
+                    searchItem.Title = item["Title"].AsString;
+                }
+
+                //searchItem.Title = item["Title"].AsString.Substring(0, Math.Min(100, item["Title"].AsString.Length));         
+                list.Add(searchItem);
+            }
+            var searchResult = new SearchResultModel
+            {
+                Count = list.Count,
+                Result = list
+            };
+            return Json(searchResult, JsonRequestBehavior.AllowGet);
+        }
         [AllowAnonymous]
         public async Task<ActionResult> UsersSearch(string query)
         {
