@@ -3,10 +3,15 @@
     <div class="four wide column"></div>
 
     @using Microsoft.AspNet.Identity
-@using OneVietnam.Common
+    @using OneVietnam.Common
     @using OneVietnam.Controllers
     @using OneVietnam.Models
     @model OneVietnam.Models.PostViewModel
+    <script src="~/Scripts/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js" type="text/javascript"></script>
+<script src="/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+    <script src="/Scripts/timeline.js" type="text/javascript"></script>
+
     <div class="seven wide column">
         <div class="ui  fluid raised  segment ">
             @*TaiLM : added*@
@@ -30,39 +35,53 @@
                 <div class="ui right floated button" style="background: white !important">
                     @if (User.Identity.IsAuthenticated && (User.Identity.GetUserId() == Model.UserId))
                     {
-                        <i class="large trash outline link icon" data-content="Xóa" style="float: right" onclick="document.location.href = '@Url.Action("DeletePost", "Newsfeed", new {postId = Model.Id})';"></i>
-                            <i class="blue large write link icon" data-content="Sửa" style="float: right" onclick="document.location.href = '@Url.Action("EditPost", "Newsfeed", new {postId = Model.Id})'"></i>
+                        <i class="large trash outline link icon" data-content="Xóa" style="float: right" id="deletePost"></i>
+                        <script>
+
+                            $("#deletePost")
+                                .click(function () {
+                                    $('.ui.small.delete.modal').modal('show');
+                                });
+                        </script>
+
+                        <div class="ui small delete modal">
+                            <div class="header">
+                                Xóa bài đăng
+                            </div>
+                            <div class="content">
+                                <p>Bạn có chắc chắn xóa bài đăng này?</p>
+                            </div>
+                            <div class="actions">
+                                <div class="ui cancel button">
+                                    Hủy
+                                </div>
+                                <div class="ui green button" onclick="document.location.href = '@Url.Action("DeletePost", "Newsfeed", new {postId = Model.Id})';">
+                                    Xóa
+                                </div>
+                            </div>
+                        </div>
+
+                        <i class="blue large write link icon" data-content="Sửa" style="float: right" onclick="document.location.href = '@Url.Action("EditPost", "Newsfeed", new {postId = Model.Id})'"></i>
                     }
                     else
                     {
-                        <i class='blue large announcement link icon' id="reportPost" data-content='Báo cáo' style='float: right'></i>
-                            <div id="ShowReportPost">
-                                @Html.Partial("../Newsfeed/_Report", new ReportViewModel(Model.Id, Model.UserId))
-                            </div>
-                            @*                    <script>*@
-                            @*                    $(".modal")*@
-                            @*                         .modal({*@
-                            @*                             allowMultiple: true*@
-                            @*                         });*@
-                            @*                    $('.second.modal').modal('attach events', '.report.modal .green.button');*@
-                            @*                    $('.report.modal').modal('attach events', '#reportPost');*@
-                            @*                    $(".green.button").click(function () {*@
-                            @*                            $('.report.modal').modal('hide');*@
-                            @*                        });*@
-                            @*                    </script>*@
+                        <i class='blue large announcement link icon' id="btnReportPost_@Model.Id" data-content='Báo cáo' style='float: right'></i>
+                        <div id="ShowReportPost_@Model.Id">
+                            @Html.Partial("../Newsfeed/_Report", new ReportViewModel(Model.Id, Model.UserId))
+                        </div>
+                        <script>
+
+                            $("#btnReportPost_@Model.Id")
+                                .click(function () {
+                                    $("#ReportPost_@Model.Id").modal('show');
+                                });                           
+                        </script>
                     }
                 </div>
 
                 <div class="meta">
                     <span> @Model.TimeInterval </span>
                 </div>
-
-                @*<div class="ui  header">@Model.UserName</div>*@
-
-
-
-
-
             </div>
             <div class="ui centered  card" style="width: 95%; border-color: #fff">
                 <div class="image">
@@ -71,7 +90,7 @@
                         if (Model.Illustrations != null && Model.Illustrations.Count > 1)
                         {
 
-                        <div class="carousel" style="margin-bottom: 30px" data-flickity>
+                            <div class="carousel" style="margin-bottom: 30px" data-flickity>
                                 @foreach (var ill in Model.Illustrations)
                                 {
                                     <div class="carousel-cell">

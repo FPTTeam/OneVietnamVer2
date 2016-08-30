@@ -371,6 +371,7 @@ namespace OneVietnam.Controllers
         //}
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> ReportPost(ReportViewModel model)
         {
             Report report = new Report(model) { ReporterId = User.Identity.GetUserId() };

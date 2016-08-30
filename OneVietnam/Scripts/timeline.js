@@ -219,5 +219,17 @@ function cancelReport() {
     $(".validation-summary-errors ul li").remove();
     $(".input-validation-error").removeClass('input-validation-error');
     $(".validation-summary-errors").addClass('validation-summary-valid').removeClass('validation-summary-errors');
-    $("#ReportDescription").val('');
+    var des = document.getElementById('ReportDescription');
+    des.innerText = "";
+    
+}
+
+function ShowThank(postId) {
+    if ($("#ReportPost_" + postId).find('.input-validation-error').length > 0) {
+        $("#ReportPost_" + postId).modal('show');
+    } else {
+        cancelReport();
+        $("#ReportPost_" + postId).modal('hide');
+        $("#ThankYouModal_" + postId).modal('show');        
+    }
 }
