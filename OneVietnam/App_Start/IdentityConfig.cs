@@ -235,6 +235,10 @@ namespace OneVietnam.BLL
             {
                 return SignInStatus.Failure;
             }
+            if (await UserManager.IsLocked(user.Id))
+            {
+                return SignInStatus.Locked;
+            }
             if (await UserManager.IsLockedOutAsync(user.Id))
             {
                 return SignInStatus.LockedOut;

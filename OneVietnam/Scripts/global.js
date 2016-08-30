@@ -177,7 +177,7 @@
         $("#dvSearchPostTitle")
             .search({
                 apiSettings: {
-                    url: '/Search/Search?query={query}'
+                    url: '/Search/AdminSearch?query={query}'
                 },
                 fields: {
                     results: 'Result',

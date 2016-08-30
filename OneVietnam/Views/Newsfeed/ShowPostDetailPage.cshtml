@@ -1,150 +1,165 @@
 ﻿
 <div class="ui grid">
     <div class="four wide column"></div>
-  
+
     @using Microsoft.AspNet.Identity
-@using OneVietnam.Controllers
-@using OneVietnam.Models
+    @using OneVietnam.Common
+    @using OneVietnam.Controllers
+    @using OneVietnam.Models
     @model OneVietnam.Models.PostViewModel
-        <div class="seven wide column">
-    <div class="ui  fluid raised  segment ">
-        <div class="header">
-
-            <img class="ui mini avatar image" src="@Model.AvartarLink">
-            <a href="@Url.Action("Index", "Timeline", new {userID = @Model.UserId})">@Model.UserName</a>
-
-            <div class="ui right floated button" style="background: white!important">
-                @if (User.Identity.IsAuthenticated && (User.Identity.GetUserId() == Model.UserId))
-            {
-                    <i class="large trash outline link icon" data-content="Xóa" style="float: right" onclick="document.location.href = '@Url.Action("DeletePost", "Newsfeed", new {postId = Model.Id})';"></i>
-                    <i class="blue large write link icon" data-content="Sửa" style="float: right" onclick="document.location.href =
-    '@Url.Action("EditPost", "Newsfeed", new {postId = Model.Id})'"></i>
-                }
-                else
+    <div class="seven wide column">
+        <div class="ui  fluid raised  segment ">
+            @*TaiLM : added*@
+            @{
+                //TaiLM: Added
+                if (Model.Status == false)
                 {
-                    <i class='blue large announcement link icon' id="reportPost" data-content='Báo cáo' style='float: right'></i>
-                    <div id="ShowReportPost">
-                        @Html.Partial("../Newsfeed/_Report", new ReportViewModel(Model.Id, Model.UserId))
-                    </div>
-@*                    <script>*@
-@*                    $(".modal")*@
-@*                         .modal({*@
-@*                             allowMultiple: true*@
-@*                         });*@
-@*                    $('.second.modal').modal('attach events', '.report.modal .green.button');*@
-@*                    $('.report.modal').modal('attach events', '#reportPost');*@
-@*                    $(".green.button").click(function () {*@
-@*                            $('.report.modal').modal('hide');*@
-@*                        });*@
-@*                    </script>*@
+                    <div class="ui top attached grey label">Đã Đóng</div>
                 }
-            </div>
+                if (Model.Status == true && Model.PostType == (int)PostTypeEnum.AdminPost)
+                {
+                    <div class="ui top attached red label">Thông báo</div>
+                }
 
-            <div class="meta">
-                <span > @Model.TimeInterval </span>                     
-            </div>
+            }
+            <div class="header">
 
-            @*<div class="ui  header">@Model.UserName</div>*@
+                <img class="ui mini avatar image" src="@Model.AvartarLink">
+                <a href="@Url.Action("Index", "Timeline", new {userID = @Model.UserId})">@Model.UserName</a>
 
-
-
-
-
-        </div>
-        <div class="ui centered  card" style="width: 95%; border-color: #fff">
-            <div class="image">
-
-                @{
-                    if (Model.Illustrations != null && Model.Illustrations.Count > 1)
+                <div class="ui right floated button" style="background: white !important">
+                    @if (User.Identity.IsAuthenticated && (User.Identity.GetUserId() == Model.UserId))
                     {
-
-                        <div class="carousel" data-flickity>
-                            @foreach (var ill in Model.Illustrations)
-                            {
-                                <div class="carousel-cell"><img src="@ill.PhotoLink" class="center-cropped"/>
-                                </div>
-                            }
-
-
-
+                        <i class="large trash outline link icon" data-content="Xóa" style="float: right" onclick="document.location.href = '@Url.Action("DeletePost", "Newsfeed", new {postId = Model.Id})';"></i>
+                        <i class="blue large write link icon" data-content="Sửa" style="float: right" onclick="document.location.href = '@Url.Action("EditPost", "Newsfeed", new {postId = Model.Id})'"></i>
+                    }
+                    else
+                    {
+                        <i class='blue large announcement link icon' id="reportPost" data-content='Báo cáo' style='float: right'></i>
+                        <div id="ShowReportPost">
+                            @Html.Partial("../Newsfeed/_Report", new ReportViewModel(Model.Id, Model.UserId))
                         </div>
-
+                        @*                    <script>*@
+                        @*                    $(".modal")*@
+                        @*                         .modal({*@
+                        @*                             allowMultiple: true*@
+                        @*                         });*@
+                        @*                    $('.second.modal').modal('attach events', '.report.modal .green.button');*@
+                        @*                    $('.report.modal').modal('attach events', '#reportPost');*@
+                        @*                    $(".green.button").click(function () {*@
+                        @*                            $('.report.modal').modal('hide');*@
+                        @*                        });*@
+                        @*                    </script>*@
                     }
-                    else if (Model.Illustrations != null && Model.Illustrations.Count == 1)
-                    {
+                </div>
 
-
-
-                        <img src="@Model.Illustrations[0].PhotoLink"/>
-
-
-
-                    }
-                }
-            </div>
-
-            <div class="content">
-                <div id="rate" class="ui star rating right floated" data-rating="3"></div>
-                <div class="header">@Model.Title</div>
                 <div class="meta">
+                    <span> @Model.TimeInterval </span>
                 </div>
-                <div class="description" style="font-size: 18px">
-                    @Model.Description
-                </div>
-                <i class="world icon"></i>
-                <a class="item" onclick="location.href='@Url.Action("ShowMap", "Map", new { @Model.PostLocation.XCoordinate, @Model.PostLocation.YCoordinate, @Model.PostType,postId = @Model.Id})'">@Model.PostLocation.Address</a>
 
-                <div class="extra content">
-                           @{
-                               string url = "https://onevietnam.azurewebsites.net/Newsfeed/ShowPostDetailPage/" + Model.Id ;
-                               string iframeUrl ="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fonevietnam.azurewebsites.net%2FNewsfeed%2FShowPostDetailPage%2F" + Model.Id + "&amp;src=sdkpreparse";
-                    }
-
-                    <div class="fb-like" data-href="@url" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
-                    <div class="fb-share-button" data-href="@url" data-layout="button" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="@iframeUrl">
-                        Share
-                    </a></div>
-
-                    <div class="fb-comments" style="width: 100%" data-href="@url" data-numposts=""></div>
-
-                    <script>
+                @*<div class="ui  header">@Model.UserName</div>*@
 
 
-                        // In your JavaScript
 
-                        function finished_rendering() {
-                            $.ajax({
-                                type: 'GET',
-                                url: '/Newsfeed/_suggestedPost',
-                                data: { postId: '@Model.Id', pageNum: 1 },
-                                success: function (data) {
-                                    if (data != '') {
-                                        var $items = $(data);
-                                        $('.suggest.grids').isotope({
-                                            itemSelector: '.grid-item',
-                                            percentPosition: true,
-                                            masonry: {
-                                                columnWidth: '.grid-sizer',
-                                                gutter: '.gutter-sizer'
-                                            }
-                                        });
-                                        $(".suggestText").removeClass("hides");
-                                        $("#forSuggests").html($items);
-                                        $(".suggest.grids").isotope('appended', $items);
-                                        $(".suggest.grids").isotope('layout');
-                                        $(".suggest.grids").imagesLoaded().progress(function () {
-                                            $(".suggest.grids").isotope('layout');
-                                        });
 
-                                    }
 
-                                },
-                                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                    console.log("Can not load more data infiniteScroll");
+            </div>
+            <div class="ui centered  card" style="width: 95%; border-color: #fff">
+                <div class="image">
+
+                    @{
+                        if (Model.Illustrations != null && Model.Illustrations.Count > 1)
+                        {
+
+                            <div class="carousel" data-flickity>
+                                @foreach (var ill in Model.Illustrations)
+                                {
+                                    <div class="carousel-cell">
+                                        <img src="@ill.PhotoLink" class="center-cropped" />
+                                    </div>
                                 }
-                            });
 
-                        };
+
+
+                            </div>
+
+                        }
+                        else if (Model.Illustrations != null && Model.Illustrations.Count == 1)
+                        {
+
+
+
+                            <img src="@Model.Illustrations[0].PhotoLink" />
+
+
+
+                        }
+                    }
+                </div>
+
+                <div class="content">
+                    <div id="rate" class="ui star rating right floated" data-rating="3"></div>
+                    <div class="header">@Model.Title</div>
+                    <div class="meta">
+                    </div>
+                    <div class="description" style="font-size: 18px">
+                        @Model.Description
+                    </div>
+                    <i class="world icon"></i>
+                    <a class="item" onclick="location.href = '@Url.Action("ShowMap", "Map", new {@Model.PostLocation.XCoordinate, @Model.PostLocation.YCoordinate, @Model.PostType, postId = @Model.Id})'">@Model.PostLocation.Address</a>
+
+                    <div class="extra content">
+                        @{
+                            string url = "https://onevietnam.azurewebsites.net/Newsfeed/ShowPostDetailPage/" + Model.Id;
+                            string iframeUrl = "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fonevietnam.azurewebsites.net%2FNewsfeed%2FShowPostDetailPage%2F" + Model.Id + "&amp;src=sdkpreparse";
+                        }
+
+                        <div class="fb-like" data-href="@url" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
+                        <div class="fb-share-button" data-href="@url" data-layout="button" data-size="small" data-mobile-iframe="true">
+                            <a class="fb-xfbml-parse-ignore" target="_blank" href="@iframeUrl">
+                                Share
+                            </a>
+                        </div>
+                        <div class="fb-comments" style="width: 100%" data-href="@url" data-numposts=""></div>
+
+                        <script>
+
+
+                            // In your JavaScript
+
+                            function finished_rendering() {
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '/Newsfeed/_suggestedPost',
+                                    data: { postId: '@Model.Id', pageNum: 1 },
+                                    success: function (data) {
+                                        if (data != '') {
+                                            var $items = $(data);
+                                            $('.suggest.grids').isotope({
+                                                itemSelector: '.grid-item',
+                                                percentPosition: true,
+                                                masonry: {
+                                                    columnWidth: '.grid-sizer',
+                                                    gutter: '.gutter-sizer'
+                                                }
+                                            });
+                                            $(".suggestText").removeClass("hides");
+                                            $("#forSuggests").html($items);
+                                            $(".suggest.grids").isotope('appended', $items);
+                                            $(".suggest.grids").isotope('layout');
+                                            $(".suggest.grids").imagesLoaded().progress(function () {
+                                                $(".suggest.grids").isotope('layout');
+                                            });
+
+                                        }
+
+                                    },
+                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                        console.log("Can not load more data infiniteScroll");
+                                    }
+                                });
+
+                            };
 
 
                             function onCommentCreate(commentID) {
@@ -152,7 +167,7 @@
                                     type: 'GET',
                                     url: '/Newsfeed/GetCommentInfo',
                                     data: { commentid: commentID },
-                                    success: function(commentor) {
+                                    success: function (commentor) {
                                         var comment = {
                                             UserId: "@Model.UserId",
                                             Commentor: commentor["Username"],
@@ -165,23 +180,22 @@
                                 });
                             }
 
-                          
 
-                    </script>
-
+                        </script>
 
 
+
+                    </div>
                 </div>
+
+
             </div>
+
 
 
         </div>
 
-
-
     </div>
-
-</div>
     <div class="five wide column"></div>
     <div class="ui two wide column forHide"></div>
 

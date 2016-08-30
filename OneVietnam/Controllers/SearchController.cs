@@ -19,18 +19,11 @@ namespace OneVietnam.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Index(string query, int? pageNum,int?tabNum)
         {
-            tabNum = tabNum ?? 1;
-            pageNum = pageNum ?? 1;
-            if (tabNum == 1)
+            if (!Request.IsAjaxRequest() && query == null)
             {
-                ViewBag.TabPost = "active";
-                ViewBag.TabUser = "";
-            }
-            else
-            {
-                ViewBag.TabPost = "";
-                ViewBag.TabUser = "active";
-            }
+                return RedirectToAction("Index", "Newsfeed");
+            }                       
+            pageNum = pageNum ?? 1;            
             ViewBag.IsEndOfRecords = false;
 
             BaseFilter filter;
@@ -45,8 +38,17 @@ namespace OneVietnam.Controllers
                 //ViewBag.IsEndOfRecords = (posts.Any()) && ((pageNum.Value * RecordsPerPage) >= posts.Last().Key);
                 return PartialView("_PostRow", listPost);
             }
-
-
+            tabNum = tabNum ?? 1;
+            if (tabNum == 1)
+            {
+                ViewBag.TabPost = "active";
+                ViewBag.TabUser = "";
+            }
+            else
+            {
+                ViewBag.TabPost = "";
+                ViewBag.TabUser = "active";
+            }
             filter = new BaseFilter { CurrentPage = pageNum.Value };
             listPost = await PostSearch(query, filter);
             //posts = await PostManager.FullTextSearch(qu)
@@ -55,14 +57,7 @@ namespace OneVietnam.Controllers
             ViewBag.Posts = listPost;
             ViewBag.Query = query;            
             return View();
-        }
-        //todo
-        //public async Task<ActionResult> UsersResult(string query)
-        //{
-        //    var baseFilter = new BaseFilter();
-        //    var users = await UserManager.TextSearchUsers(query, baseFilter).ConfigureAwait(false);
-        //    return View();
-        //}
+        }        
         private ApplicationUserManager _userManager;
         public ApplicationUserManager UserManager
         {
@@ -105,6 +100,7 @@ namespace OneVietnam.Controllers
             users = await UserManager.TextSearchUsers(filter, query);
             if (users.Count < filter.ItemsPerPage) ViewBag.IsEndOfRecords = true;
             list = users.Select(u => new UserViewModel(u)).ToList();
+            if(list.Count==0) return null;
             //ViewBag.IsEndOfRecords = (posts.Any()) && ((pageNum.Value * RecordsPerPage) >= posts.Last().Key);
             return PartialView("_userRow", list);
         }
@@ -155,6 +151,51 @@ namespace OneVietnam.Controllers
             };
 
             var result = await PostManager.FullTextSearch(query, filter);
+            var list = new List<SearchResultItem>();
+            foreach (var item in result)
+            {
+                var searchItem = new SearchResultItem
+                {
+                    Url = Url.Action("ShowPostDetailPage", "Newsfeed", new { Id = item["_id"].ToString() })
+                };
+                //searchItem.Description = item["Description"].AsString.Substring(0,Math.Min(200, item["Description"].AsString.Length));
+                if (item["Description"].AsString.Length > Constants.DescriptionMaxLength)
+                {
+                    searchItem.Description = item["Description"].AsString.Substring(0, Constants.DescriptionMaxLength) + "...";
+                }
+                else
+                {
+                    searchItem.Description = item["Description"].AsString;
+                }
+                if (item["Title"].AsString.Length > Constants.TitleMaxLength)
+                {
+                    searchItem.Title = item["Title"].AsString.Substring(0, Constants.TitleMaxLength) + "...";
+                }
+                else
+                {
+                    searchItem.Title = item["Title"].AsString;
+                }
+
+                //searchItem.Title = item["Title"].AsString.Substring(0, Math.Min(100, item["Title"].AsString.Length));         
+                list.Add(searchItem);
+            }
+            var searchResult = new SearchResultModel
+            {
+                Count = list.Count,
+                Result = list
+            };
+            return Json(searchResult, JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<ActionResult> AdminSearch(string query)
+        {
+            var filter = new BaseFilter
+            {
+                CurrentPage = 1,
+                ItemsPerPage = Constants.ResultMaximumNumber
+            };
+
+            var result = await PostManager.FullTextSearchAdminPosts(query, filter);
             var list = new List<SearchResultItem>();
             foreach (var item in result)
             {
