@@ -5,284 +5,293 @@
 <div class="ui grid">
     <div class="ui five wide column forHide"></div>
     <div class="ui seven wide column">
-    <div class="ui  raised clearing  segment " style="width: 631px !important">
-    @{
-        //TaiLM: Added
-        if (Model.Status == false)
-        {
-            <div class="ui top attached grey label">Đã Đóng</div>
-        }
-        if (Model.Status == true && Model.PostType == (int)PostTypeEnum.AdminPost)
-        {
-            <div class="ui top attached red label">Thông báo</div>
-        }
-    }
-    <div class="header">
-
-        <img class="ui avatar image" src="@Model.AvartarLink">
-        <a href="@Url.Action("Index", "Timeline", new {Id = @Model.UserId})">@Model.UserName</a>
-
-        <div class="ui right floated button" style="background: white !important">
-            @if (User.Identity.IsAuthenticated && (User.Identity.GetUserId() == Model.UserId))
-            {
-                <i class="large trash outline link icon" id="deletePost" data-content="Xóa" style="float: right"></i>
-                <script>
-
-                    $("#deletePost")
-                        .click(function() {
-                            $('.ui.small.delete.modal').modal('show');
-                        });
-                </script>
-
-                <div class="ui small delete modal">
-                    <div class="header">
-                        Xóa bài đăng
-                    </div>
-                    <div class="content">
-                        <p>Bạn có chắc chắn xóa bài đăng này?</p>
-                    </div>
-                    <div class="actions">
-                        <div class="ui cancel button">
-                            Hủy
-                        </div>
-                        <div class="ui green button" onclick="document.location.href = '@Url.Action("DeletePost", "Newsfeed", new {postId = Model.Id})';">
-                            Xóa
-                        </div>
-                    </div>
-                </div>
-                <i class="blue large write link icon" data-content="Sửa" style="float: right" onclick="document.location.href = '@Url.Action("EditPost", "Newsfeed", new {postId = Model.Id})'"></i>
-            }
-            else if (User.Identity.IsAuthenticated)
-            {
-                <i class='blue large announcement link icon' id="reportPost" data-content='Báo cáo' style='float: right'></i>
-                <div id="ShowReportPost">
-                    @Html.Partial("../Newsfeed/_Report", new ReportViewModel(Model.Id, Model.UserId))
-                </div>
-                <script>
-                    $('.second.modal').modal('attach events', '.report.modal .green.button');
-                    $('.report.modal').modal('attach events', '#reportPost');
-                    $(".green.button")
-                        .click(function() {
-                            $('.report.modal').modal('hide');
-                        });
-
-                </script>
-            }
-        </div>
-
-        <div class="meta">
-            <span style="color: grey; margin-left: 40px; font-size: 14px !important"> @Model.TimeInterval </span>
-
-
-
-        </div>
-
-        @*<div class="ui  header">@Model.UserName</div>*@
-
-
-
-
-
-    </div>
-    <div class="ui centered  card" style="width: 95%; border-color: #fff">
-        <div class="image">
-
+        <div class="ui  raised clearing  segment " style="width: 631px !important">
             @{
-                if (Model.Illustrations != null && Model.Illustrations.Count > 1)
+                //TaiLM: Added
+                if (Model.Status == false)
                 {
+                    <div class="ui top attached grey label">Đã Đóng</div>
+                }
+                if (Model.Status == true && Model.PostType == (int)PostTypeEnum.AdminPost)
+                {
+                    <div class="ui top attached red label">Thông báo</div>
+                }
+            }
+            <div class="header">
 
-                    <div class="carousel" data-flickity>
-                        @foreach (var ill in Model.Illustrations)
-                        {
-                            <div class="carousel-cell">
-                                <img src="@ill.PhotoLink" class="center-cropped"/>
+                <img class="ui avatar image" src="@Model.AvartarLink">
+                <a href="@Url.Action("Index", "Timeline", new {Id = @Model.UserId})">@Model.UserName</a>
+
+                <div class="ui right floated button" style="background: white !important">
+                    @if (User.Identity.IsAuthenticated && (User.Identity.GetUserId() == Model.UserId))
+            {
+                        <i class="large trash outline link icon" id="deletePost" data-content="Xóa" style="float: right"></i>
+                        <script>
+
+                            $("#deletePost")
+                                .click(function () {
+                                    $('.ui.small.delete.modal').modal('show');
+                                });
+                        </script>
+
+                        <div class="ui small delete modal">
+                            <div class="header">
+                                Xóa bài đăng
                             </div>
+                            <div class="content">
+                                <p>Bạn có chắc chắn xóa bài đăng này?</p>
+                            </div>
+                            <div class="actions">
+                                <div class="ui cancel button">
+                                    Hủy
+                                </div>
+                                <div class="ui green button" onclick="document.location.href = '@Url.Action("DeletePost", "Newsfeed", new {postId = Model.Id})';">
+                                    Xóa
+                                </div>
+                            </div>
+                        </div>
+                        <i class="blue large write link icon" data-content="Sửa" style="float: right" onclick="document.location.href = '@Url.Action("EditPost", "Newsfeed", new {postId = Model.Id})'"></i>
+                    }
+                    else if (User.Identity.IsAuthenticated)
+                    {
+                        <i class='blue large announcement link icon' id="reportPost" data-content='Báo cáo' style='float: right'></i>
+                        <div id="ShowReportPost">
+                            @Html.Partial("../Newsfeed/_Report", new ReportViewModel(Model.Id, Model.UserId))
+                        </div>
+                        <script>
+                            $('.second.modal').modal('attach events', '.report.modal .green.button');
+                            $('.report.modal').modal('attach events', '#reportPost');
+                            $(".green.button")
+                                .click(function () {
+                                    $('.report.modal').modal('hide');
+                                });
+
+                        </script>
+                    }
+                </div>
+
+                <div class="meta">
+                    <span style="color: grey; margin-left: 40px; font-size: 14px !important"> @Model.TimeInterval </span>
+
+
+
+                </div>
+
+                @*<div class="ui  header">@Model.UserName</div>*@
+
+
+
+
+
+            </div>
+            <div class="ui centered  card" style="width: 95%; border-color: #fff">
+                <div class="image">
+
+                    @{
+                        if (Model.Illustrations != null && Model.Illustrations.Count > 1)
+                        {
+
+                            <div class="carousel" data-flickity>
+                                @foreach (var ill in Model.Illustrations)
+                                {
+                                    <div class="carousel-cell">
+                                        <img src="@ill.PhotoLink" class="center-cropped" />
+                                    </div>
+                                }
+
+
+
+                            </div>
+
+                        }
+                        else if (Model.Illustrations != null && Model.Illustrations.Count == 1)
+                        {
+
+
+
+                            <img src="@Model.Illustrations[0].PhotoLink" />
+
+
+
+                        }
+                    }
+                </div>
+
+                <div class="content">
+                    <div id="rate" class="ui star rating right floated" data-rating="3"></div>
+                    <div class="header">@Model.Title</div>
+                    <div class="meta">
+                    </div>
+                    <div class="description" style="font-size: 14px">
+                        @Model.Description
+                    </div>
+                    <i class="world icon"></i>
+                    <a class="item" onclick="location.href = '@Url.Action("ShowMap", "Map", new {@Model.PostLocation.XCoordinate, @Model.PostLocation.YCoordinate, @Model.PostType, postId = @Model.Id})'">@Model.PostLocation.Address</a>
+                    <div>
+                        @if (Model.Tags != null && Model.Tags.Count > 0)
+                        {
+                            foreach (var tag in Model.Tags)
+                            {
+                                <a class="ui teal tag label">@tag.TagText</a>
+                            }
+                        }
+                    </div>
+                    <div class="extra content">
+                        @{
+                            string url = "https://onevietnam.azurewebsites.net/Newsfeed/ShowPostDetailPage/" + Model.Id;
+                            string iframeUrl = "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fonevietnam.azurewebsites.net%2FNewsfeed%2FShowPostDetailPage%2F" + Model.Id + "&amp;src=sdkpreparse";
                         }
 
+                        <div class="fb-like" data-href="@url" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
+                        <div class="fb-share-button" data-href="@url" data-layout="button" data-size="small" data-mobile-iframe="true">
+                            <a class="fb-xfbml-parse-ignore" target="_blank" href="@iframeUrl">
+                                Share
+                            </a>
+                        </div>
+                        <div class="fb-comments" style="width: 100%" data-href="@url" data-numposts="2"></div>
+
+                        <script>
+
+
+                            function finished_rendering() {
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '/Newsfeed/_suggestedPost',
+                                    data: { postId: '@Model.Id', pageNum: 1 },
+                                    success: function (data) {
+                                        if (data != '') {
+                                            var $items = $(data);
+                                            $('.suggest.grids').isotope({
+                                                itemSelector: '.grid-item',
+                                                percentPosition: true,
+                                                masonry: {
+                                                    columnWidth: '.grid-sizer',
+                                                    gutter: '.gutter-sizer'
+                                                }
+                                            });
+                                            $(".suggestText").removeClass("hides");
+                                            $("#forSuggest").html($items);
+                                            $(".suggest.grids").isotope('appended', $items);
+                                            $(".suggest.grids").isotope('layout');
+                                            $(".suggest.grids").imagesLoaded().progress(function () {
+                                                $(".suggest.grids").isotope('layout');
+                                            });
+
+                                        }
+
+                                    },
+                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                        console.log("Can not load more data infiniteScroll");
+                                    }
+                                });
+
+                            };
+
+
+                            function onCommentCreate(commentID) {
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '/Newsfeed/GetCommentInfo',
+                                    data: { commentid: commentID },
+                                    success: function (commentor) {
+                                        var comment = {
+                                            UserId: "@Model.UserId",
+                                            Commentor: commentor["Username"],
+                                            Url: "@Url.Action("ShowPostDetailPage", "Newsfeed", new {Id = Model.Id})",
+                                            Avatar: commentor["Avatar"],
+                                            Title: "@Model.Title"
+                                        }
+                                        pushCommentNotification(comment);
+                                    }
+                                });
+                            }
+
+                            FB.XFBML.parse();
+                            $(".suggest.grids").on('click', '.clickable', function (e) {
+
+                                var id = $(this).parent().find('#postId').val();
+
+                                $.ajax({
+                                    type: 'GET',
+                                    data: { "postId": id },
+                                    url: '/Newsfeed/_ShowPostDetailModal',
+                                    success: function (partialResult) {
+                                        $("#forModal").empty();
+                                        $("#forModal").html(partialResult);
+                                        $(".modal")
+                                            .modal({
+                                                allowMultiple: true
+                                            });
+                                        $('#forModal').modal({
+                                            duration: 300,
+                                            onHide: function () {
+                                                history.back();
+                                                $('#forSuggest').empty();
+                                            },
+                                            onShow: function () {
+                                                history.pushState(null, null, "/Newsfeed/ShowPostDetailPage/" + id);
+                                            }
+                                        }).modal('show');
+                                        $(".forHide")
+                                            .on('click',
+                                                function () {
+                                                    $('#forModal').modal('hide');
+
+                                                });
+                                        var $carousel = $('.carousel').flickity({
+                                            imagesLoaded: true,
+                                            percentPosition: false
+                                        });
+
+
+                                        var docStyle = document.documentElement.style;
+                                        var transformProp = typeof docStyle.transform == 'string' ?
+                                            'transform' : 'WebkitTransform';
+
+
+                                        var flkty = $carousel.data('flickity');
+                                        var $imgs = $('.carousel-cell img');
+                                        $carousel.on('scroll.flickity', function () {
+                                            flkty.slides.forEach(function (slide, i) {
+                                                var img = $imgs[i];
+                                                var x = (slide.target + flkty.x) * -1 / 6;
+                                                img.style[transformProp] = 'translateX(' + x + 'px)';
+                                            });
+                                        });
+
+                                    }
+                                });
+
+
+                            });
+                        </script>
 
 
                     </div>
-
-                }
-                else if (Model.Illustrations != null && Model.Illustrations.Count == 1)
-                {
-
-
-
-                    <img src="@Model.Illustrations[0].PhotoLink"/>
-
-
-
-                }
-            }
-        </div>
-
-        <div class="content">
-            <div id="rate" class="ui star rating right floated" data-rating="3"></div>
-            <div class="header">@Model.Title</div>
-            <div class="meta">
-            </div>
-            <div class="description" style="font-size: 14px">
-                @Model.Description
-            </div>
-            <i class="world icon"></i>
-            <a class="item" onclick="location.href = '@Url.Action("ShowMap", "Map", new {@Model.PostLocation.XCoordinate, @Model.PostLocation.YCoordinate, @Model.PostType, postId = @Model.Id})'">@Model.PostLocation.Address</a>
-
-            <div class="extra content">
-                @{
-                    string url = "https://onevietnam.azurewebsites.net/Newsfeed/ShowPostDetailPage/" + Model.Id;
-
-                    string iframeUrl = "https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A51801%2FPost%2FShowPostDetailPageDetail%3FpostId%3D" + Model.Id + "&amp;src=sdkpreparse";
-                }
-
-                <div class="fb-like" data-href="@url" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
-                <div class="fb-share-button" data-href="@url" data-layout="button_count" data-size="small" data-mobile-iframe="true">
-                    <a class="fb-xfbml-parse-ignore" target="_blank" href="@iframeUrl">Chia sẻ</a>
                 </div>
-                <div class="fb-comments" style="width: 100%" data-href="@url" data-numposts="2"></div>
-
-                <script>
-
-
-                    function finished_rendering() {
-                        $.ajax({
-                            type: 'GET',
-                            url: '/Newsfeed/_suggestedPost',
-                            data: { postId: '@Model.Id', pageNum: 1 },
-                            success: function(data) {
-                                if (data != '') {
-                                    var $items = $(data);
-                                    $('.suggest.grids').isotope({
-                                        itemSelector: '.grid-item',
-                                        percentPosition: true,
-                                        masonry: {
-                                            columnWidth: '.grid-sizer',
-                                            gutter: '.gutter-sizer'
-                                        }
-                                    });
-                                    $(".suggestText").removeClass("hides");
-                                    $("#forSuggest").html($items);
-                                    $(".suggest.grids").isotope('appended', $items);
-                                    $(".suggest.grids").isotope('layout');
-                                    $(".suggest.grids").imagesLoaded().progress(function() {
-                                        $(".suggest.grids").isotope('layout');
-                                    });
-
-                                }
-
-                            },
-                            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                                console.log("Can not load more data infiniteScroll");
-                            }
-                        });
-
-                    };
-
-
-                    function onCommentCreate(commentID) {
-                        $.ajax({
-                            type: 'GET',
-                            url: '/Newsfeed/GetCommentInfo',
-                            data: { commentid: commentID },
-                            success: function(commentor) {
-                                var comment = {
-                                    UserId: "@Model.UserId",
-                                    Commentor: commentor["Username"],
-                                    Url: "@Url.Action("ShowPostDetailPage", "Newsfeed", new {Id = Model.Id})",
-                                    Avatar: commentor["Avatar"],
-                                    Title: "@Model.Title"
-                                }
-                                pushCommentNotification(comment);
-                            }
-                        });
-                    }
-
-                    FB.XFBML.parse();
-                    $(".suggest.grids").on('click', '.clickable', function(e) {
-
-                        var id = $(this).parent().find('#postId').val();
-
-                        $.ajax({
-                            type: 'GET',
-                            data: { "postId": id },
-                            url: '/Newsfeed/_ShowPostDetailModal',
-                            success: function(partialResult) {
-                                $("#forModal").empty();
-                                $("#forModal").html(partialResult);
-                                $(".modal")
-                                    .modal({
-                                        allowMultiple: true
-                                    });
-                                $('#forModal').modal({
-                                    duration: 300,
-                                    onHide: function() {
-                                        history.back();
-                                        $('#forSuggest').empty();
-                                    },
-                                    onShow: function() {
-                                        history.pushState(null, null, "/Newsfeed/ShowPostDetailPage/" + id);
-                                    }
-                                }).modal('show');
-                                $(".forHide")
-                                    .on('click',
-                                        function() {
-                                            $('#forModal').modal('hide');
-
-                                        });
-                                var $carousel = $('.carousel').flickity({
-                                    imagesLoaded: true,
-                                    percentPosition: false
-                                });
-
-
-                                var docStyle = document.documentElement.style;
-                                var transformProp = typeof docStyle.transform == 'string' ?
-                                    'transform' : 'WebkitTransform';
-
-
-                                var flkty = $carousel.data('flickity');
-                                var $imgs = $('.carousel-cell img');
-                                $carousel.on('scroll.flickity', function() {
-                                    flkty.slides.forEach(function(slide, i) {
-                                        var img = $imgs[i];
-                                        var x = (slide.target + flkty.x) * -1 / 6;
-                                        img.style[transformProp] = 'translateX(' + x + 'px)';
-                                    });
-                                });
-
-                            }
-                        });
-
-
-                    });
-                </script>
 
 
             </div>
+
+
+
         </div>
-
-
-    </div>
-
-
-
-    </div>
     </div>
     <div class="four wide column forHide"></div>
-<div class="ui two wide column forHide"></div>
-    
-<div class="twelve wide column">
-    <h2 style="text-align: center" class="suggestText hides">
-        Có thể bạn quan tâm
-    </h2>
-    <div class="suggest grids">
-        <div class="grid-sizer"></div>
-        <div class="gutter-sizer"></div>
-        
-        <div class="ui link cards" id="forSuggest">
-            
+    <div class="ui two wide column forHide"></div>
+
+    <div class="twelve wide column">
+        <h2 style="text-align: center" class="suggestText hides">
+            Có thể bạn quan tâm
+        </h2>
+        <div class="suggest grids">
+            <div class="grid-sizer"></div>
+            <div class="gutter-sizer"></div>
+
+            <div class="ui link cards" id="forSuggest">
+
+            </div>
         </div>
-    </div>   
-</div>
+    </div>
     <div class="ui two wide column forHide"></div>
 </div>

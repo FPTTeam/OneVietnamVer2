@@ -84,7 +84,7 @@
 
         }
         <!--Cover link-->
-        <div class="hero" style="background: url(@Model.CoverLink); background-repeat: no-repeat; background-position: center center;background-size: cover">
+        <div class="hero" style="background: url(@Model.CoverLink); background-repeat: no-repeat; background-position: center center; background-size: cover;background-color: #00bfff">
 
             <!--User name-->
             <div class="details">
@@ -202,19 +202,30 @@
                                                 {
                                                     <div class="ui red empty circular label"></div>
                                                 }
-                                                else if (type.IconValue == (int)PostTypeEnum.AdminPost)
+                                                else if (type.IconValue == (int)PostTypeEnum.AdminPost&& Request.IsAuthenticated && (User.IsInRole(CustomRoles.Admin) || User.IsInRole(CustomRoles.Mod)))
                                                 {
                                                     <div class="ui black empty circular label"></div>
                                                 }
-                                                else
+                                                else if (type.IconValue == (int)PostTypeEnum.AdminPost&& Request.IsAuthenticated && !(User.IsInRole(CustomRoles.Admin) || User.IsInRole(CustomRoles.Mod)))
+                                                {
+                                                   
+                                                }
+                                                else 
                                                 {
                                                     <div class="ui black empty circular label"></div>
                                                 }
-                                                @type.IconText
                                                 
+                                                @if (type.IconValue == (int)PostTypeEnum.AdminPost && Request.IsAuthenticated && !(User.IsInRole(CustomRoles.Admin) || User.IsInRole(CustomRoles.Mod)))
+                                                {
+                                                   <p></p>
+
+                                                }
+                                                else {
+                                                    @type.IconText
+                                                }
                                             </div>
-                                                        }
-                                                    }
+                                        }
+                                    }
                                 }
 
                             </div>

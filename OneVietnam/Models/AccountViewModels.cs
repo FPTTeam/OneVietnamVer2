@@ -9,6 +9,7 @@ namespace OneVietnam.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required(ErrorMessage = "Địa chỉ email là trường bắt buộc")]
+        [StringLength(40, ErrorMessage = " Địa chỉ email có độ dài vượt quá {0} kí tự")]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
@@ -104,6 +105,7 @@ namespace OneVietnam.Models
     {
         [Required(ErrorMessage = "Địa chỉ email là trường bắt buộc")]
         [EmailAddress(ErrorMessage = "Địa chỉ email không hợp lệ")]
+        [StringLength(40, ErrorMessage = " Địa chỉ email có độ dài vượt quá {0} kí tự")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
@@ -125,6 +127,7 @@ namespace OneVietnam.Models
     {
         [Required(ErrorMessage = "Địa chỉ Email là trường bắt buộc")]
         [EmailAddress(ErrorMessage = "Địa chỉ email không hợp lệ")]
+        [StringLength(40, ErrorMessage = " Địa chỉ email có độ dài vượt quá {0} kí tự")]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }

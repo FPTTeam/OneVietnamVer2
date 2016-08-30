@@ -84,16 +84,19 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <div class="item">
-                            <div class="ui blue button" id="stamp-button2">
+                            <div class="ui blue button" style="background: #d63e5c" id="stamp-button2">
                                 <i class="write icon"></i>Đăng bài
-                            </div>                            
+                            </div>
+                            <div class="ui blue button hides" style="background: #d63e5c" id="stamp-button">
+                                <i class="write icon"></i>Đăng bài
+                            </div>
                         </div>
                     }
                     else
                     {
                         <div class="item">
                             <a href="@Url.Action("Login", "Account",new { ReturnUrl= "/Newsfeed"})">
-                                <div class="ui blue button" id="stamp-button">
+                                <div class="ui blue button"  style="background: #d63e5c">
                                     <i class="write icon"></i>Đăng bài
                                 </div>
                             </a>
@@ -244,11 +247,12 @@
                     //Create a function that the hub can call back to display messages.
                     myHub.client.addChatMessage = function (id, name, message, avatar) {
                         register_popup(id, name, avatar);
-                        // Add the message to the page.
-                        $("#" + id + "Conversation")
+                        if (document.getElementById(id) != null) {
+                            // Add the message to the page.                        
+                            $("#" + id + "Conversation")
                             .append('<div class="item"><div class="content" style="margin-left:0.5em"><p class="receiveMessage">' + htmlEncode(message) + '</p></div></div>');
-                        $("#" + id + "Conversation").scrollTop(document.getElementById(id + "Conversation").scrollHeight);
-
+                            $("#" + id + "Conversation").scrollTop(document.getElementById(id + "Conversation").scrollHeight);
+                        }                        
                     };
                     myHub.client.pushNotification = function () {
                         if ($('#NotificationsNo').text() == '') {

@@ -29,7 +29,9 @@ namespace OneVietnam
             var name = Context.User.Identity.Name;
             var id = Context.User.Identity.GetUserId();
             var avatar = ((ClaimsIdentity)Context.User.Identity).FindFirst("Avatar").Value;
-            var friend = await UserManager.FindByIdAsync(friendId);                        
+            var friend = await UserManager.FindByIdAsync(friendId);
+            // Store Message To Database       
+            await UserManager.AddMessage(Context.User.Identity.GetUserId(), friendId, message);
             var connection = friend.Connections;
             if (connection != null)
             {
@@ -38,9 +40,7 @@ namespace OneVietnam
                     // call client's javascript function 
                     Clients.Client(conn.ConnectionId).addChatMessage(id, name, message, avatar);
                 }
-            }
-            // Store Message To Database
-            await UserManager.AddMessage(Context.User.Identity.GetUserId(), friendId, message);
+            }                 
         }
 
         public async Task PushNotification(CommentViewModel comment)

@@ -1,18 +1,20 @@
 ﻿function addPhone() {
-    //    var phoneTextval = $("#PhoneNumber").val();
-    //    if (phoneTextval === "") $("#title").text("Thêm số điện thoại");
-    //    else {
-    //        $("#phonetext").val(phoneTextval);
-    //        $("#title").text("Cập nhật số điện thoại");
-    //        $("#add").text("Sửa");
-    //    }
+    var phoneTextval = $("#PhoneNumber").val();
+    if (phoneTextval === "") $("#title").text("Thêm số điện thoại");
+    else {
+        $("#phonetext").val(phoneTextval);
+        $("#title").text("Cập nhật số điện thoại");
+        $("#add").text("Sửa");
+    }
 
-    $('#addPhoneModal').modal('show');
-    $("#countryDr").dropdown({
-        onChange: function (value, text, $selectedItem) {
-            $("#phonetext").val("+" + $selectedItem.attr("data-value"));
-        }
-    });
+    $('#addPhoneModal')
+.modal('show');
+    $("#countryDr")
+  .dropdown({
+      onChange: function (value, text, $selectedItem) {
+          $("#phonetext").val("+" + $selectedItem.attr("data-value"));
+      }
+  });
 }
 function editableForm() {
     $('.tog').toggleClass('disabled');
@@ -150,10 +152,10 @@ function showUserMarkerOnMap(x, y, address) {
         minZoom: 4,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
-
+    
     userLocationMarker.setPosition({ lat: x, lng: y });
     userLocationMarker.setMap(map2);
-
+   
     google.maps.event.addListenerOnce(map2, 'idle', function () {
         google.maps.event.trigger(map2, 'resize');
         map2.setCenter({ lat: x, lng: y });

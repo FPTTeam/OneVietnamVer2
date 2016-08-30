@@ -2,17 +2,30 @@
 @model OneVietnam.Models.UserViewModel
 <div class="ui link card user-card">
 
-    <div class="content" onclick="gotoTimeline('@Model.UserId')">
+    <div class="content" onclick="location.href = '@Url.Action("Index", "Timeline", new { Id = @Model.UserId })'">
         <img class="right floated mini ui image" src="@Model.Avatar">
         <div class="header">
             @Model.UserName
         </div>
         <div class="meta">
-            @Model.Location.Address
+            @if (@Model.Location.Address.Length > 65)
+            {
+                @Model.Location.Address.Substring(0, 60);
+            }
+            else
+            {
+                @Model.Location.Address
+            }
         </div>
         <div class="description">
-          Tham gia @Model.JoinedDate
-         </div>
+            Tham gia @Model.JoinedDate
+        </div>
+        @if (@Model.PhoneNumber != null)
+        {
+        
+                <i class="icon mobile" > </i>@Model.PhoneNumber
+
+        }
     </div>
     <div class="extra content">
         <div class="ui two buttons">

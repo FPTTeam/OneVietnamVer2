@@ -22,7 +22,7 @@
                             @Html.LabelFor(m=>m.UserName)
                             <div class="ui left icon corner labeled input">
                                 <i class="user icon"></i>
-                                @Html.TextBoxFor(m => m.UserName, new {@placeholder = "Họ và tên"})
+                                @Html.TextBoxFor(m => m.UserName, new {@placeholder = "Họ và tên",maxlength=50})
                                 <div class="ui corner label">
                                     <i class="asterisk icon"></i>
                                 </div>
@@ -32,7 +32,7 @@
                             @Html.LabelFor(m => m.Email)
                             <div class="ui left icon corner labeled input">
                                 <i class="user icon"></i>
-                                @Html.TextBoxFor(m => m.Email, new {@placeholder = "Email"})
+                                @Html.TextBoxFor(m => m.Email, new {@placeholder = "Email", maxlength = 100 })
                                 <div class="ui corner label">
                                     <i class="asterisk icon"></i>
                                 </div>
@@ -62,7 +62,7 @@
                             @Html.LabelFor(m => m.Password)
                             <div class="ui left icon corner labeled input">
                                 <i class="lock icon"></i>
-                                @Html.PasswordFor(m => m.Password, new {@placeholder = "Mật khẩu"})
+                                @Html.PasswordFor(m => m.Password, new {@placeholder = "Mật khẩu", maxlength = 100 })
                                 <div class="ui corner label">
                                     <i class="asterisk icon"></i>
                                 </div>

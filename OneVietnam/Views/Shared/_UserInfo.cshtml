@@ -1,116 +1,45 @@
-﻿@using System.Security.Claims
-@using Microsoft.AspNet.Identity
+﻿@using OneVietnam.Models
 @model OneVietnam.Models.UserViewModel
+<div class="ui fluid card user-card">
 
-<div class="header" style="cursor:pointer;" onclick="location.href = '@Url.Action("Index", "Timeline", new { Id = @Model.UserId })'">
-    <div>
-        <a class="item" style="float:left;">
-            <i class="icon male" style="width:100%;text-align:left"> </i>
-        </a>
-    </div>
-    <a href='@Url.Action("Index", "Timeline",new { Id = @Model.UserId })'>@Model.UserName</a>
-</div>
-
-
-<div class="image content" style="clear:left;">
-    <div class="ui medium image" style="width:208px;height:208px;object-fit: cover;overflow:hidden">
-        @*<img src="../Content/Images/dat.jpg">*@
-        <img src="@Model.Avatar" style="object-fit: cover;overflow:hidden">
-    </div>
-    <div class="description">
-        <div class="userInfoModal" style="position:relative;height:100%;">
-            <div>
-                <a class="item" title="@Model.Location.Address">
-                    <i class="small icon marker" style="width:100%;text-align:left">
-                        @if (@Model.Location.Address.Length > 65)
-                        {
-                            @Model.Location.Address.Substring(0, 60);
-                        }
-                        else
-                        {
-                            @Model.Location.Address
-                        }
-                    </i>
-                </a>
-
-            </div>
-            <div>
-                <a class="item">
-                    <i class="small icon birthday" style="width:100%;text-align:left"> 26/02/1993</i>
-                </a>
-            </div>
-            <div>
-                <a class="item">
-                    <i class="small icon mobile" style="width:100%;text-align:left"> 0971046525</i>
-                </a>
-            </div>
-            <div>
-                <a class="item">
-                    <i class="small icon mail" style="width:100%;text-align:left"> @Model.Email</i>
-                </a>
-            </div>
-            <div>
-                <a class="item">
-                    
-                    @if (@Model.Gender.CompareTo(0) == 0)
-                    {
-                        <i class="small icon woman" style="width:100%;text-align:left">
-                            Nữ
-                        </i>
-                    }
-                    else if (@Model.Gender.CompareTo(1) == 0)
-                    {
-                        <i class="small icon man" style="width:100%;text-align:left">
-                            Nam
-                        </i>
-                    }
-                    else if (@Model.Gender.CompareTo(2) == 0)
-                    {
-                        <i class="small icon other gender" style="width:100%;text-align:left">
-                            Giới tính khác
-                        </i>
-                    }
-
-                </a>
-            </div>
-            @*<div >
-                    <a class="item">
-                        <i class="small icon calendar" style="width:100%;text-align:left"> @($"{@Model.PublishDate:dd/MM/yyyy}")</i>
-                    </a>
-                </div>*@
-
-            @*<div class="ui blue right talk outline icon button" style="position:absolute !important; right:0px !important;">
-                    Trò chuyện
-                </div>*@
-            @if (User.Identity.IsAuthenticated)
+    <div class="content" onclick="location.href = '@Url.Action("Index", "Timeline", new { Id = @Model.UserId })'">
+        <img class="right floated mini ui image" src="@Model.Avatar">
+        <div class="header">
+            @Model.UserName
+        </div>
+        <div class="meta">
+            @if (@Model.Location.Address.Length > 65)
             {
-                if (Model.UserId.CompareTo(User.Identity.GetUserId()) != 0)
-                {
-                    <a class="ui icon teal button" href="javascript: register_popup('@Model.UserId','@Model.UserName','@Model.Avatar')" onclick="return hideModel();">
-                        Trò Chuyện
-                        <i class="comments large icon"></i>
-                    </a>
-                }
+                @Model.Location.Address.Substring(0, 60);
             }
-           
-            
+            else
+            {
+                @Model.Location.Address
+            }
+        </div>
+        <div class="description">
+            Tham gia @Model.JoinedDate
+        </div>
+        @if (@Model.PhoneNumber != null)
+        {
+
+            <i class="icon mobile"> </i>@Model.PhoneNumber
+
+        }
+    </div>
+    <div class="extra content">
+        <div class="ui two buttons">
+            <a class="ui basic green button" href="javascript: register_popup('@Model.UserId','@Model.UserName','@Model.Avatar')">Nhắn tin</a>
+            <div class="ui basic red button" id="reportUser_@Model.UserId">Báo cáo</div>
         </div>
     </div>
-
+    <div id="ShowReportUser_@Model.UserId">
+        @Html.Partial("../Timeline/_ReportUser", new ReportViewModel(Model.UserId))
+    </div>
+    <script>
+        $("#reportUser_@Model.UserId")
+            .click(function () {
+                $("#modalReport_@Model.UserId").modal('show');
+            });
+    </script>
 </div>
-
-<script>
-    function redirectToTimeLine(userId) {
-        $.ajax({
-            url: '/Map/RedirectToTimeLine?userId=' + userId,
-            type: 'GET',
-            dataType: 'text',
-            success: function (result) {
-                alert(1);
-            },
-            error: function (xhr, status, error) {
-                alert(xhr.responseText);
-            }
-        });
-    }
-</script>
