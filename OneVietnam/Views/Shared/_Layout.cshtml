@@ -84,16 +84,19 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <div class="item">
-                            <div class="ui blue button" id="stamp-button2">
+                            <div class="ui blue button" style="background: #d63e5c" id="stamp-button2">
                                 <i class="write icon"></i>Đăng bài
-                            </div>                            
+                            </div>
+                            <div class="ui blue button hides" style="background: #d63e5c" id="stamp-button">
+                                <i class="write icon"></i>Đăng bài
+                            </div>
                         </div>
                     }
                     else
                     {
                         <div class="item">
                             <a href="@Url.Action("Login", "Account",new { ReturnUrl= "/Newsfeed"})">
-                                <div class="ui blue button" id="stamp-button">
+                                <div class="ui blue button"  style="background: #d63e5c">
                                     <i class="write icon"></i>Đăng bài
                                 </div>
                             </a>

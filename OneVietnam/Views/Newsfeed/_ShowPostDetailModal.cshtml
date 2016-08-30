@@ -122,12 +122,14 @@
                         @{
                             string url = "https://onevietnam.azurewebsites.net/Newsfeed/ShowPostDetailPage/" + Model.Id;
 
-                            string iframeUrl = "https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A51801%2FPost%2FShowPostDetailPageDetail%3FpostId%3D" + Model.Id + "&amp;src=sdkpreparse";
+                            string iframeUrl = "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fonevietnam.azurewebsites.net%2FNewsfeed%2FShowPostDetailPage%2F" + Model.Id + "&amp;src=sdkpreparse";
                         }
 
-                        <div class="fb-like" data-href="@url" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
-                        <div class="fb-share-button" data-href="@url" data-layout="button_count" data-size="small" data-mobile-iframe="true">
-                            <a class="fb-xfbml-parse-ignore" target="_blank" href="@iframeUrl">Chia sẻ</a>
+                        <div class="fb-like" data-href="@url" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
+                        <div class="fb-share-button" data-href="@url" data-layout="button" data-size="small" data-mobile-iframe="true">
+                            <a class="fb-xfbml-parse-ignore" target="_blank" href="@iframeUrl">
+                                Share
+                            </a>
                         </div>
                         <div class="fb-comments" style="width: 100%" data-href="@url" data-numposts="2"></div>
 
