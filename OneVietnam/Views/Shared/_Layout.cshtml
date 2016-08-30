@@ -43,83 +43,21 @@
 
     </script>
     <div class="ui grid">
-        <div class="computer only row">
-            <div class="ui main menu mainMenu">
-                <a href="@Url.Action("Index", "Home")" class="ui middle aligned item">
-                    <img src="/Content/Icon/logo.PNG" class="ui avatar image" />
-                    <span style="font-size: 2em; color: #FFFFFF">neVietnam</span>
-                </a>
-                @Html.ActionLink("Bản Đồ", "ShowMap", "Map", routeValues: null, htmlAttributes: new { @class = "ui item", style = "color: #FFFFFF; font-size: 1.2rem" })
-                @Html.ActionLink("Bảng Tin", "Index", "Newsfeed", routeValues: null, htmlAttributes: new { @class = "ui item", style = "color: #FFFFFF; font-size: 1.2rem" })
-                <div class="floating ui label" style="color:#DE5958 ">42+</div>
-                @if (Request.IsAuthenticated && (User.IsInRole(CustomRoles.Admin) || User.IsInRole(CustomRoles.Mod)))
+        <div class="ui main menu mainMenu">
+            <a href="@Url.Action("Index", "Home")" class="ui middle aligned item">
+                <img src="/Content/Icon/logo.PNG" class="ui avatar image" />
+                <span style="font-size: 2em; color: #FFFFFF">neVietnam</span>
+            </a>
+            @Html.ActionLink("Bản Đồ", "ShowMap", "Map", routeValues: null, htmlAttributes: new { @class = "ui item", style = "color: #FFFFFF; font-size: 1.2rem" })
+            @Html.ActionLink("Bảng Tin", "Index", "Newsfeed", routeValues: null, htmlAttributes: new { @class = "ui item", style = "color: #FFFFFF; font-size: 1.2rem" })
+            <div class="floating ui label" style="color:#DE5958 ">42+</div>
+            @if (Request.IsAuthenticated && (User.IsInRole(CustomRoles.Admin) || User.IsInRole(CustomRoles.Mod)))
                 {
-                    @Html.ActionLink("Quản Trị", "Index", "Administration", routeValues: null, htmlAttributes: new { @class = "ui item", style = "color: #FFFFFF; font-size: 1.2rem" })
+                @Html.ActionLink("Quản Trị", "Index", "Administration", routeValues: null, htmlAttributes: new { @class = "ui item", style = "color: #FFFFFF; font-size: 1.2rem" })
                 }
-                <div class="right menu">
-                    <div class="item">
-                        <select class="ui dropdown searchType">
-                            <option value="SearchPosts" selected="selected">
-                                Bài Viết
-                            </option>
-                            <option value="SearchUsers">
-                                Bạn Bè
-                            </option>
-                        </select>
-                        <div class="ui search post" id="SearchPosts">
-                            <div class="ui left icon input" style="width: 300px !important">
-                                <i class="newspaper icon"></i>
-                                <input class="prompt" id="textPostSearch" type="text" placeholder="Tìm Kiếm...">
-                            </div>
-                            <div class="force100 results"></div>
-                        </div>
-                        <div class="ui search user " id="SearchUsers">
-                            <div class="ui left icon input" style="width: 300px !important">
-                                <i class="users icon"></i>
-                                <input class="prompt" id="textUsersSearch" type="text" placeholder="Tìm Kiếm...">
-                            </div>
-                            <div class="force100 results"></div>
-                        </div>
-                    </div>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <div class="item">
-                            <div class="ui blue button" style="background: #d63e5c" id="stamp-button2">
-                                <i class="write icon"></i>Đăng bài
-                            </div>
-                            <div class="ui blue button hides" style="background: #d63e5c" id="stamp-button">
-                                <i class="write icon"></i>Đăng bài
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="item">
-                            <a href="@Url.Action("Login", "Account",new { ReturnUrl= "/Newsfeed"})">
-                                <div class="ui blue button"  style="background: #d63e5c">
-                                    <i class="write icon"></i>Đăng bài
-                                </div>
-                            </a>
-                        </div>                        
-                    }
-                    @Html.Partial("_LoginPartial")
-                </div>
-            </div>
-        </div>
-        <div class="tablet mobile only row" style="padding-bottom: 0em !important;">
-            <div class="ui main menu">
-                <a href="@Url.Action("Index", "Home")" class="ui item brand">
-                    One Vietnam
-                </a>
-                <div class="right menu open">
-                    <a href="" class="menu item">
-                        <i class="sidebar icon"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="ui fluid vertical menu open">
-                <div class="ui inline">
-                    <select class="ui dropdown searchType ">
+            <div class="right menu">
+                <div class="item">
+                    <select class="ui dropdown searchType">
                         <option value="SearchPosts" selected="selected">
                             Bài Viết
                         </option>
@@ -127,23 +65,42 @@
                             Bạn Bè
                         </option>
                     </select>
-                    <div class="ui search post" id="SearchPostsM">
+                    <div class="ui search post" id="SearchPosts">
                         <div class="ui left icon input" style="width: 300px !important">
                             <i class="newspaper icon"></i>
-                            <input class="prompt" id="textPostSearch1" type="text" placeholder="Tìm Kiếm...">
+                            <input class="prompt" id="textPostSearch" type="text" placeholder="Tìm Kiếm...">
                         </div>
                         <div class="force100 results"></div>
                     </div>
-                    <div class="ui search user " id="SearchUsersM">
+                    <div class="ui search user " id="SearchUsers">
                         <div class="ui left icon input" style="width: 300px !important">
                             <i class="users icon"></i>
-                            <input class="prompt" id="textUsersSearch1" type="text" placeholder="Tìm Kiếm...">
+                            <input class="prompt" id="textUsersSearch" type="text" placeholder="Tìm Kiếm...">
                         </div>
                         <div class="force100 results"></div>
                     </div>
                 </div>
-                @Html.ActionLink("Bản Đồ", "ShowMap", "Map", routeValues: null, htmlAttributes: new { @class = "ui item" })
-                <a href="" class="ui item">Bảng Tin</a>
+                @if (User.Identity.IsAuthenticated)
+                    {
+                    <div class="item">
+                        <div class="ui blue button" style="background: #d63e5c" id="stamp-button2">
+                            <i class="write icon"></i>Đăng bài
+                        </div>
+                        <div class="ui blue button hides" style="background: #d63e5c" id="stamp-button">
+                            <i class="write icon"></i>Đăng bài
+                        </div>
+                    </div>
+                    }
+                    else
+                    {
+                    <div class="item">
+                        <a href="@Url.Action("Login", "Account",new { ReturnUrl= "/Newsfeed"})">
+                            <div class="ui blue button" style="background: #d63e5c">
+                                <i class="write icon"></i>Đăng bài
+                            </div>
+                        </a>
+                    </div>
+                    }
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
@@ -248,11 +205,11 @@
                     myHub.client.addChatMessage = function (id, name, message, avatar) {
                         register_popup(id, name, avatar);
                         if (document.getElementById(id) != null) {
-                            // Add the message to the page.                        
+                            // Add the message to the page.
                             $("#" + id + "Conversation")
                             .append('<div class="item"><div class="content" style="margin-left:0.5em"><p class="receiveMessage">' + htmlEncode(message) + '</p></div></div>');
                             $("#" + id + "Conversation").scrollTop(document.getElementById(id + "Conversation").scrollHeight);
-                        }                        
+                        }
                     };
                     myHub.client.pushNotification = function () {
                         if ($('#NotificationsNo').text() == '') {
