@@ -2,15 +2,12 @@
 <div class="ui feed" id="fixedTopSticky">
     @foreach (var post in Model)
     {
-
-
-
         <div class="event">
             <div class="label">
                 <a class="user" href="@Url.Action("Index", "Timeline", new {Id = @post.UserId})">
                     <img style="height: 35px" src="@post.AvartarLink">
                 </a>
-               
+
             </div>
             <div class="content">
                 <div class="summary">
@@ -29,19 +26,19 @@
 
                             if (timeDiff.TotalDays >= 30)
                             {
-                                <span >  Tạo ngày @post.CreatedDate.Date </span>
+                                <span>  Tạo ngày @post.CreatedDate.Date </span>
                             }
                             else if (timeDiff.TotalHours >= 24)
                             {
-                                <span >@Math.Round(timeDiff.TotalDays) ngày trước </span>
+                                <span>@Math.Round(timeDiff.TotalDays) ngày trước </span>
                             }
                             else if (timeDiff.TotalMinutes >= 60)
                             {
-                                <span >@Math.Round(timeDiff.TotalHours) giờ trước </span>
+                                <span>@Math.Round(timeDiff.TotalHours) giờ trước </span>
                             }
                             else if (timeDiff.TotalSeconds >= 60)
                             {
-                                <span >@Math.Round(timeDiff.TotalMinutes) phút trước </span>
+                                <span>@Math.Round(timeDiff.TotalMinutes) phút trước </span>
                             }
                             else
                             {
@@ -49,17 +46,13 @@
                             }
 
                         }
-
-
-
                     </div>
 
                 </div>
-                
-                <div class="extra text"> <a href="@Url.Action("ShowPostDetailPage","Newsfeed",new {@post.Id})">@post.Title</a></div>                
+
+                <div class="extra text"> <a href="@Url.Action("ShowPostDetailPage","Newsfeed",new {@post.Id})">@post.Title</a></div>
             </div>
         </div>
-    }
+                            }
 
 </div>
-
