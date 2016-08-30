@@ -91,20 +91,27 @@
     }
     var forLoad = $("#postScroll");
     var grid = $(".post.grids");
-    var moreRowsUrl = '@Url.Action("Index","Search")';
+    var moreRowsUrl;
+    var currentTab = $(".ui.tab.active").attr("data-tab");
+    if (currentTab === "friend") {
+        moreRowsUrl = '@Url.Action("_userResult","Search", new { query = query })';
+        grid = $(".friend.grids");
+        forLoad = $("#friendScroll");
+    } else {
+        moreRowsUrl = '@Url.Action("Index","Search", new { query =query })';
+        grid = $(".post.grids");
+        forLoad = $("#postScroll");
+    }
     $(function () {
         $(".tabular.menu")
             .on("click",
                 ".item",
-                function e() {                                       
-                    var currentTab = $(".ui.tab.active").attr("data-tab");
+                function e() {                    
                     if (currentTab == "friend") {
-                        grid = $(".friend.grids");
-                        moreRowsUrl = '@Url.Action("_userResult","Search")';
+                        grid = $(".friend.grids");                        
                         forLoad = $("#friendScroll");
                     } else {
-                        grid = $(".post.grids");
-                        moreRowsUrl = '@Url.Action("Index","Search")';
+                        grid = $(".post.grids");                        
                         forLoad = $("#postScroll");
                     }
                 });

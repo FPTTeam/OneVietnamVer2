@@ -19,23 +19,11 @@ namespace OneVietnam.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Index(string query, int? pageNum,int?tabNum)
         {
-            if (query == null || query.Trim().Length<2)
+            if (!Request.IsAjaxRequest() && query == null)
             {
                 return RedirectToAction("Index", "Newsfeed");
-            }
-            
-            tabNum = tabNum ?? 1;
-            pageNum = pageNum ?? 1;
-            if (tabNum == 1)
-            {
-                ViewBag.TabPost = "active";
-                ViewBag.TabUser = "";
-            }
-            else
-            {
-                ViewBag.TabPost = "";
-                ViewBag.TabUser = "active";
-            }
+            }                       
+            pageNum = pageNum ?? 1;            
             ViewBag.IsEndOfRecords = false;
 
             BaseFilter filter;
@@ -50,8 +38,17 @@ namespace OneVietnam.Controllers
                 //ViewBag.IsEndOfRecords = (posts.Any()) && ((pageNum.Value * RecordsPerPage) >= posts.Last().Key);
                 return PartialView("_PostRow", listPost);
             }
-
-
+            tabNum = tabNum ?? 1;
+            if (tabNum == 1)
+            {
+                ViewBag.TabPost = "active";
+                ViewBag.TabUser = "";
+            }
+            else
+            {
+                ViewBag.TabPost = "";
+                ViewBag.TabUser = "active";
+            }
             filter = new BaseFilter { CurrentPage = pageNum.Value };
             listPost = await PostSearch(query, filter);
             //posts = await PostManager.FullTextSearch(qu)
@@ -103,6 +100,7 @@ namespace OneVietnam.Controllers
             users = await UserManager.TextSearchUsers(filter, query);
             if (users.Count < filter.ItemsPerPage) ViewBag.IsEndOfRecords = true;
             list = users.Select(u => new UserViewModel(u)).ToList();
+            if(list.Count==0) return null;
             //ViewBag.IsEndOfRecords = (posts.Any()) && ((pageNum.Value * RecordsPerPage) >= posts.Last().Key);
             return PartialView("_userRow", list);
         }

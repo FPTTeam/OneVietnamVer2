@@ -58,14 +58,14 @@ function loadMoreToInfiniteScrollTable(loadMoreRowsUrl) {
     if (page > -1 && !inCallback) {
         inCallback = true;
         page++;
+        if (typeof window.filterValue === 'undefined') window.filterValue = -1;
         $.ajax({
             type: 'GET',
             url: loadMoreRowsUrl,
-            data: {pageNum:page, filterVal:filterValue },
+            data: {pageNum:page, filterVal:window.filterValue },
             success: function (data, textstatus) {
                 if (data != '') {
                     var $items = $(data);
-
                     $(forLoad).append($items);
                     grid.isotope('appended', $items);
                     grid.isotope('layout');
