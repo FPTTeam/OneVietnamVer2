@@ -142,6 +142,7 @@
                                     data: { postId: '@Model.Id', pageNum: 1 },
                                     success: function (data) {
                                         if (data != '') {
+                                            $(".suggestText").removeClass("hides");
                                             var $items = $(data);
                                             $('.suggest.grids').isotope({
                                                 itemSelector: '.grid-item',
@@ -151,7 +152,7 @@
                                                     gutter: '.gutter-sizer'
                                                 }
                                             });
-                                            $(".suggestText").removeClass("hides");
+                                            
                                             $("#forSuggests").html($items);
                                             $(".suggest.grids").isotope('appended', $items);
                                             $(".suggest.grids").isotope('layout');

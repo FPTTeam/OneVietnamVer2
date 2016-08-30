@@ -125,8 +125,8 @@
                     <div class="description" style="font-size: 14px">
                         @Model.Description
                     </div>
-                    <i class="world icon"></i>
-                    <a class="item" onclick="location.href = '@Url.Action("ShowMap", "Map", new {@Model.PostLocation.XCoordinate, @Model.PostLocation.YCoordinate, @Model.PostType, postId = @Model.Id})'">@Model.PostLocation.Address</a>
+                    <i class="ui world icon"></i>
+                    <a style="margin-top:15px" class="item" onclick="location.href = '@Url.Action("ShowMap", "Map", new {@Model.PostLocation.XCoordinate, @Model.PostLocation.YCoordinate, @Model.PostType, postId = @Model.Id})'">@Model.PostLocation.Address</a>
                     <div style="margin:15px 0px">
                         @if (Model.Tags != null && Model.Tags.Count > 0)
                         {
@@ -160,6 +160,7 @@
                                     data: { postId: '@Model.Id', pageNum: 1 },
                                     success: function (data) {
                                         if (data != '') {
+                                            $(".suggestText").removeClass("hides");
                                             var $items = $(data);
                                             $('.suggest.grids').isotope({
                                                 itemSelector: '.grid-item',
@@ -169,7 +170,7 @@
                                                     gutter: '.gutter-sizer'
                                                 }
                                             });
-                                            $(".suggestText").removeClass("hides");
+                                          
                                             $("#forSuggest").html($items);
                                             $(".suggest.grids").isotope('appended', $items);
                                             $(".suggest.grids").isotope('layout');
