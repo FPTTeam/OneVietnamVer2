@@ -362,7 +362,14 @@
                         $(".edits").toggleClass("edits-cl");
                         $(".plus").toggleClass("plus-cl");
                         return;
-                    }                                        
+                    }
+                    if (window.location.href.indexOf("Newsfeed/ShowPostDetailPage") !== -1) {
+                        document.location = "/Newsfeed?ShowPostDetailPage";
+                        $(".stamp").toggleClass("hides");
+                        $(".edits").toggleClass("edits-cl");
+                        $(".plus").toggleClass("plus-cl");
+                        return;
+                    }
                     $(".stamp").toggleClass("hides");
                     $(".edits").toggleClass("edits-cl");
                     $(".plus").toggleClass("plus-cl");

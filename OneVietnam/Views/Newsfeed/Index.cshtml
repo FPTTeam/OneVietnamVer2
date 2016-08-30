@@ -23,7 +23,24 @@
         });
 
 
+    function cancelReport() {
+        $(".validation-summary-errors ul li").remove();
+        $(".input-validation-error").removeClass('input-validation-error');
+        $(".validation-summary-errors").addClass('validation-summary-valid').removeClass('validation-summary-errors');
+        var des = document.getElementById('ReportDescription');
+        des.innerText = "";
 
+    }
+
+    function ShowThank(postId) {
+        if ($("#ReportPost_" + postId).find('.input-validation-error').length > 0) {
+            $("#ReportPost_" + postId).modal('show');
+        } else {
+            cancelReport();
+            $("#ReportPost_" + postId).modal('hide');
+            $("#ThankYouModal_" + postId).modal('show');
+        }
+    }
 
 </script>
 <script>
@@ -50,7 +67,7 @@
 
 <div class="ui grid">
     <div class="two wide column" style="padding-right: 0">
-        <div class="ui inline dropdown filter-post"style="margin-left: 15px">
+        <div class="ui inline dropdown filter-post"style="margin-left: 5px">
             <div class="text">
                 <div class="ui blue empty circular label"></div>
                 Tất cả

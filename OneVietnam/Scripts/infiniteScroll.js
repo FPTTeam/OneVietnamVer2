@@ -4,7 +4,7 @@
 
 var scrollHandler = function () {
     if (hasReachedEndOfInfiniteScroll === false &&
-            ($(window).scrollTop() >= ($(document).height() - $(window).height() - 100))) {        
+            ($(window).scrollTop() >= ($(document).height() - $(window).height() - 300))) {        
         loadMoreToInfiniteScrollTable(moreRowsUrl);
     }
 }
@@ -18,7 +18,7 @@ $('.filter-items').on('click', '.item', function () {
 });
 var ulScrollHandler = function () {
     if (hasReachedEndOfInfiniteScroll === false &&
-            ($(window).scrollTop() === $(document).height() - $(window).height())) {
+            ($(window).scrollTop() === $(document).height() - $(window).height()-100)) {
        
         loadMoreToInfiniteScrollUl(moreRowsUrl);
     }
@@ -66,6 +66,7 @@ function loadMoreToInfiniteScrollTable(loadMoreRowsUrl) {
                     var $items = $(data);
                     $(forLoad).append($items);
                     grid.isotope('appended', $items);
+                   
                     grid.isotope('layout');
                     grid.imagesLoaded().progress(function () {
                         grid.isotope('layout');

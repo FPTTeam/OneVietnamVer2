@@ -2,6 +2,12 @@
 @using OneVietnam.Common
 @using OneVietnam.Models
 @model OneVietnam.Models.PostViewModel
+
+
+<script src="~/Scripts/jquery.validate.min.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js" type="text/javascript"></script>
+<script src="/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+
 <div class="ui grid">
     <div class="ui five wide column forHide"></div>
     <div class="ui seven wide column">
@@ -54,18 +60,16 @@
                     }
                     else if (User.Identity.IsAuthenticated)
                     {
-                        <i class='blue large announcement link icon' id="reportPost" data-content='Báo cáo' style='float: right'></i>
-                        <div id="ShowReportPost">
+                        <i class='blue large announcement link icon' id="btnReportPost_@Model.Id" data-content='Báo cáo' style='float: right'></i>
+                        <div id="ShowReportPost_@Model.Id">
                             @Html.Partial("../Newsfeed/_Report", new ReportViewModel(Model.Id, Model.UserId))
                         </div>
                         <script>
-                            $('.second.modal').modal('attach events', '.report.modal .green.button');
-                            $('.report.modal').modal('attach events', '#reportPost');
-                            $(".green.button")
-                                .click(function () {
-                                    $('.report.modal').modal('hide');
-                                });
 
+                            $("#btnReportPost_@Model.Id")
+                                .click(function () {
+                                    $("#ReportPost_@Model.Id").modal('show');
+                                });
                         </script>
                     }
                 </div>
@@ -125,8 +129,8 @@
                     <div class="description" style="font-size: 14px">
                         @Model.Description
                     </div>
-                    <i class="world icon"></i>
-                    <a class="item" onclick="location.href = '@Url.Action("ShowMap", "Map", new {@Model.PostLocation.XCoordinate, @Model.PostLocation.YCoordinate, @Model.PostType, postId = @Model.Id})'">@Model.PostLocation.Address</a>
+                    <i class="ui world icon"></i>
+                    <a style="margin-top:15px" class="item" onclick="location.href = '@Url.Action("ShowMap", "Map", new {@Model.PostLocation.XCoordinate, @Model.PostLocation.YCoordinate, @Model.PostType, postId = @Model.Id})'">@Model.PostLocation.Address</a>
                     <div style="margin:15px 0px">
                         @if (Model.Tags != null && Model.Tags.Count > 0)
                         {
@@ -160,6 +164,7 @@
                                     data: { postId: '@Model.Id', pageNum: 1 },
                                     success: function (data) {
                                         if (data != '') {
+                                            $(".suggestText").removeClass("hides");
                                             var $items = $(data);
                                             $('.suggest.grids').isotope({
                                                 itemSelector: '.grid-item',
@@ -169,7 +174,7 @@
                                                     gutter: '.gutter-sizer'
                                                 }
                                             });
-                                            $(".suggestText").removeClass("hides");
+                                          
                                             $("#forSuggest").html($items);
                                             $(".suggest.grids").isotope('appended', $items);
                                             $(".suggest.grids").isotope('layout');
