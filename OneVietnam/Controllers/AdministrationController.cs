@@ -458,10 +458,13 @@ namespace OneVietnam.Controllers
             {
                 foreach (var item in posts)
                 {
-                    AdminPostViewModel model = new AdminPostViewModel(item);
-                    var user = await UserManager.FindByIdAsync(item.UserId);
-                    model.UserName = user.UserName;
-                    postViews.Add(model);
+                    if (item.PostType == (int)PostTypeEnum.AdminPost)
+                    {
+                        AdminPostViewModel model = new AdminPostViewModel(item);
+                        var user = await UserManager.FindByIdAsync(item.UserId);
+                        model.UserName = user.UserName;
+                        postViews.Add(model);
+                    }                    
                 }
 
             }

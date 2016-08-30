@@ -13200,7 +13200,7 @@ $.fn.search = function(parameters) {
                 event.preventDefault();
                 return false;
               }
-              if ($result.length > 0 && $result.context.id !== "dvSearchUsers") {
+              if ($result.length > 0 && $result.context.id !== "dvSearchUsers" && $result.context.id !== "dvSearchPostTitle") {
                   if ($result.context.id === "SearchUsers") {
                       location.href = "/Search/Index?query=" + module.get.value() + "&tabNum=2";
                   }else{}

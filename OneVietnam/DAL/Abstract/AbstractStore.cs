@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using MongoDB.Bson;
+using OneVietnam.Common;
 
 namespace OneVietnam.DAL
 {
@@ -349,7 +350,29 @@ namespace OneVietnam.DAL
             {
                 return await Collection.Find(conFilter).Project(project).Sort(sort).ToListAsync().ConfigureAwait(false);
             }
-        }        
+        }
+        public async Task<List<BsonDocument>> FullTextSearchAdminPost(string query, BaseFilter filter,
+            SortDefinition<T> sort)
+        {
+            var builder = Builders<T>.Filter;
+            var conFilter = builder.Text(query) & builder.Eq("DeletedFlag", false) & builder.Eq("LockedFlag", false) & builder.Eq("PostType", (int)PostTypeEnum.AdminPost);
+            var project = Builders<T>.Projection.MetaTextScore("TextMatchScore");
+            if (filter.IsNeedPaging)
+            {
+                return
+                    await
+                        Collection.Find(conFilter)
+                            .Skip(filter.Skip)
+                            .Limit(filter.Limit)
+                            .Project(project)
+                            .Sort(sort)
+                            .ToListAsync().ConfigureAwait(false);
+            }
+            else
+            {
+                return await Collection.Find(conFilter).Project(project).Sort(sort).ToListAsync().ConfigureAwait(false);
+            }
+        }
         public void Dispose()
         {            
         }
