@@ -33,11 +33,11 @@
                                 <td style="width: 15%;">
                                     @if (!string.IsNullOrWhiteSpace(Model[index].PostId))
                                     {
-                                        <a href="@Url.Action("ShowPostDetail", "Newsfeed", new {postId = Model[index].PostId})">@Model[index].PostTile</a>
+                                        <a href="@Url.Action("ShowPostDetailPage", "Newsfeed", new {Id = Model[index].PostId})">@Model[index].PostTile</a>
                                     }
                                     else
                                     {
-                                        <a href="@Url.Action("Index", "Timeline", new {userId = Model[index].UserId})">@Model[index].UserName</a>
+                                        <a href="@Url.Action("Index", "Timeline", new {Id = Model[index].UserId})">@Model[index].UserName</a>
                                     }                                    
                                 </td>
                                 <td style="width: 15%;">@Model[index].ReportDescription</td>
@@ -55,7 +55,7 @@
                                     <label id="lblShowHandlerName_@Model[index].Id">
                                         @if (Model[index].HandlerId != null)
                                         {
-                                            @Model[index].HandlerName
+                                            <a href="@Url.Action("Index", "Timeline", new {Id = Model[index].HandlerId})">@Model[index].HandlerName</a>                                            
 
                                         }
                                     </label>

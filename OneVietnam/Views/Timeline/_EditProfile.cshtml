@@ -148,7 +148,8 @@
 
                 <div class="ui big fluid tog transparent disabled  input" >
                     <i class="large mobile icon"></i>
-                    <input id="PhoneNumber" name="PhoneNumber" type="button" value="@Model.PhoneNumber" class="valid" onclick="addPhone()"> 
+                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @readonly = "", @class="valid", onclick="addPhone()" } })
+                    @*<input id="PhoneNumber" name="PhoneNumber" type="button" value="@Model.PhoneNumber" class="valid" onclick="addPhone()">*@ 
                 </div>
             </div>
 

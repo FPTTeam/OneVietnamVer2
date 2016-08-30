@@ -3,7 +3,7 @@
     <div class="four wide column"></div>
 
     @using Microsoft.AspNet.Identity
-    @using OneVietnam.Common
+@using OneVietnam.Common
     @using OneVietnam.Controllers
     @using OneVietnam.Models
     @model OneVietnam.Models.PostViewModel
@@ -31,25 +31,25 @@
                     @if (User.Identity.IsAuthenticated && (User.Identity.GetUserId() == Model.UserId))
                     {
                         <i class="large trash outline link icon" data-content="Xóa" style="float: right" onclick="document.location.href = '@Url.Action("DeletePost", "Newsfeed", new {postId = Model.Id})';"></i>
-                        <i class="blue large write link icon" data-content="Sửa" style="float: right" onclick="document.location.href = '@Url.Action("EditPost", "Newsfeed", new {postId = Model.Id})'"></i>
+                            <i class="blue large write link icon" data-content="Sửa" style="float: right" onclick="document.location.href = '@Url.Action("EditPost", "Newsfeed", new {postId = Model.Id})'"></i>
                     }
                     else
                     {
                         <i class='blue large announcement link icon' id="reportPost" data-content='Báo cáo' style='float: right'></i>
-                        <div id="ShowReportPost">
-                            @Html.Partial("../Newsfeed/_Report", new ReportViewModel(Model.Id, Model.UserId))
-                        </div>
-                        @*                    <script>*@
-                        @*                    $(".modal")*@
-                        @*                         .modal({*@
-                        @*                             allowMultiple: true*@
-                        @*                         });*@
-                        @*                    $('.second.modal').modal('attach events', '.report.modal .green.button');*@
-                        @*                    $('.report.modal').modal('attach events', '#reportPost');*@
-                        @*                    $(".green.button").click(function () {*@
-                        @*                            $('.report.modal').modal('hide');*@
-                        @*                        });*@
-                        @*                    </script>*@
+                            <div id="ShowReportPost">
+                                @Html.Partial("../Newsfeed/_Report", new ReportViewModel(Model.Id, Model.UserId))
+                            </div>
+                            @*                    <script>*@
+                            @*                    $(".modal")*@
+                            @*                         .modal({*@
+                            @*                             allowMultiple: true*@
+                            @*                         });*@
+                            @*                    $('.second.modal').modal('attach events', '.report.modal .green.button');*@
+                            @*                    $('.report.modal').modal('attach events', '#reportPost');*@
+                            @*                    $(".green.button").click(function () {*@
+                            @*                            $('.report.modal').modal('hide');*@
+                            @*                        });*@
+                            @*                    </script>*@
                     }
                 </div>
 
@@ -71,7 +71,7 @@
                         if (Model.Illustrations != null && Model.Illustrations.Count > 1)
                         {
 
-                            <div class="carousel" data-flickity>
+                        <div class="carousel" style="margin-bottom: 30px" data-flickity>
                                 @foreach (var ill in Model.Illustrations)
                                 {
                                     <div class="carousel-cell">
