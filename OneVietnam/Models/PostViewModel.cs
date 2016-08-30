@@ -22,9 +22,8 @@ namespace OneVietnam.Models
         [Required(ErrorMessage = "{0} chưa được chọn.")]        
         [Display(Name = "Loại bài đăng")]
         public int PostType { get; set; }
-
-        [Required(ErrorMessage = "{0} đang để trống.")]
-        [Display(Name = "Địa chỉ liên hệ")]
+        [Required(ErrorMessage = "Không lấy được vị trí của trình duyệt")]
+        [Display(Name = "Địa chỉ liên hệ")]        
         public Location PostLocation { get; set; }
 
         [Required(ErrorMessage = "{0} đang để trống.")]
