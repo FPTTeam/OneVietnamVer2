@@ -479,10 +479,11 @@ namespace OneVietnam.Controllers
         [System.Web.Mvc.Authorize]        
         public async Task<ActionResult> DeletePost(string postId)
         {        
-            //await PostManager.DeleteByIdAsync(postId);
-            var post = await PostManager.FindByIdAsync(postId);
-            post.DeletedFlag = true;
-            await PostManager.UpdateAsync(post);
+            // Delete physicaly
+            await PostManager.DeleteByIdAsync(postId);
+            //var post = await PostManager.FindByIdAsync(postId);
+            //post.DeletedFlag = true;
+            //await PostManager.UpdateAsync(post);
             //CloudBlobContainer blobContainer = _blobClient.GetContainerReference(postId);
             //await blobContainer.DeleteIfExistsAsync();
             return RedirectToAction("Index", "Newsfeed");
