@@ -534,11 +534,11 @@ MarkerClusterer.prototype.setReady_ = function (ready) {
         this.idle_listener = google.maps.event.addListener(this.map_, 'idle', function () {
             that.redraw();
         });
-        if (this.markers_ && this.markers_.length) {
-            for (var i = 0, marker; marker = this.markers_[i]; i++) {
-                marker.setMap(this.map);
-            }
-        }
+        //if (this.markers_ && this.markers_.length) {
+        //    for (var i = 0, marker; marker = this.markers_[i]; i++) {
+        //        marker.setMap(this.map);
+        //    }
+        //}
         this.createClusters_();
     } else {
         this.resetViewport(true);

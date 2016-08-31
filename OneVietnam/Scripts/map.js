@@ -122,8 +122,7 @@ function initialize() {
 
     google.maps.event.addListener(map, 'idle', function () {
         bounds = map.getBounds();
-
-        if (map.getZoom() > 7 && isPostFilter == false) {
+        if (map.getZoom() >= 5 && isPostFilter == false) {
             switch (currentFilter) {
          
                 case -4: showFemales(); break;
@@ -855,7 +854,7 @@ function showSelectedPostOnMap(Lat, Lng, PostType, PostId, isCallFromPostDetail)
 
             getPostInfo(PostId);
 
-        }, 1000);
+        }, 2000);
     } else {
         map.setCenter({ lat: Lat, lng: Lng });
         map.setZoom(9);
