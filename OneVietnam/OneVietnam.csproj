@@ -363,6 +363,7 @@
     <Content Include="Content\chatbox.css" />
     <Content Include="Content\flickity.css" />
     <Content Include="Content\icon.min.css" />
+    <Content Include="Content\Icon\adminPost.png" />
     <Content Include="Content\Icon\female.png" />
     <Content Include="Content\Icon\female2.png" />
     <Content Include="Content\Icon\free.png" />

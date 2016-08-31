@@ -8,7 +8,7 @@ var isClickOnSpiderfier = true;
 var currentFilter = -1
 var isPostFilter = false;
 var list = [];
-var Type3Icon, Type4Icon, Type5Icon, Type6Icon, Type7Icon, Type8Icon, Type9Icon;
+var Type3Icon, Type4Icon, Type5Icon, Type6Icon, Type7Icon, Type8Icon, Type9Icon, adminPostIcon;
 var UsersIcon, FemaleIcon, MaleIcon, LGBTIcon;
 var currentMarkerClusterer;
 var isAutoCompleteBox = false;
@@ -164,7 +164,13 @@ function initialize() {
     overlappingType8 = new OverlappingMarkerSpiderfier(map, { circleFootSeparation: 60 });
     overlappingType9 = new OverlappingMarkerSpiderfier(map, { circleFootSeparation: 60 });
 
-    overlappingType9.
+    adminPostIcon = {
+        url: "/Content/Icon/adminPost.png",
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(50, 50)
+    };
+
     Type3Icon = {
         url: "/Content/Icon/home.png",
         origin: new google.maps.Point(0, 0),
@@ -454,8 +460,8 @@ function createListUserMarkers() {
 
     overlappingUsers.addListener('click', function (marker) {
         isClickOnSpiderfier = false;
-       // overlappingUsers = new OverlappingMarkerSpiderfier(map, { circleFootSeparation: 60 });
-     
+        // overlappingUsers = new OverlappingMarkerSpiderfier(map, { circleFootSeparation: 60 });
+
     });
     overlappingUsers.addListener('spiderfy', function (markers) {
         isClickOnSpiderfier = true;
@@ -645,7 +651,7 @@ function showMarkersOnMap(postTypeNumber, currentFilterNumber, listTypeMarkersNu
 
 function loadByAjax(postTypeList, postTypeNumber) {
 
-    if(selectedPostMarker){
+    if (selectedPostMarker) {
         selectedPostMarker.setMap(null);
 
     }
@@ -842,8 +848,8 @@ function showSelectedPostOnMap(Lat, Lng, PostType, PostId, isCallFromPostDetail)
     isPostFilter = false;
     //currentFilter = PostType;
     currentFilter = -5;
-    if(selectedPostMarker){
-    selectedPostMarker.setMap(null);
+    if (selectedPostMarker) {
+        selectedPostMarker.setMap(null);
     }
     var TypeIcon;
     returnToNormalState();
@@ -862,6 +868,7 @@ function showSelectedPostOnMap(Lat, Lng, PostType, PostId, isCallFromPostDetail)
         case 7: TypeIcon = Type7Icon; break;
         case 8: TypeIcon = Type8Icon; break;
         case 9: TypeIcon = Type9Icon; break;
+        case 10: TypeIcon = adminPostIcon; break;
     }
 
     selectedPostMarker = new google.maps.Marker({
