@@ -504,132 +504,49 @@ namespace OneVietnam.Controllers
 
         // TraNT: Auto create post
         #region AutoGeneratePosts
-        private readonly ArrayList _arrRawDesciptions = new ArrayList();
-        private readonly String[] _strRawDescriptions =
+        //private readonly ArrayList _arrRawDesciptions = new ArrayList();
+
+        private readonly String[,] _strRawDescriptions =
         {
-            "Chiều ngày 17/7/2016, Hội đồng bầu cử quốc gia"
-            ," đã họp đột xuất Phiên thứ tám tại Nhà Quốc hội"
-            ,"Thủ đô Hà Nội dưới sự chủ trì của Chủ tịch Quốc hội,"
-            ," Chủ tịch Hội đồng bầu cử quốc gia Nguyễn Thị Kim Ngân."
-            ,"Tham dự Phiên họp có các thành viên Hội đồng bầu cử quốc gia"
-            ,"; đại diện thường trực Ủy ban trung ương Mặt trận tổ quốc Việt Nam"
-            ,"Đại diện lãnh đạo Ban tổ chức trung ương, Văn phòng Trung ương Đảng, "
-            ,"Văn phòng Quốc hội, Ban công tác đại biểu, đại diện các "
-            ,"Tiểu ban giúp việc của Hội đồng bầu cử quốc gia."
-            ,"Với tinh thần nghiêm túc, trách nhiệm, Hội đồng bầu cử quốc"
-            ," gia đã thận trọng xem xét, xác nhận tư cách đại biểu Quốc hội khóa XIV."
-            ,"Tại phiên họp này, Hội đồng bầu cử quốc gia đã tiến hành"
-            ," biểu quyết bằng hình thức bỏ phiếu kín để xác nhận tư cách"
-            ," người trúng cử đại biểu Quốc hội khóa XIV đối 494 đại biểu."
-            ,"Bên cạnh đó, Hội đồng bầu quốc gia cũng tiến hành bỏ phiếu kín "
-            ,"không xác nhận tư cách đại biểu Quốc hội khóa XIV đối với "
-            ,"Bà Nguyễn Thị Nguyệt Hường, đại biểu Quốc hội khóa XIII."
-            ,"Kết quả kiểm phiếu, có 100% các thành viên trong Hội đồng "
-            ,"bầu cử quốc gia có mặt tại phiên họp nhất trí xác nhận"
-            ," tư cách đại biểu Quốc hội khóa XIV đối với 494 đại biểu."
-            ,"100% các thành viên Hội đồng bầu cử quốc gia bỏ phiếu không xác "
-            ,"nhận tư cách đại biểu Quốc hội khóa XIV đối với bà Nguyễn Thị Nguyệt Hường "
-            ,"vì không đủ tiêu chuẩn đại biểu Quốc hội khóa XIV."
-            ,"Theo Văn phòng Hội đồng bầu cử quốc gia cũng cho biết, cá nhân bà "
-            ,"Hường có đơn xin rút không tham gia đại biểu Quốc hội khóa XIV."
-            ,"Bà Nguyệt Hường ứng cử tại đơn vị bầu cử số 5 TP.Hà Nội "
-            ,"(gồm các huyện Bắc Từ Liêm, Nam Từ Liêm, Đan Phượng, Hoài Đức) và trúng cử với tỷ lệ 78,51%."
-            ,"Sinh năm 1970 tại Nam Định, bà Hường là một đại diện của "
-            ,"giới doanh nhân tại diễn đàn Quốc hội, là đại biểu Quốc hội khóa XII, XIII."
-            ,"Kỳ này, nữ Chủ tịch HĐQT Cty cổ phần đầu tư TNG Holdings "
-            ,"Việt Nam tiếp tục được giới thiệu tái cử khóa XIV, là một đại biểu trong "
-            ,"khối của UB TƯ Mặt trận tổ quốc Việt Nam."
-            ,"Như vậy, cùng với ông Trịnh Xuân Thanh – Tỉnh ủy viên tỉnh Hậu Giang,"
-            ," nguyên Phó Chủ tịch UBND tỉnh này không được công nhận tư cách đại biểu Quốc hội khóa XIV"
-            ,"Nữ doanh nhân Nguyễn Thị Nguyệt Hường là trường hợp thứ 2 cũng"
-            ," không qua được vòng thẩm tra tư cách đại biểu dù đã trúng cử. "
-            ,"Quốc hội khóa XIV, đến thời điểm này, có 494 đại biểu."
-            ,"Tài năng nhí nổi bật được khán giả cả nước công nhận sẽ khuấy động"
-            ," đêm chung kết và khiến bầu không khí trở nên “sục sôi” hơn bao giờ hết."
-            ,"Top 4 gồm 4 gương mặt thí sinh nhí xuất sắc nhất và"
-            ," được khán giả yêu mến gồm Jayden, Gia Khiêm"
-            ,"Hồ Văn Cường và Bảo Trân đang tập luyện nghiêm túc"
-            ," để ghi dấu bản thân trong đêm thi cuối cùng."
-            ,"Trong đêm Gala Chung kết, mỗi thí sinh sẽ biểu diễn hai ca khúc."
-            ,"Trong đó, một ca khúc đã từng được các bé diễn ở các đêm "
-            ,"liveshow trước và một ca khúc lần đầu tiên xuất hiện "
-            ,"trên sân khấu Idol Kids. Ở đêm thi quan trọng này"
-            ,"Các bé sẽ chọn những bài hát mình yêu thích và dòng nhạc sở "
-            ,"trường của mình để nhận được những phiếu bầu chọn cuối cùng của khán giả."
-            ,"Ngoài các tiết mục biểu diễn cá nhân, top 4 sẽ có "
-            ,"một tiết mục chung mở màn cùng các bạn nhỏ trong top 13 gồm:"
-            ,"Bảo Khương, Diệp Nhi, Khánh Linh, Thuỳ Anh."
-            ,"Top 4 đã có rất nhiều những kỉ niệm, khi ca sĩ Tóc "
-            ,"Tiên yêu cầu vui “Kể tật xấu của các bạn trong nhà chung” thì"
-            ,"Gia Khiêm “méc” là Bảo Trân nóng tính. Jayden kể Gia Khiêm rất "
-            ,"nghịch nhưng vì là “trẻ em” nên dù nghịch vẫn “chấp nhận được”. "
-            ,"“Cặp đôi anh em thân thiết” là Hồ Văn Cường và Jayden thì"
-            ,"khẳng định “đối phương” không hề có tật xấu nào cả khiến “đôi bên” đều hài lòng"
-            ,"PGS-TS Đỗ Văn Dũng, Hiệu trưởng Trường ĐH Sư phạm "
-            ,"kỹ thuật TPHCM, đơn vị chủ trì cụm thi tỉnh Bình Thuận, "
-            ,"cho biết nhìn chung điểm năm nay đẹp hơn năm trước vì độ phân"
-            ," hóa cao hơn, điểm thấp hơn. Năm ngoái mức điểm từ 7-8 nhiều"
-            ," quá nên các trường khó chọn nhưng năm nay phổ điểm là "
-            ,"5-6 điểm, mức 7-8 điểm ít hơn nên các trường sẽ dễ tuyển hơn. Năm nay điểm cao ít,"
-            ," như ở môn Toán và Văn điểm cao nhất chỉ 9,25. "
-            ,"Ngược lại điểm liệt của các môn cũng ít hơn. "
-            ,"Môn Sử và Địa, mức điểm phổ biến chủ yếu từ 4-6 điểm."
-            ,"TS Lê Chí Thông, Trưởng phòng đào tạo trường ĐH Bách khoa "
-            ,"(ĐH Quốc gia TPHCM) cũng cho biết nhìn chung điểm "
-            ,"thi không cao lắm. Đối với Văn, phổ điểm ở mức từ 4-6, "
-            ,"không có bài thi nào đạt điểm 9. Trong khi đó, điểm môn Toán "
-            ,"nhỉnh hơn một chút với mức điểm phổ biến từ 5-7 điểm và không có bài thi nào đạt 10 điểm."
-            ,"Qua thống kê sơ bộ của cụm thi do trường ĐH Nông lâm "
-            ,"TPHCM chủ trì, “Môn Toán mức điểm phổ biến từ 4 đến cận "
-            ,"7 điểm chiếm đến gần 50%. Đến hôm qua, bài điểm cao nhất "
-            ,"môn toán ở cụm này là 9,25. Môn Văn đã có điểm 9. "
-            ,"Trong khi đó, phổ điểm môn Sử thống kê sơ bộ có phần thấp hơn năm ngoái."
-            ," Môn Địa xuất hiện bài thi đạt cao nhất là 9,75 điểm, "
-            ,"phổ điểm có phần cao hơn môn Sử nhưng cũng không bằng năm ngoái”,"
-            ," TS Trần Đình Lý - Trưởng phòng đào tạo trường cho biết."
-            ,"Theo Ths Phạm Thái Sơn, Phó trưởng phòng Đào tạo trường ĐH "
-            ,"Công nghiệp Thực phẩm TPHCM, đơn vị chủ trì cụm thi tỉnh Tây Ninh,"
-            ," Phổ điểm các môn cũng tương đối thấp như môn Toán: 4- 6 điểm, môn Văn: 4- 5,5 điểm; "
-            ,"Sử: 3,5- 5 điểm ; Địa: 4- 5,5; Hóa: 4- 5,5; Lý: 4,5- 6; Anh Văn: 3,5- 5. "
-            ,"Tuy nhiên, ông Sơn cũng cho biết điểm liệt các môn năm nay rất ít, "
-            ,"và phổ điểm phân bố khá chuẩn chứng tỏ đề thi có sự phân loại cao."
-            ,"Từ kết quả điểm thi THPT quốc gia 2016, nhiều chuyên gia đã"
-            ," nhận định điểm chuẩn vào nhiều ngành, nhiều trường sẽ giảm mạnh so với năm 2015."
-            ," Dự báo về điểm chuẩn của Trường ĐH Sư phạm Kỹ thuật TPHCM,"
-            ," PGS-TS Đỗ Văn Dũng cho rằng: “Qua nắm tình hình chấm thi của các tỉnh, "
-            ,"thành phố cùng với tình hình thí sinh đăng ký xét tuyển ĐH, "
-            ,"CĐ giảm, tôi cho rằng điểm chuẩn năm nay của trường sẽ thấp hơn từ 1-2 điểm"
-            ,"Tương tự, ông Phạm Thái Sơn cho biết riêng với cụm thi Tây Ninh,"
-            ," mức điểm từ 7,5 trở lên không nhiều mà phổ điểm tập trung từ 4-6 điểm ở các môn tự luận. "
-            ,"Riêng môn Sử phổ điểm thấp hơn chủ yếu ở 3,5-5 điểm. "
-            ,"Ngược lại số điểm liệt rất ít chỉ khoảng 10 bài/môn. "
-            ,"Đối với các môn trắc nghiệm, môn Lý và Hóa có nhích hơn một chút so với năm trước, "
-            ,"phổ điểm dao động từ 4,5-6 điểm. Với phổ điểm này, đối với các tổ hợp môn truyền thống gồm A, A1, D "
-            ,"thì ngưỡng điểm sẽ an toàn mức tương đương như năm ngoái. "
-            ,"Nếu điểm chuẩn có giảm thì chủ yếu do lượng thí sinh năm nay ít, "
-            ,"thì ngưỡng điểm khả năng cũng sẽ giảm nhưng không quá nhiều."
-            ,"Dự đoán, điểm trúng tuyển của các trường tốp trên và tốp dưới"
-            ," sẽ không thay đổi nhiều so với năm ngoái. Riêng nhóm trường "
-            ,"giữa vốn có điểm chuẩn dao động từ 19-20 điểm "
-            ,"thì khả năng điểm chuẩn sẽ có biến động, nhất là các ngành "
-            ,"không phải nhóm tổ hợp môn truyền thống khả năng điểm sẽ giảm."
-            ,"Điều đáng mừng là đề thi có tính phân hóa tốt nên khi xét tuyển"
-            ," các trường sẽ không gặp khó đến mức đưa ra nhiều tiêu chí phụ như năm trước. "
-            ,"Ông Sơn cũng lưu ý thí sinh năm nay:"
-            ," “Khi xét tuyển nên chú ý ngưỡng điểm xét tuyển của các trường, "
-            ,"bên cạnh đó chú ý theo dõi thông tin phân tích của các chuyên gia"
-            ," đồng thời đừng nên vội vàng quá khi nộp hồ sơ đăng ký xét tuyển. "
-            ,"Năm nay có nhiều hình thức nộp xét tuyển nhưng tốt nhất nên nộp qua đường bưu điện, "
-            ,"vừa đỡ mất thời gian, tiền bạc truy cập online. Ở các bưu điện "
-            ,"cũng có dịch vụ thu phí đăng ký xét tuyển nên thí sinh sẽ không phải vất vả nhiều"
-            ,"Dự đoán ngưỡng điểm chuẩn vào trường ĐH Công nghiệp thực phẩm TPHCM năm "
-            ,"nay sẽ giảm hơn năm ngoái từ 1-2 điểm tùy theo ngành."
-            ,"Trong khi đó, TS Trần Đình Lý - Trưởng phòng đào tạo trường ĐH Nông lâm TPHCM, "
-            ,"chủ trì cụm thi tỉnh Gia Lai cho rằng với phổ điểm năm nay, khả năng điểm chuẩn "
-            ,"của trường sẽ bằng hoặc cao hơn năm ngoái một ít. "
-            ,"“Trong 3 năm liên tiếp gần đây, điểm chuẩn của trường luôn năm sau cao hơn năm trước."
-            ," Một số ngành cao hơn năm trước khoảng 1 điểm”, TS Lý cho hay."
-        };
+            // 0 -3 - nhà ở
+            {
+                "cho thuê nhà giá 1.000 yên / tháng tại Hokkaido",
+                "bán nhà ở Tokyo giá 100.000 yên"
+            },
+            // 1- 4 - việc làm
+            {
+                "cần tuyển nhân viên chạy bàn, lương 800 yên / giờ.",
+                "khuân vác vật liệu xây dựng, lương 900 yên . giờ. Liên hệ: +1800 7508"
+            },
+
+            // 2- 5 - cho đồ
+            {
+                "cần cho bộ ghế sa-lông cũ",
+                "có vài bộ quần áo trẻ con cũ cần cho đi gấp."
+            },
+
+            // 3- 6 - xách tay
+            {
+                "nhận xách tay son Mac thương hiệu Nhât Bản",
+                "Nhờ xách tay hộ Iphone6 về Hà Nội có hậu tạ"
+            },
+            // 4- 7 - mua bán
+            {
+                "Cần bán 1 tivi + tủ lạnh ",
+                "Cần mua một chiếc máy tính cũ giá khoảng 12.000 yên"
+            },
+            // 5- 8 - cần giúp đỡ
+            {
+                "Em vừa mới đến Tokyo có ai có công việc làm thêm nào giới thiệu cho em với",
+                "Cháu bị lạc tàu điện ở Osaka, trong người không có tiền"
+            },
+            // 6- 9 - cảnh báo
+            {
+                "có một tên biến thái gần khu vực Okinawa",
+                "Cảnh báo các bạn không nên ăn ở quán Takoyaki gần Nedan nhé"
+            }
+
+            };
         // Define location
         private int MinLat = 30;
         private int MaxLat = 45;
@@ -638,145 +555,171 @@ namespace OneVietnam.Controllers
         private readonly ArrayList _arrRawLocations = new ArrayList();
         private readonly String[] _strRawLocations =
         {
-            "1. Vùng núi Zhangye Danxia, tỉnh Cam Túc, Trung Quốc:"
-            ,"2. Nơi ‘tận cùng thế giới’ ở Banos, Ecuador:"
-            ,"3. Hố xanh vỹ đại ở Belize:"
-            ,"4. Cánh đồng hoa tulip Hà Lan:"
-            ,"5. Hang Sơn Đoòng, Quảng Bình, Việt Nam:"
-            ,"6. Thiên đường hoa ở công viên Hitachi Seaside:"
-            ,"7. Hang động băng Mendenhall, Alaska, Mỹ:"
-            ,"8. Ngọn núi Roraima nằm giữa Venezuela, Brazil và Guyana:"
-            ,"9. Khu vực Cappadocia, Thổ Nhĩ Kỳ:"
-            ,"10. Bãi biển sao trên đảo Vaadhoo, Mandives:"
-            ,"11. Thác nước Victoria:"
-            ,"12. Trolltunga ở Hordaland, Na Uy:"
-            ,"13. Bãi biển Whitehaven, Australia:"
-            ,"14. Vườn quốc gia Grand Canyon, bang Arizona, Mỹ:"
-            ,"15. Hang động cẩm thạch Marble Cathedral, Chile:"
-            ,"16. Đường hầm tình yêu ‘Tunnel of love':"
-            ,"17. Cánh đồng muối tuyệt đẹp Salar de Uyuni ở Bolivia:"
-            ,"18. Enchanted Well – Chapada Diamantina National Park (Brazil):"
-            ,"19. Hẻm núi Antelope, Mỹ:"
-            ,"20. Hang động Fingal, Scotland:"
-            ,"21. Hồ bơi khổng lồ Tosua Ocean Trench, Samoa:"
-            ,"22. Rừng tre Sagano ở Nhật Bản:"
-            ,"23. Hang động đom đóm ở New Zealand:"
-            ,"24. Cầu thang Haiku, ở Oahu, Hawaii:"
-            ,"25. Núi lửa ở bán đảo Kamchatka, Nga:"
-            ,"26. Hố sụt ở bán đảo Yucatan, Mexico:"
-            ,"27. Hồ đổi màu trên đỉnh núi Kelimutu ở Indonesia:"
+            "Takakuko, Nasu, Nasu District, Tochigi Prefecture 325-0001, Nhật Bản",
+            "Shinjuku, Tokyo, Nhật Bản",
+            "Hanshin Expressway Route 1 Loop Route, Nhật Bản",
+            "975-1 Oshibedanicho Komi, Nishi Ward, Kobe, Hyogo Prefecture 651-2223, Nhật Bản",
+            "5 Chome-3 Ichinotanichō, Suma-ku, Kōbe-shi, Hyōgo-ken 654-0076, Nhật Bản"
         };
 
+        // photo links for issulation
+        private readonly ArrayList _arrRawImages = new ArrayList();
+        private readonly String[] _strRawImages =
+        {
+            "https://onevietnam.blob.core.windows.net/57c43ba627d14325242184cc/1636081001195331195_aac2d231-4d9f-4feb-a941-6f82c43a6878.jpg",
+            "https://onevietnam.blob.core.windows.net/57c43ba627d14325242184cc/1636081001196775973_8e638f0c-caa8-435b-bef0-446fb89e45a6.jpg",
+            "https://onevietnam.blob.core.windows.net/57c43ba627d14325242184cc/1636081001198078743_5395a850-8cd4-44df-9099-9732732a6075.jpg",
+            "https://onevietnam.blob.core.windows.net/57c43ba627d14325242184cc/1636081001198827229_8006d5fc-d265-4b32-b95d-4b521b11205b.jpg",
+            "https://onevietnam.blob.core.windows.net/57c43ba627d14325242184cc/1636081001200076322_d3b22408-c9c1-4fcd-957b-e91367c27114.jpg",
+            "https://onevietnam.blob.core.windows.net/57c43ba627d14325242184cc/1636081001201306026_b1f245d3-1f8c-4092-9fe2-8b43622e8b37.jpg",
+            "https://onevietnam.blob.core.windows.net/57c43ba627d14325242184cc/1636081001202005800_26b1fbdf-adfb-465e-ad60-2dbe117b1851.jpg",
+            "https://onevietnam.blob.core.windows.net/57c43ba627d14325242184cc/1636081001202815544_e980bf90-94b2-4179-a1b7-8e748e33ddbd.jpg",
+            "https://onevietnam.blob.core.windows.net/57c43ba627d14325242184cc/1636081001203597074_2a3802c3-138a-4afe-bfb8-e18fd14ddd33.jpg",
+            "https://onevietnam.blob.core.windows.net/57c43ba627d14325242184cc/1636081001204389200_5c0bde13-8cdc-4dc0-b425-32fdc5205ca2.jpg",
+            "https://onevietnam.blob.core.windows.net/57c43ba627d14325242184cc/1636081001205078415_78a6dc22-ba47-4f1c-b74c-12c06ec4dfdf.jpg",
+            "https://onevietnam.blob.core.windows.net/57c43ba627d14325242184cc/1636081001205926467_a2f21f80-1ebc-4021-8bb8-a058dd152a2d.jpg",
+            "https://onevietnam.blob.core.windows.net/57c43ba627d14325242184cc/1636081001206637090_d5448f1d-a26c-466c-9c70-298f2360401d.jpg",
+            "https://onevietnam.blob.core.windows.net/57c43ba627d14325242184cc/1636081001207314058_eefe20b7-88ca-445a-ad97-0f0a200a81e8.jpg"
+        };
+
+        // for test only
+        // change post title to name of type, eg: posttitle = "title", postype = 5 ( xach tay), => posttitle=xach tay
+        private Dictionary<int, string> dictionary = new Dictionary<int, string>();
+        private int[] keys = { 3, 4, 5, 6, 7, 8, 9 };
+        private string[] values =
+        {
+             "Nhà ở", "Việc làm", "Cho đồ", "Xách tay", "Mua bán", "Cần giúp đỡ", "Cảnh báo"
+        };
         public async Task<ActionResult> AutoGeneratePost()
         {
             // Define number of random posts
-            Int32 numberOfPost = 100000;
+            var numberOfPost = 20000;
 
+            var p = await PrepareData();
+            var r = new Random();
+            // Do the action for numberOfPost times
+            for (var i = numberOfPost; i > 0; i--)
+            {
+                await CreateOnePost(p, r);
+            }
+            return RedirectToAction("Index", "Newsfeed");
+        }
+
+        private async Task CreateOnePost(CreatePostViewModel p, Random r)
+        {
+            var post = new Post(p)
+            {
+                CreatedDate = System.DateTime.Now,
+                UserId = User.Identity.GetUserId()
+            };
+
+            // try to fake data for Post
+            var rIndex = 0;
+
+            post = new Post(p)
+            {
+                CreatedDate = System.DateTime.Now,
+                UserId = User.Identity.GetUserId()
+            };
+
+            // fake location
+            // create a random number betwwen 0 and  2147483647
+            rIndex = r.Next(0, Int32.MaxValue);
+
+            // reduce the number in ranage 0 and the count of _arrRawLocations
+            rIndex = rIndex % _arrRawLocations.Count;
+            var strAddress = _arrRawLocations[rIndex].ToString();
+
+            // Declare new location
+            var postLocation = new Location();
+
+            // get the range of Lat
+            var range = MaxLat - MinLat;
+            // create a random double in range
+            var rDouble = r.NextDouble() * range;
+            // the random XCoordinate is created by MinLat plus the random number above
+            postLocation.XCoordinate = MinLat * 1.00 + rDouble;
+
+            // get the range of Long
+            range = MaxLong - MinLong;
+            // create a random double in range
+            rDouble = r.NextDouble() * range;
+            // the random YCoordinate is created by MinLong plus the random number above
+            postLocation.YCoordinate = MinLong * 1.00 + rDouble;
+            // the random address is made above.
+            postLocation.Address = strAddress;
+
+            // assign the fake location to post
+            post.PostLocation = postLocation;
+
+            // random post type
+            post.PostType = r.Next(3, 10);
+            // for only test
+            post.Title = dictionary[post.PostType].ToString();
+            //r.Next(0, _arrRawDesciptions.Count);
+            rIndex = post.PostType - 3; // mapping postype from 3 to 9  and the 2-dimentional array: strRawDescription 
+            var strDescriptions = _strRawDescriptions[rIndex, r.Next(0, 2)]; // [x,y]: x_post type index, y: 0..number of data
+            // fake description : random string
+            post.Description = strDescriptions;
+
+            // random images, each post has only 2 random images.
+            var illList = new List<Illustration>();
+
+            rIndex = r.Next(0, _arrRawImages.Count);
+            var newIll = new Illustration(_arrRawImages[rIndex].ToString());
+            illList.Add(newIll);
+
+            rIndex = r.Next(0, _arrRawImages.Count);
+            newIll = new Illustration(_arrRawImages[rIndex].ToString());
+            illList.Add(newIll);
+
+            post.Illustrations = illList;
+            // insert one post into database
+            await PostManager.CreateAsync(post);
+        }
+
+        private async Task<CreatePostViewModel> PrepareData()
+        {
             // initial data
             // - create description list
-            foreach (var str in _strRawDescriptions)
-            {
-                _arrRawDesciptions.Add(str);
-            }
+            //foreach (var str in _strRawDescriptions)
+            //{
+            //    _arrRawDesciptions.Add(str);
+            //}
 
             // - create location list
             foreach (var str in _strRawLocations)
             {
                 _arrRawLocations.Add(str);
             }
+            // -create photo list - illustration
+            foreach (var str in _strRawImages)
+            {
+                _arrRawImages.Add(str);
+            }
+            // For only test
+            // create dictionary
+            for (var index = 0; index < 7; ++index)
+            {
+                dictionary.Add(keys[index], values[index]);
+            }
 
             // Create ViewModel
             // all of the commands below are trying to simlate command in CreatePost();
             // need to map the code below with the lastest in master.
-            CreatePostViewModel p = new CreatePostViewModel();
-            p.Title = "0";
-            p.Description = "Description";
+            var p = new CreatePostViewModel();
 
             ViewData.Clear();
-            var post = new Post(p)
-            {
-                CreatedDate = System.DateTime.Now,
-                UserId = User.Identity.GetUserId()
-            };
-            //p.UserName = User.Identity.Name;
+
             var tagList = await PostManager.AddAndGetAddedTags(Request, TagManager, "TagsInput");
             _illustrationList = (HttpFileCollectionBase)Session["Illustrations"];
-           // var illList = await PostManager.GetIllustration(_illustrationList, post.Id);
             if (tagList != null)
             {
                 p.Tags = tagList;
             }
-
-            //if (illList != null)
-            //{
-            //    p.Illustrations = illList;
-            //}
-
-            Random r = new Random();
-            // Do the action for numberOfPost times
-            for (int i = numberOfPost; i > 0; i--)
-            {
-                // try to fake data for Post
-                //Int32 rIndex = r.Next(0, Int32.MaxValue);
-                //rIndex = rIndex % _arrRawDesciptions.Count;
-
-                Int32 rIndex = r.Next(0, _arrRawDesciptions.Count);
-                String strDescriptions = _arrRawDesciptions[rIndex].ToString();
-
-                // fake title: index
-                p.Title = i.ToString();
-                // fake description : random string
-                p.Description = strDescriptions;
-                post = new Post(p)
-                {
-                    CreatedDate = System.DateTime.Now,
-                    UserId = User.Identity.GetUserId()
-                };
-
-                // fake location
-
-                // create a random number betwwen 0 and  2147483647
-                rIndex = r.Next(0, Int32.MaxValue);
-
-                // reduce the number in ranage 0 and the count of _arrRawLocations
-                rIndex = rIndex % _arrRawLocations.Count;
-                String strAddress = _arrRawLocations[rIndex].ToString();
-
-                // Declare new location
-                Location postLocation = new Location();
-
-                // get the range of Lat
-                int range = MaxLat - MinLat;
-                // create a random double in range
-                double rDouble = r.NextDouble() * range;
-                // the random XCoordinate is created by MinLat plus the random number above
-                postLocation.XCoordinate = MinLat * 1.00 + rDouble;
-
-                // get the range of Long
-                range = MaxLong - MinLong;
-                // create a random double in range
-                rDouble = r.NextDouble() * range;
-                // the random YCoordinate is created by MinLong plus the random number above
-                postLocation.YCoordinate = MinLong * 1.00 + rDouble;
-                // the random address is made above.
-                postLocation.Address = strAddress;
-
-                // assign the fake location to post
-                post.PostLocation = postLocation;
-
-                // random post type
-                //post.PostType = 5;
-                post.PostType = r.Next(3, 10);
-
-                // insert one post into database
-                await PostManager.CreateAsync(post);
-            }
-
-            //CreatedPost = true;
-            //PostView = new PostViewModel(post);
-            //return RedirectToAction("ShowPostDetail", "Post", new { postId = post.Id });
-            return RedirectToAction("Index", "Newsfeed");
+            return p;
         }
+
         #endregion
         // End comment TraNT: AutoCreatePost
     }

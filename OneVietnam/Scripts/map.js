@@ -124,8 +124,8 @@ function initialize() {
     google.maps.event.addListener(map, 'idle', function () {
         bounds = map.getBounds();
         if (map.getZoom() >= 5 && isPostFilter == false) {
-            switch (currentFilter) {
 
+            switch (currentFilter) {
                 case -4: showFemales(); break;
                 case -3: showMales(); break;
                 case -2: showLGBT(); break;
@@ -164,6 +164,7 @@ function initialize() {
     overlappingType8 = new OverlappingMarkerSpiderfier(map, { circleFootSeparation: 60 });
     overlappingType9 = new OverlappingMarkerSpiderfier(map, { circleFootSeparation: 60 });
 
+    overlappingType9.
     Type3Icon = {
         url: "/Content/Icon/home.png",
         origin: new google.maps.Point(0, 0),
@@ -368,60 +369,60 @@ function showMyLocation() {
 }
 
 function showUsers() {
-
+    closeAllSpiderfier();
     showMarkersOnMap(allUsers, -1, listUserMarkers);
 }
 
 function showLGBT() {
 
+    closeAllSpiderfier();
     showMarkersOnMap(LGBT, -2, listLGBTMarkers);
 }
 
 function showMales() {
-
+    closeAllSpiderfier();
     showMarkersOnMap(males, -3, listMaleMarkers);
 }
 
 function showFemales() {
-
+    closeAllSpiderfier();
     showMarkersOnMap(females, -4, listFemaleMarkers);
 }
 
 function showAccommodation() {
-
+    closeAllSpiderfier();
     loadByAjax(postType3, 3);
 
 }
 
 
 function showJobOffer() {
-    //showMarkersOnMap(postType4, 4, listType4Markers);
+    closeAllSpiderfier();
     loadByAjax(postType4, 4);
 }
 
 function showFurnitureOffer() {
-
-    //showMarkersOnMap(postType5, 5, listType5Markers);
+    closeAllSpiderfier();
     loadByAjax(postType5, 5);
 }
 
 function showHandGoodsOffer() {
-    //showMarkersOnMap(postType6, 6, listType6Markers);
+    closeAllSpiderfier();
     loadByAjax(postType6, 6);
 }
 
 function showTradeOffer() {
-    //showMarkersOnMap(postType7, 7, listType7Markers);
+    closeAllSpiderfier();
     loadByAjax(postType7, 7);
 }
 
 function showSOS() {
-    //showMarkersOnMap(postType8, 8, listType8Markers);
+    closeAllSpiderfier();
     loadByAjax(postType8, 8);
 }
 
 function showWarning() {
-    //showMarkersOnMap(postType9, 9, listType9Markers);
+    closeAllSpiderfier();
     loadByAjax(postType9, 9);
 }
 
@@ -453,6 +454,8 @@ function createListUserMarkers() {
 
     overlappingUsers.addListener('click', function (marker) {
         isClickOnSpiderfier = false;
+       // overlappingUsers = new OverlappingMarkerSpiderfier(map, { circleFootSeparation: 60 });
+     
     });
     overlappingUsers.addListener('spiderfy', function (markers) {
         isClickOnSpiderfier = true;
@@ -518,7 +521,6 @@ function createListFemaleMarkers() {
                 }, 100);
             }
         })(marker, i));
-
         overlappingFemale.addMarker(marker);
     }
 
@@ -1052,6 +1054,20 @@ function showAlertNoUser(postTypeArray) {
 
 function hideModel() {
     $("#userModal").modal('hide');
+}
+
+function closeAllSpiderfier() {
+    overlappingUsers.unspiderfy();
+    overlappingMale.unspiderfy();
+    overlappingLGBT.unspiderfy();
+    overlappingFemale.unspiderfy();
+    overlappingType3.unspiderfy();
+    overlappingType4.unspiderfy();
+    overlappingType5.unspiderfy();
+    overlappingType6.unspiderfy();
+    overlappingType7.unspiderfy();
+    overlappingType8.unspiderfy();
+    overlappingType9.unspiderfy();
 }
 //window.onload = initialize;
 google.maps.event.addDomListener(window, 'load', initialize);
