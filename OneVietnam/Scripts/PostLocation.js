@@ -50,8 +50,11 @@ function getCurrentLocation() {
                     var detailedLocation = results[0].formatted_address;         // if address found, pass to processing function
                     
                     var address_Post = document.getElementById("PostLocation_Address");
+                    var NoEnglishLocation;
                     if (detailedLocation.indexOf("Unnamed Road,") != -1) {
-                        var NoEnglishLocation = detailedLocation.replace("Unnamed Road,", "");
+                         NoEnglishLocation = detailedLocation.replace("Unnamed Road,", "");
+                    } else {
+                        NoEnglishLocation = detailedLocation;
                     }
                     if(address_Post != null){
                         $(".forLocation").text(NoEnglishLocation);

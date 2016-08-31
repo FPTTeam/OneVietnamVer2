@@ -21,8 +21,11 @@
         geocoder.geocode({ 'latLng': location }, function (results, status) {
             if (status === window.google.maps.GeocoderStatus.OK) {           // if geocode success
                 var detailedLocation = results[0].formatted_address;
+                var NoEnglishLocation;
                 if (detailedLocation.indexOf("Unnamed Road,") != -1) {
-                    var NoEnglishLocation = detailedLocation.replace("Unnamed Road,", "");
+                     NoEnglishLocation = detailedLocation.replace("Unnamed Road,", "");
+                } else {
+                    NoEnglishLocation = detailedLocation;
                 }
                 // if address found, pass to processing function
                 if ($("#XCoordinate").length > 0) {
