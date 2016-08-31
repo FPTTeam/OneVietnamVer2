@@ -282,6 +282,7 @@
     <Compile Include="Common\Enums.cs" />
     <Compile Include="Common\OneHub.cs" />
     <Compile Include="BLL\Abstract\AbstractManager.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Common\utilities.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -319,7 +320,6 @@
     <Compile Include="BLL\RolesManagerBLO.cs" />
     <Compile Include="BLL\TagManagerBLO.cs" />
     <Compile Include="BLL\UserManagerBLO.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MapController.cs" />

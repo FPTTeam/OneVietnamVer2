@@ -22,6 +22,7 @@ using System.IO;
 using System.Drawing;
 using OneVietnam.Common;
 using SignInStatus = OneVietnam.Common.SignInStatus;
+using System.Collections;
 
 namespace OneVietnam.Controllers
 {
@@ -553,6 +554,118 @@ namespace OneVietnam.Controllers
                 }
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
+        }
+        #endregion
+
+        #region AutoGenerateUsers
+        // Define location
+        private int MinLat = 30;
+        private int MaxLat = 45;
+        private int MinLong = 130;
+        private int MaxLong = 149;
+        private readonly ArrayList _arrRawLocations = new ArrayList();
+        private readonly String[] _strRawLocations =
+        {
+           "Takakuko, Nasu, Nasu District, Tochigi Prefecture 325-0001, Nhật Bản",
+            "Shinjuku, Tokyo, Nhật Bản",
+            "Hanshin Expressway Route 1 Loop Route, Nhật Bản",
+            "975-1 Oshibedanicho Komi, Nishi Ward, Kobe, Hyogo Prefecture 651-2223, Nhật Bản",
+            "5 Chome-3 Ichinotanichō, Suma-ku, Kōbe-shi, Hyōgo-ken 654-0076, Nhật Bản"
+        };
+        public async Task<string> AutoGenerateUsers()
+        {
+            // initial data
+            InitialData();
+
+            // define the number of user
+            var numberOfUsers = 5000;
+
+            // Create ViewModel
+            var model = new RegisterViewModel();
+
+            var r = new Random();
+            while (numberOfUsers != 0)
+            {
+                PrepareModel(model, numberOfUsers, r);
+                await CreateOneUser(model);
+                numberOfUsers--;
+            }
+            // If we got this far, something failed, redisplay form
+            return "create done";
+        }
+
+        private void PrepareModel(RegisterViewModel model, int index, Random r)
+        {
+            #region fake location
+
+            // create a random number betwwen 0 and  2147483647
+            var rIndex = r.Next(0, int.MaxValue);
+
+            // reduce the number in ranage 0 and the count of _arrRawLocations
+            rIndex = rIndex % _arrRawLocations.Count;
+            var strAddress = _arrRawLocations[rIndex].ToString();
+
+            // Declare new location
+            var postLocation = new Location();
+
+            // get the range of Lat
+            var range = MaxLat - MinLat;
+            // create a random double in range
+            var rDouble = r.NextDouble() * range;
+            // the random XCoordinate is created by MinLat plus the random number above
+            postLocation.XCoordinate = MinLat * 1.00 + rDouble;
+
+            // get the range of Long
+            range = MaxLong - MinLong;
+            // create a random double in range
+            rDouble = r.NextDouble() * range;
+            // the random YCoordinate is created by MinLong plus the random number above
+            postLocation.YCoordinate = MinLong * 1.00 + rDouble;
+            // the random address is made above.
+            postLocation.Address = strAddress;
+            #endregion
+            // Please change properties Location from String to Location Class
+            model.Address = postLocation.Address;
+            model.YCoordinate = postLocation.YCoordinate;
+            model.XCoordinate = postLocation.XCoordinate;
+
+            #region fake ApplicationUser
+            model.UserName = "usr" + index;
+            model.Email = "email" + index + "@gmail.com";
+            model.Password = "121212";
+            model.Gender = r.Next(0, 3); // 0: female, 1: male, 2: other
+            #endregion
+        }
+        private void InitialData()
+        {
+            // - create location list
+            foreach (var str in _strRawLocations)
+            {
+                _arrRawLocations.Add(str);
+            }
+        }
+        private async Task<bool> CreateOneUser(RegisterViewModel model)
+        {
+            var location = new Location
+            {
+                XCoordinate = model.XCoordinate,
+                YCoordinate = model.YCoordinate,
+                Address = model.Address
+            };
+
+            var user = new ApplicationUser
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+                Gender = model.Gender,
+                Location = location,
+                CreatedDate = DateTimeOffset.UtcNow,
+                Avatar = Constants.DefaultAvatarLink,
+                Cover = Constants.DefaultCoverLink,
+                EmailConfirmed = true
+            };
+            await UserManager.CreateAsync(user, model.Password);
+            return true;
         }
         #endregion
     }
