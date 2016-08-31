@@ -245,8 +245,7 @@
                 data: { "postId": id },
                 url: '/Newsfeed/_ShowPostDetailModal',
                 success: function (partialResult) {
-                    $(".ui.small.report.modal").remove();
-                    $(".ui.small.second.modal").remove();
+                 
                     $("#forModal").empty();
                     $("#forModal").html(partialResult);
                     $(".modal")
