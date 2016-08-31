@@ -504,7 +504,30 @@ namespace OneVietnam.Controllers
                 ViewData["trace"] = ex.StackTrace;
             }
         }
-
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && _userManager != null)
+            {
+                _userManager.Dispose();
+                _userManager = null;
+            }   
+            if (disposing && _iconManager != null)
+            {
+                _iconManager.Dispose();
+                _iconManager = null;
+            }
+            if (disposing && _postManager != null)
+            {
+                _postManager.Dispose();
+                _postManager = null;
+            }
+            if (disposing && _reportManager != null)
+            {
+                _reportManager.Dispose();
+                _reportManager = null;
+            }
+            base.Dispose(disposing);
+        }
         // TraNT: Auto create post
         #region AutoGeneratePosts
         //private readonly ArrayList _arrRawDesciptions = new ArrayList();

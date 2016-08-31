@@ -155,10 +155,15 @@ namespace OneVietnam.Controllers
             return Json(count, JsonRequestBehavior.AllowGet);
         }
 
-        //public async Task<bool> AddNotification(NotificationViewModel model)
-        //{
-            
-        //}
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && _userManager != null)
+            {
+                _userManager.Dispose();
+                _userManager = null;
+            }            
+            base.Dispose(disposing);
+        }
 
         public async Task<bool> RemoveConversationById(string id)
         {
