@@ -12,6 +12,7 @@ var Type3Icon, Type4Icon, Type5Icon, Type6Icon, Type7Icon, Type8Icon, Type9Icon;
 var UsersIcon, FemaleIcon, MaleIcon, LGBTIcon;
 var currentMarkerClusterer;
 var isAutoCompleteBox = false;
+var selectedPostMarker;
 
 var listUserMarkers = [], listMaleMarkers = [], listFemaleMarkers = [], listLGBTMarkers = [];
 
@@ -122,10 +123,9 @@ function initialize() {
 
     google.maps.event.addListener(map, 'idle', function () {
         bounds = map.getBounds();
+        if (map.getZoom() >= 5 && isPostFilter == false) {
 
-        if (map.getZoom() > 7 && isPostFilter == false) {
             switch (currentFilter) {
-         
                 case -4: showFemales(); break;
                 case -3: showMales(); break;
                 case -2: showLGBT(); break;
@@ -164,6 +164,7 @@ function initialize() {
     overlappingType8 = new OverlappingMarkerSpiderfier(map, { circleFootSeparation: 60 });
     overlappingType9 = new OverlappingMarkerSpiderfier(map, { circleFootSeparation: 60 });
 
+    overlappingType9.
     Type3Icon = {
         url: "/Content/Icon/home.png",
         origin: new google.maps.Point(0, 0),
@@ -281,14 +282,14 @@ function initialize() {
         isAutoCompleteBox = true;
         map.fitBounds(bounds);
     });
-   
+
     $('#pac-input2').keypress(function (e) {
         if (e.which == 13) {
             google.maps.event.trigger(searchBox, 'place_changed');
             return false;
         }
     });
-    
+
 }
 
 function loadScript() {
@@ -368,60 +369,60 @@ function showMyLocation() {
 }
 
 function showUsers() {
-
+    closeAllSpiderfier();
     showMarkersOnMap(allUsers, -1, listUserMarkers);
 }
 
 function showLGBT() {
 
+    closeAllSpiderfier();
     showMarkersOnMap(LGBT, -2, listLGBTMarkers);
 }
 
 function showMales() {
-
+    closeAllSpiderfier();
     showMarkersOnMap(males, -3, listMaleMarkers);
 }
 
 function showFemales() {
-
+    closeAllSpiderfier();
     showMarkersOnMap(females, -4, listFemaleMarkers);
 }
 
 function showAccommodation() {
-
+    closeAllSpiderfier();
     loadByAjax(postType3, 3);
 
 }
 
 
 function showJobOffer() {
-    //showMarkersOnMap(postType4, 4, listType4Markers);
+    closeAllSpiderfier();
     loadByAjax(postType4, 4);
 }
 
 function showFurnitureOffer() {
-
-    //showMarkersOnMap(postType5, 5, listType5Markers);
+    closeAllSpiderfier();
     loadByAjax(postType5, 5);
 }
 
 function showHandGoodsOffer() {
-    //showMarkersOnMap(postType6, 6, listType6Markers);
+    closeAllSpiderfier();
     loadByAjax(postType6, 6);
 }
 
 function showTradeOffer() {
-    //showMarkersOnMap(postType7, 7, listType7Markers);
+    closeAllSpiderfier();
     loadByAjax(postType7, 7);
 }
 
 function showSOS() {
-    //showMarkersOnMap(postType8, 8, listType8Markers);
+    closeAllSpiderfier();
     loadByAjax(postType8, 8);
 }
 
 function showWarning() {
-    //showMarkersOnMap(postType9, 9, listType9Markers);
+    closeAllSpiderfier();
     loadByAjax(postType9, 9);
 }
 
@@ -453,6 +454,8 @@ function createListUserMarkers() {
 
     overlappingUsers.addListener('click', function (marker) {
         isClickOnSpiderfier = false;
+       // overlappingUsers = new OverlappingMarkerSpiderfier(map, { circleFootSeparation: 60 });
+     
     });
     overlappingUsers.addListener('spiderfy', function (markers) {
         isClickOnSpiderfier = true;
@@ -518,7 +521,6 @@ function createListFemaleMarkers() {
                 }, 100);
             }
         })(marker, i));
-
         overlappingFemale.addMarker(marker);
     }
 
@@ -642,26 +644,32 @@ function showMarkersOnMap(postTypeNumber, currentFilterNumber, listTypeMarkersNu
 }
 
 function loadByAjax(postTypeList, postTypeNumber) {
+
+    if(selectedPostMarker){
+        selectedPostMarker.setMap(null);
+
+    }
+
     if (postTypeList.length == 0) {
-    
+
         //$(document).ajaxStart(function () {
 
         //});
 
         $("#loading").modal({ closable: false }).modal('show');
         //$(document).ajaxStop(function () {
-           
-          
+
+
         //});
-       
+
         //$(".abc").append('<img src="/Content/Icon/loading_spinner.gif" />');
         $.ajax({
             url: '/Map/GetListOfAPostType?PostType=' + postTypeNumber,
             type: 'GET',
-            async:true,
+            async: true,
             dataType: 'json',
             success: function (result) {
-               
+
                 for (var i = 0; i < result.length; i++) {
                     postTypeList.push({ postID: result[i].PostId, x: result[i].X, y: result[i].Y });
                 }
@@ -679,7 +687,7 @@ function loadByAjax(postTypeList, postTypeNumber) {
                     case 8: createListPostMarker(postTypeList, listType8Markers, overlappingType8, Type8Icon); showMarkersOnMap(postType8, 8, listType8Markers); break;
                     case 9: createListPostMarker(postTypeList, listType9Markers, overlappingType9, Type9Icon); showMarkersOnMap(postType9, 9, listType9Markers); break;
                 }
-            
+
             },
             error: function (xhr, status, error) {
                 alert(xhr.responseText);
@@ -832,19 +840,51 @@ function getPostInfo(postID) {
 function showSelectedPostOnMap(Lat, Lng, PostType, PostId, isCallFromPostDetail) {
     isClickOnSpiderfier = false;
     isPostFilter = false;
-    currentFilter = PostType;
+    //currentFilter = PostType;
+    currentFilter = -5;
+    if(selectedPostMarker){
+    selectedPostMarker.setMap(null);
+    }
+    var TypeIcon;
+    returnToNormalState();
 
+    currentMarkerClusterer.setMap(null);
+    var pos = {
+        lat: Lat,
+        lng: Lng
+    };
+
+    switch (PostType) {
+        case 3: TypeIcon = Type3Icon; break;
+        case 4: TypeIcon = Type4Icon; break;
+        case 5: TypeIcon = Type5Icon; break;
+        case 6: TypeIcon = Type6Icon; break;
+        case 7: TypeIcon = Type7Icon; break;
+        case 8: TypeIcon = Type8Icon; break;
+        case 9: TypeIcon = Type9Icon; break;
+    }
+
+    selectedPostMarker = new google.maps.Marker({
+        position: pos,
+        map: null,
+        optimized: false,
+        title: "Nhấp để xem chi tiết",
+        icon: TypeIcon
+    });
+
+    selectedPostMarker.setMap(map);
+
+    // Allow each marker to have an info window
+    google.maps.event.addListener(selectedPostMarker, 'click', (function (selectedPostMarker) {
+        return function () {
+            setTimeout(function () {
+                getPostInfo(PostId);
+            }, 100);
+        }
+    })(selectedPostMarker));
 
     // map.setCenter({Lat,Lng});
-    switch (PostType) {
-        case 3: accommodationEnlarge(); break;
-        case 4: jobEnlarge(); break;
-        case 5: furnitureEnlarge(); break;
-        case 6: handGoodsEnlarge(); break;
-        case 7: tradeEnlarge(); break;
-        case 8: helpEnlarge(); break;
-        case 9: warningEnlarge(); break;
-    }
+
 
     if (isCallFromPostDetail != 1) {
         var position = new google.maps.LatLng(Lat, Lng);
@@ -855,7 +895,8 @@ function showSelectedPostOnMap(Lat, Lng, PostType, PostId, isCallFromPostDetail)
 
             getPostInfo(PostId);
 
-        }, 1000);
+        }, 500);
+        //getPostInfo(PostId);
     } else {
         map.setCenter({ lat: Lat, lng: Lng });
         map.setZoom(9);
@@ -1013,6 +1054,20 @@ function showAlertNoUser(postTypeArray) {
 
 function hideModel() {
     $("#userModal").modal('hide');
+}
+
+function closeAllSpiderfier() {
+    overlappingUsers.unspiderfy();
+    overlappingMale.unspiderfy();
+    overlappingLGBT.unspiderfy();
+    overlappingFemale.unspiderfy();
+    overlappingType3.unspiderfy();
+    overlappingType4.unspiderfy();
+    overlappingType5.unspiderfy();
+    overlappingType6.unspiderfy();
+    overlappingType7.unspiderfy();
+    overlappingType8.unspiderfy();
+    overlappingType9.unspiderfy();
 }
 //window.onload = initialize;
 google.maps.event.addDomListener(window, 'load', initialize);

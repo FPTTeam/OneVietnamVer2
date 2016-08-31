@@ -30,7 +30,7 @@
             <div class="header">
 
                 <img class="ui mini avatar image" src="@Model.AvartarLink">
-                <a href="@Url.Action("Index", "Timeline", new {userID = @Model.UserId})">@Model.UserName</a>
+                <a href="@Url.Action("Index", "Timeline", new {Id = @Model.UserId})">@Model.UserName</a>
 
                 <div class="ui right floated button" style="background: white !important">
                     @if (User.Identity.IsAuthenticated && (User.Identity.GetUserId() == Model.UserId))
