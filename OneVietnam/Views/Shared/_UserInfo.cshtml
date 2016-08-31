@@ -29,7 +29,7 @@
     </div>
     <div class="extra content">
        
-            <a class="ui fluid basic green button" href="javascript: CallRegisterPopUp('@Model.UserId','@Model.UserName','@Model.Avatar')" onclick="return hideModel()">Nhắn tin</a>
+            <a class="ui fluid basic green button" href="javascript: CallRegisterPopUp('@Model.UserId','@Model.UserName','@Model.Avatar','@Url.Action("ShowMap","Map")')" onclick="return hideModel()">Nhắn tin</a>
      
     </div>
     <div id="ShowReportUser_@Model.UserId">

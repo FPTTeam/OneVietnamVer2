@@ -118,6 +118,7 @@
                         <div class="ui teal label">@postCount</div>
                     </div>
                     <div class="item" data-tab="profile" onclick="showUserMarkerOnMap(x, y, address);">Giới Thiệu</div>
+
                     @if (Request.IsAuthenticated)
                     {
                         if (Model.Id.Equals(User.Identity.GetUserId()))
@@ -130,7 +131,7 @@
                             <div class="right menu">
 
 
-                                <a class="ui blue basic button" href="javascript: register_popup('@Model.Id','@Model.UserName','@Model.AvatarLink')" style="text-decoration: none;padding-top: 15px">
+                                <a class="ui blue basic button" href="javascript: register_popup('@Model.Id','@Model.UserName','@Model.AvatarLink')" style="text-decoration: none; padding-top: 15px">
                                     <i class="icon mail"></i> Nhắn tin
                                 </a>
 
@@ -141,7 +142,7 @@
                                     @Html.Partial("../Timeline/_ReportUser", new ReportViewModel(Model.Id))
                                     <script>
                                         $("#reportUser")
-                                            .click(function () {
+                                            .click(function() {
                                                 $("#modalReport_@Model.Id").modal('show');
                                             });
                                     </script>
@@ -149,6 +150,14 @@
 
                             </div>
                         }
+                    }
+                    else
+                    {
+                        <div class="right menu">
+                            <a class="ui blue basic button" href="javascript: CallRegisterPopUp('@Model.Id','@Model.UserName','@Model.AvatarLink','@Url.Action("Index","Timeline",new {id= Model.Id})')" style="text-decoration: none; padding-top: 15px">
+                                <i class="icon mail"></i> Nhắn tin
+                            </a>                            
+                        </div>
                     }
                 </div>
 
