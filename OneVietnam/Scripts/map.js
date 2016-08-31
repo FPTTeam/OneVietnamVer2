@@ -712,7 +712,7 @@ function loadByAjax(postTypeList, postTypeNumber) {
 
             },
             error: function (xhr, status, error) {
-                alert(xhr.responseText);
+                console.log(xhr.responseText);
             }
         });
     } else {
@@ -793,7 +793,7 @@ function getUserInfo(userId) {
                 }
             },
             error: function (xhr, status, error) {
-                alert(xhr.responseText);
+                console.log(xhr.responseText);
             }
         });
     }
@@ -853,7 +853,7 @@ function getPostInfo(postID) {
                 });
             },
             error: function (xhr, status, error) {
-                alert(xhr.responseText);
+                console.log(xhr.responseText);
             }
         });
     }
