@@ -306,6 +306,9 @@ function loadScript() {
 }
 
 function showCurrentLocation() {
+    if (selectedPostMarker) {
+        selectedPostMarker.setMap(null);
+    }
     isPostFilter = true;
     currentMarkerClusterer.setMap(null);
     // setMapToAMarkerCluster(null);
@@ -352,6 +355,9 @@ function showCurrentLocation() {
 }
 
 function showMyLocation() {
+    if (selectedPostMarker) {
+        selectedPostMarker.setMap(null);
+    }
     isPostFilter = true;
     currentMarkerClusterer.setMap(null);
     //setMapToAMarkerCluster(null);
@@ -375,22 +381,33 @@ function showMyLocation() {
 }
 
 function showUsers() {
+    if (selectedPostMarker) {
+        selectedPostMarker.setMap(null);
+    }
     closeAllSpiderfier();
     showMarkersOnMap(allUsers, -1, listUserMarkers);
 }
 
 function showLGBT() {
-
+    if (selectedPostMarker) {
+        selectedPostMarker.setMap(null);
+    }
     closeAllSpiderfier();
     showMarkersOnMap(LGBT, -2, listLGBTMarkers);
 }
 
 function showMales() {
+    if (selectedPostMarker) {
+        selectedPostMarker.setMap(null);
+    }
     closeAllSpiderfier();
     showMarkersOnMap(males, -3, listMaleMarkers);
 }
 
 function showFemales() {
+    if (selectedPostMarker) {
+        selectedPostMarker.setMap(null);
+    }
     closeAllSpiderfier();
     showMarkersOnMap(females, -4, listFemaleMarkers);
 }
