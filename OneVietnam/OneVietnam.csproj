@@ -392,6 +392,7 @@
     <Content Include="Content\Icon\Warning.png" />
     <Content Include="Content\Icon\warning2.png" />
     <Content Include="Content\Images\Avatar_Default.jpg" />
+    <Content Include="Content\Images\Cover_Default.jpg" />
     <Content Include="Content\Images\no-image.png" />
     <Content Include="Content\Map\mappagecustom.css" />
     <Content Include="Content\Map\scrollbar.css" />
@@ -563,6 +564,13 @@
     <Content Include="Views\Shared\_addPhoneNumber.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
     <None Include="Views\Error\PageNotFound.cshtml" />
+    <Content Include="Web.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

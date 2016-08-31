@@ -16,11 +16,11 @@
                 //TaiLM: Added
                 if (Model.Status == false)
                 {
-                    <div class="ui top attached grey label">Đã Đóng</div>
+                    <div class="ui top attached grey label" style="text-align: center">Đã Đóng</div>
                 }
                 if (Model.Status == true && Model.PostType == (int)PostTypeEnum.AdminPost)
                 {
-                    <div class="ui top attached red label">Thông báo</div>
+                    <div class="ui top attached red label" style="text-align: center">Thông báo</div>
                 }
             }
             <div class="header">
@@ -61,7 +61,7 @@
                     else if (User.Identity.IsAuthenticated)
                     {
                         <i class='blue large announcement link icon' id="btnReportPost_@Model.Id" data-content='Báo cáo' style='float: right'></i>
-                        <div id="ShowReportPost_@Model.Id">
+                        <div id="ShowReportPost_@Model.Id" class="forClear">
                             @Html.Partial("../Newsfeed/_Report", new ReportViewModel(Model.Id, Model.UserId))
                         </div>
                         <script>
@@ -76,9 +76,6 @@
 
                 <div class="meta">
                     <span style="color: grey; margin-left: 40px; font-size: 14px !important"> @Model.TimeInterval </span>
-
-
-
                 </div>
 
                 @*<div class="ui  header">@Model.UserName</div>*@
@@ -163,7 +160,7 @@
                                     url: '/Newsfeed/_suggestedPost',
                                     data: { postId: '@Model.Id', pageNum: 1 },
                                     success: function (data) {
-                                        if (data!=="") {
+                                        if (data !== "") {
                                             $(".suggestText").removeClass("hides");
                                             var $items = $(data);
                                             $('.suggest.grids').isotope({
@@ -174,7 +171,7 @@
                                                     gutter: '.gutter-sizer'
                                                 }
                                             });
-                                          
+
                                             $("#forSuggest").html($items);
                                             $(".suggest.grids").isotope('appended', $items);
                                             $(".suggest.grids").isotope('layout');

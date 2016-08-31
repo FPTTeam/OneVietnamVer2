@@ -4,7 +4,7 @@
 
 var scrollHandler = function () {
     if (hasReachedEndOfInfiniteScroll === false &&
-            ($(window).scrollTop() >= ($(document).height() - $(window).height() - 300))) {        
+            ($(window).scrollTop() >= ($(document).height() - $(window).height() - 100))) {        
         loadMoreToInfiniteScrollTable(moreRowsUrl);
     }
 }
@@ -35,7 +35,7 @@ function loadMoreToInfiniteScrollUl(loadMoreRowsUrl) {
             url: loadMoreRowsUrl,
             data: "pageNum=" + page,
             success: function (data, textstatus) {
-                if (data != '') {
+                if (data !=="") {
                     $("ul.infinite-scroll").append(data);
                 }
                 else {
@@ -56,17 +56,16 @@ function loadMoreToInfiniteScrollTable(loadMoreRowsUrl) {
     if (page > -1 && !inCallback) {
         inCallback = true;
         page++;
-        if (typeof window.filterValue === 'undefined') window.filterValue = -1;
+        if (typeof filterValue === 'undefined') filterValue = -1;
         $.ajax({
             type: 'GET',
             url: loadMoreRowsUrl,
-            data: {pageNum:page, filterVal:window.filterValue },
+            data: { pageNum: page, filterVal: filterValue },
             success: function (data, textstatus) {
-                if (data != '') {
+                if (data !=="") {
                     var $items = $(data);
                     $(forLoad).append($items);
-                    grid.isotope('appended', $items);
-                   
+                    grid.isotope('appended', $items);   
                     grid.isotope('layout');
                     grid.imagesLoaded().progress(function () {
                         grid.isotope('layout');
@@ -78,6 +77,7 @@ function loadMoreToInfiniteScrollTable(loadMoreRowsUrl) {
                 }
                 inCallback = false;
             },
+            async: false,
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 console.log("Can not load more data infiniteScroll");
             }

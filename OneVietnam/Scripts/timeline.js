@@ -55,7 +55,7 @@ function cancelEditProfile(pUrl) {
 function changeTwoFactorAuthentication(pUrl) {
     var param = $(".ui.toggle.button").text();
     //TaiLM : Users can enable two-factor authentication by email even there are no phonenumber
-    //if (param === "Bật" && $("#txtMobilePhone").val() === "") {
+    //if (param === "Bật") {
     //    $('.message')[0].className = "ui negative message";
     //    $(".ui.toggle.button")[0].click();
     //    return;
