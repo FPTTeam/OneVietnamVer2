@@ -176,6 +176,7 @@ namespace OneVietnam.Controllers
             foreach (var post in posts)
             {
                 ApplicationUser user = await UserManager.FindByIdAsync(post.UserId);
+                if(user==null || user.DeletedFlag==true || user.LockedFlag==true) continue;
                 list.Add(new PostViewModel(post, user.UserName, user.Avatar));
 
             }
@@ -216,6 +217,7 @@ namespace OneVietnam.Controllers
                     foreach (var post in posts)
                     {
                         ApplicationUser user = await UserManager.FindByIdAsync(post.UserId);
+                        if(user==null || user.DeletedFlag==true|| user.LockedFlag==true) continue;                        
                     list.Add(new PostViewModel(post, user.UserName, user.Avatar));
 
                     }
