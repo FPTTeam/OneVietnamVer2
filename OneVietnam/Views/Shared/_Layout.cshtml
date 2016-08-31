@@ -42,7 +42,8 @@
         }(document, 'script', 'facebook-jssdk'));
 
     </script>
-    <div class="ui grid">
+<div class="ui grid">
+    <div class="only row">
         <div class="ui main menu mainMenu">
             <a href="@Url.Action("Index", "Home")" class="ui middle aligned item">
                 <img src="/Content/Icon/logo.PNG" class="ui avatar image" />
@@ -50,11 +51,11 @@
             </a>
             @Html.ActionLink("Bản Đồ", "ShowMap", "Map", routeValues: null, htmlAttributes: new { @class = "ui item", style = "color: #FFFFFF; font-size: 1.2rem" })
             @Html.ActionLink("Bảng Tin", "Index", "Newsfeed", routeValues: null, htmlAttributes: new { @class = "ui item", style = "color: #FFFFFF; font-size: 1.2rem" })
-            <div class="floating ui label" style="color:#DE5958 ">42+</div>
+            <div class="floating ui label" style="color: #DE5958">42+</div>
             @if (Request.IsAuthenticated && (User.IsInRole(CustomRoles.Admin) || User.IsInRole(CustomRoles.Mod)))
-                {
+            {
                 @Html.ActionLink("Quản Trị", "Index", "Administration", routeValues: null, htmlAttributes: new { @class = "ui item", style = "color: #FFFFFF; font-size: 1.2rem" })
-                }
+            }
             <div class="right menu">
                 <div class="item">
                     <select class="ui dropdown searchType">
@@ -81,7 +82,7 @@
                     </div>
                 </div>
                 @if (User.Identity.IsAuthenticated)
-                    {
+            {
                     <div class="item">
                         <div class="ui blue button" style="background: #d63e5c" id="stamp-button2">
                             <i class="write icon"></i>Đăng bài
@@ -90,21 +91,22 @@
                             <i class="write icon"></i>Đăng bài
                         </div>
                     </div>
-                    }
-                    else
-                    {
+                }
+                else
+                {
                     <div class="item">
-                        <a href="@Url.Action("Login", "Account",new { ReturnUrl= "/Newsfeed"})">
+                        <a href="@Url.Action("Login", "Account", new {ReturnUrl = "/Newsfeed"})">
                             <div class="ui blue button" style="background: #d63e5c">
                                 <i class="write icon"></i>Đăng bài
                             </div>
                         </a>
                     </div>
-                    }
+                }
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
-    </div>
+    </div>    
+</div>
     <div class="ui fluid container" style="height: 90%; background-color: #F8F8F8;" id="bodypage">
 
         @RenderBody()
