@@ -92,8 +92,7 @@
                     results: 'Result',
                     title: 'Title',
                     description: 'Description',
-                    url: 'Url',
-                    image: '/Content/Images/Avatar_Default.jpg'
+                    url: 'Url'
                 },
                 minCharacters: 2
             });
