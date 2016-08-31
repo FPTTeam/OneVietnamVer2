@@ -151,10 +151,17 @@ namespace OneVietnam.Controllers
             posts = await PostManager.FindAllDescenderByIdAsync(filter, id);
             var postCount = await PostManager.FindNumberOfPost(id);
             var postTypeList = await IconManager.GetIconPostAsync();
-            if (postTypeList != null)
+            var timelinePostTypeList = new List<DTL.Icon>();
+            foreach (var postType in postTypeList)
             {
-                ViewData["PostTypes"] = postTypeList;
-            }
+                if (!await UserManager.IsInRoleAsync(id, "Admin") && postType.IconValue == (int) PostTypeEnum.AdminPost)
+                {
+                    continue;
+                }
+                timelinePostTypeList.Add(postType);
+            }            
+            ViewData["PostTypes"] = timelinePostTypeList;
+            
             ViewData["PostCount"] = postCount;
             var genderList = await IconManager.GetIconGender();
             if (genderList != null)
@@ -259,7 +266,7 @@ namespace OneVietnam.Controllers
                 return (int)VerifyStatus.Success;
             }
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "Failed to verify phone");
+            ModelState.AddModelError("", "Lỗi khi xác nhận số điện thoại");
             return (int)VerifyStatus.Failure;
         }
         [HttpPost]

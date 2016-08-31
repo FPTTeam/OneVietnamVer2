@@ -173,6 +173,7 @@
                                     {
                                         foreach (var type in postType)
                                         {
+
                                             <div class="item" data-filter="@type.IconValue">
                                                 @if (type.IconValue == (int)PostTypeEnum.Accommodation)
                                                 {
@@ -202,27 +203,11 @@
                                                 {
                                                     <div class="ui red empty circular label"></div>
                                                 }
-                                                else if (type.IconValue == (int)PostTypeEnum.AdminPost&& Request.IsAuthenticated && (User.IsInRole(CustomRoles.Admin) || User.IsInRole(CustomRoles.Mod)))
+                                                else if (type.IconValue == (int)PostTypeEnum.AdminPost)
                                                 {
                                                     <div class="ui black empty circular label"></div>
-                                                }
-                                                else if (type.IconValue == (int)PostTypeEnum.AdminPost&& Request.IsAuthenticated && !(User.IsInRole(CustomRoles.Admin) || User.IsInRole(CustomRoles.Mod)))
-                                                {
-                                                   
-                                                }
-                                                else 
-                                                {
-                                                    <div class="ui black empty circular label"></div>
-                                                }
-                                                
-                                                @if (type.IconValue == (int)PostTypeEnum.AdminPost && Request.IsAuthenticated && !(User.IsInRole(CustomRoles.Admin) || User.IsInRole(CustomRoles.Mod)))
-                                                {
-                                                   <p></p>
-
-                                                }
-                                                else {
-                                                    @type.IconText
-                                                }
+                                                }                                                                                                
+                                                @type.IconText                                                
                                             </div>
                                         }
                                     }
@@ -262,20 +247,8 @@
                 {
                     <div class="ui tab" data-tab="setting">
                         <div class="ui segment">
-                            <div class="ui middle aligned selection list">
-                                @{
-                                    string value = "Tắt";
-                                    if (Model.Setting.TwoFacterEnabled == false)
-                                    {
-                                        value = "Bật";
-                                    }
-                                }
-                                <div class="ui item" style="width: 100%; padding: 0">
-                                    @*TaiLM :Commented*@
-                                    @*<div class="ui negative message transition hidden">
-                                            <i class="close icon"></i>
-                                            <p>Cần thêm số điện thoại đê bât bảo mât hai lớp</p>
-                                        </div>*@
+                            <div class="ui middle aligned selection list">                               
+                                <div class="ui item" style="width: 100%; padding: 0">                                 
                                     <div class="ui horizontal list" style="width: 100%; padding: 0">
                                         <div class="ui item">
                                             <div class="ui medium header">
@@ -287,7 +260,19 @@
                                             </div>
                                         </div>
                                         <div class="ui right floated item">
-                                            <button class="ui right floated toggle button" onclick="changeTwoFactorAuthentication('@Url.Action("ChangeTwoFactorAuthentication", "Timeline")')">@value</button>
+                                            @if (Model.Setting.TwoFacterEnabled == false)
+                                            {
+                                                <text>
+                                                    <button class="ui right floated toggle button" id="two-factorsButton" onclick="changeTwoFactorAuthentication('@Url.Action("ChangeTwoFactorAuthentication", "Timeline")')">Bật</button>
+                                                </text>
+                                            }
+                                            else
+                                            {
+                                                <text>
+                                                    <button class="ui right floated toggle button active" id="two-factorsButton" onclick="changeTwoFactorAuthentication('@Url.Action("ChangeTwoFactorAuthentication", "Timeline")')">Tắt</button>
+                                                </text>
+                                            }
+
                                         </div>
                                     </div>
                                 </div>
