@@ -84,6 +84,7 @@ namespace OneVietnam.Controllers
             for (var i = 0; i < conversations.Count(); i++)
             {
                 var friend = await UserManager.FindByIdAsync(conversations[i].Key);
+                if(friend==null) continue;                
                 var con = new ConversationViewModel
                 {
                     Id = conversations[i].Key,
