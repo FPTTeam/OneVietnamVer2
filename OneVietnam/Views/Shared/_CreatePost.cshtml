@@ -101,36 +101,38 @@
 
             <!-- Post Location -->
 
+            <div class="two field">
+                <div class="field">
+                    <label>* Địa chỉ liên hệ</label>
+                    <div class="ui floating labeled icon dropdown button" tabindex="15" id="locationDr" style="float: left; margin: 0em 0em 1em">
+                        <i class="blue world icon"></i>
+                        <span class="text">Địa điểm của bài đăng</span>
+                        <div class="menu">
+                            <div class="item" onclick="getCurrentLocation();" id="getloc">
+                                <div class="ui blue empty circular label"></div>
+                                Địa điểm hiện tại của bạn
+                            </div>
 
-            <div class="field">
-                <label>* Địa chỉ liên hệ</label>
-                <div class="ui floating labeled icon dropdown button" tabindex="15" id="locationDr" style="float: left;  margin: 0em 0em 1em">
-                    <i class="blue world icon"></i>
-                    <span class="forLocation">Địa điểm của bài đăng</span>
-                    <div class="menu">
-                        <div class="item" onclick="getCurrentLocation();" id="getloc">
-                            <div class="ui blue empty circular label"></div>
-                            Địa điểm hiện tại của bạn
-                        </div>
-
-                        <div class="item" onclick="getRegisteredLocation('@User.Identity.GetUserId()');">
-                            <div class="ui red empty circular label"></div>
-                            Địa chỉ nhà của bạn
-                        </div>
+                            <div class="item" onclick="getRegisteredLocation('@User.Identity.GetUserId()');">
+                                <div class="ui red empty circular label"></div>
+                                Địa chỉ nhà của bạn
+                            </div>
 
 
-                        <div class="divider"></div>
-                        <div class="item" style="font-weight: normal">
-                            Tìm kiếm địa điểm khác
-                        </div>
-                        <div class="ui left icon input">
-                            <i class="search icon"></i>
-                            <input type="text" id="search-location" name="search" placeholder="Tìm kiếm địa điểm..." style="margin-right: 20px">
+                            <div class="divider"></div>
+                            <div class="item" style="font-weight: normal">
+                                Tìm kiếm địa điểm khác
+                            </div>
+                            <div class="ui left icon input">
+                                <i class="search icon"></i>
+                                <input type="text" id="search-location" name="search" placeholder="Tìm kiếm địa điểm..." style="margin-right: 20px">
+                            </div>
                         </div>
                     </div>
+                   
                 </div>
+                <div class="field">@Html.EditorFor(model => model.PostLocation.Address)</div>
             </div>
-            @Html.EditorFor(model => model.PostLocation.Address, new { htmlAttributes = new { style = "display: none" } })
             @Html.EditorFor(model => model.PostLocation.XCoordinate, new { htmlAttributes = new { style = "display: none" } })
             @Html.EditorFor(model => model.PostLocation.YCoordinate, new { htmlAttributes = new { style = "display: none" } })
 

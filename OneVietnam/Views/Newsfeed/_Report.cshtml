@@ -1,46 +1,50 @@
 ﻿
 @model OneVietnam.Models.ReportViewModel
-<div class="ui small report modal coupled">
+<div class="ui small report modal coupled" id="ReportPost_@Model.PostId">
     <div class="header">
         Gửi báo cáo vi phạm
     </div>
-@using (Ajax.BeginForm("ReportPost", "Newsfeed", new AjaxOptions
-{
-    HttpMethod = "POST",
-    InsertionMode = InsertionMode.Replace,
-    UpdateTargetId = "ShowReportPost"
-}))
-{
+    @using (Ajax.BeginForm("ReportPost", "Newsfeed", new AjaxOptions
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "ShowReportPost_" + Model.PostId,
+        OnComplete = "ShowThank('" + Model.PostId + "')"
+    }))
+    {
 
         <div class="content">
             <div class="field">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(false)
                 <div class="ui form">
-                    @Html.TextAreaFor(model => model.ReportDescription, new {placeholder = "Nội dung muốn báo cáo", rows = "6"})
+                    @Html.TextAreaFor(model => model.ReportDescription, new { placeholder = "Nội dung muốn báo cáo", rows = "6" })
                 </div>
                 <div style="display: none">
                     @Html.EditorFor(model => model.PostId)
-                    @Html.EditorFor(model => model.UserId)                    
+                    @Html.EditorFor(model => model.UserId)
                 </div>
             </div>
         </div>
         <div class="actions">
-            <div class="ui cancel button">Hủy</div>
-            <input class="ui green button" id="submitReport" value="Gửi" type="submit"/>
-        </div>        
+            <div class="ui cancel button" id="btnCancelReport_@Model.PostId" onclick="cancelReport()">Hủy</div>
+            <input class="ui green button" id="submitReport" value="Gửi" type="submit" />
+        </div>
     }
+
+    <div class="ui small second modal" id="ThankYouModal_@Model.PostId">
+        <div class="header" style="text-align: center">
+            Xin cảm ơn
+        </div>
+        <div class="content" style="text-align: center">
+            Chúng tôi đã nhận được báo cáo của bạn về bài đăng này.<br />
+            Chúng tôi sẽ xem xét kỹ lưỡng về nội dung của bài đăng.<br />
+            Rất cảm ơn các bạn đã đóng góp cho OneVietnam.
+        </div>
+        <div class="actions">
+            <div class="ui cancel button">Đóng</div>
+        </div>
+    </div>
 </div>
 
 
-<div class="ui small second modal">
-    <div class="header" style="text-align: center">
-        Xin cảm ơn
-    </div>
-    <div class="content" style="text-align: center">
-        Chúng tôi đã nhận được báo cáo của bạn về bài đăng này.<br/>
-        Chúng tôi sẽ xem xét kỹ lưỡng về nội dung của bài đăng.<br/>
-        Rất cảm ơn các bạn đã đóng góp cho OneVietnam.
-    </div>
-    <div class="actions">
-        <div class="ui cancel button">Đóng</div>        
-    </div>
-</div>

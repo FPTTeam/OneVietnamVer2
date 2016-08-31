@@ -479,15 +479,7 @@
     </None>
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Newsfeed\Index.cshtml" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
+    <Content Include="Views\Timeline\_ReportUser.cshtml" />
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -566,10 +558,8 @@
     <Content Include="Views\Search\_userResult.cshtml" />
     <Content Include="Views\Shared\_userRow.cshtml" />
     <Content Include="Views\Shared\_suggestedPost.cshtml" />
-    <Content Include="Views\Timeline\_ReportUser.cshtml" />
     <Content Include="Views\Account\_VerifyCode.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Timeline\_ReportUser.cshtml" />
     <Content Include="Views\Shared\_addPhoneNumber.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
     <None Include="Views\Error\PageNotFound.cshtml" />
