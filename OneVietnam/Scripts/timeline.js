@@ -32,7 +32,7 @@ function editableForm() {
 
 function submitEditProfile() {
     var oldName = document.getElementById("lblTimeLineUserName");
-    var oldHeaderName = document.getElementById("txtHeaderUserName");
+    var oldHeaderName = document.getElementById("txtHeaderUserNameText");
     var currentName = document.getElementById("UserName");
 
     oldName.innerText = currentName.value;

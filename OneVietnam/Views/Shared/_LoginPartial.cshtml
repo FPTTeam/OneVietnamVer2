@@ -9,7 +9,7 @@
             @Html.AntiForgeryToken()
             <a href="@Url.Action("Index","Timeline",new {Id=User.Identity.GetUserId()})" id="txtHeaderUserName" style="color: #000000">
                 <img class="ui avatar image" src="@avatar" />
-                <span>@User.Identity.GetUserName()&nbsp;</span>
+                <span id="txtHeaderUserNameText">@User.Identity.GetUserName()&nbsp;</span>
             </a>
         }
         <div class="ui icon buttons">
