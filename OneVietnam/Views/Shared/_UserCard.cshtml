@@ -28,22 +28,16 @@
         }
     </div>
     <div class="extra content">
-        <div class="ui two buttons">
+        
             @if (User.Identity.IsAuthenticated)
             {
-                <a class="ui basic green button" href="javascript: register_popup('@Model.UserId','@Model.UserName','@Model.Avatar')">Nhắn tin</a>
-                <div class="ui basic red button" id="reportUser_@Model.UserId">Báo cáo</div>
+                <a class="ui fluid basic green button" href="javascript: register_popup('@Model.UserId','@Model.UserName','@Model.Avatar')">Nhắn tin</a>
             }
             
-        </div>
+       
     </div>
     <div id="ShowReportUser_@Model.UserId">
         @Html.Partial("../Timeline/_ReportUser", new ReportViewModel(Model.UserId))
     </div>
-    <script>
-        $("#reportUser_@Model.UserId")
-            .click(function () {
-                $("#modalReport_@Model.UserId").modal('show');
-            });
-    </script>
+   
 </div>

@@ -160,7 +160,7 @@
                                     url: '/Newsfeed/_suggestedPost',
                                     data: { postId: '@Model.Id', pageNum: 1 },
                                     success: function (data) {
-                                        if (data != null) {
+                                        if (data !=="") {
                                             $(".suggestText").removeClass("hides");
                                             var $items = $(data);
                                             $('.suggest.grids').isotope({

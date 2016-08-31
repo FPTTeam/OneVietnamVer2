@@ -251,6 +251,7 @@ namespace OneVietnam.Controllers
             List<Tag> tagsList = post.Tags;
             //BaseFilter baseFilter = new BaseFilter { CurrentPage = pageNum.Value };            
             var result = await PostManager.FindPostByTagsAsync(tagsList,postId);
+            if (result.Count == 0) return null;
             var suggestedList = new List<SuggestedPost>();            
             foreach (var item in result)
             {

@@ -100,10 +100,10 @@
             </div>
 
             <!-- Post Location -->
-
-            <div class="two field">
+            <label>* Địa chỉ liên hệ</label>
+            <div class="two fields">
                 <div class="field">
-                    <label>* Địa chỉ liên hệ</label>
+                  
                     <div class="ui floating labeled icon dropdown button" tabindex="15" id="locationDr" style="float: left; margin: 0em 0em 1em">
                         <i class="blue world icon"></i>
                         <span class="text">Địa điểm của bài đăng</span>
@@ -131,7 +131,7 @@
                     </div>
                    
                 </div>
-                <div class="field">@Html.EditorFor(model => model.PostLocation.Address)</div>
+                <div class="field">@Html.EditorFor(model => model.PostLocation.Address, new { htmlAttributes = new { @readonly = "readonly" } })</div>
             </div>
             @Html.EditorFor(model => model.PostLocation.XCoordinate, new { htmlAttributes = new { style = "display: none" } })
             @Html.EditorFor(model => model.PostLocation.YCoordinate, new { htmlAttributes = new { style = "display: none" } })
