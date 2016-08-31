@@ -116,7 +116,11 @@ namespace OneVietnam.DAL
                     var batch = cursor.Current;
                     foreach (var document in batch)
                     {
-                        document.Notifications?.Add(notification.Id, notification);
+                        if (document.Notifications == null)
+                        {
+                            document.Notifications = new SortedList<string, Notification>();
+                        }
+                        document.Notifications.Add(notification.Id,notification);                        
                         await UpdateAsync(document);
                     }
                 }
