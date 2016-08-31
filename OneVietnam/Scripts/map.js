@@ -327,7 +327,6 @@ function showCurrentLocation() {
                 lng: position.coords.longitude
             };
             var pos2 = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
-            alert(pos.lat + "  " + pos.lng);
             myCurrentLocationMarker.setMap(map);
             myCurrentLocationMarker.setPosition(pos);
             google.maps.event.addListener(myCurrentLocationMarker, 'click', (function () {
