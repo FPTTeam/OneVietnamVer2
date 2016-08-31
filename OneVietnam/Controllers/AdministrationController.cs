@@ -127,7 +127,7 @@ namespace OneVietnam.Controllers
                 {
                     AdminPostViewModel model = new AdminPostViewModel(item);
                     var user = await UserManager.FindByIdAsync(item.UserId);
-                    if(user==null || user.DeletedFlag==false || user.LockedFlag==true) continue;
+                    if(user==null || user.DeletedFlag==true || user.LockedFlag==true) continue;
                     model.UserName = user.UserName;
                     postViews.Add(model);
                 }
