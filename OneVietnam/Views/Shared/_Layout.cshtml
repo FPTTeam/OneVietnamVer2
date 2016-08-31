@@ -15,98 +15,99 @@
 
 </head>
 <body>
-    <script>
-        window.fbAsyncInit = function () {
+<script>
+    var userAuthorized = @User.Identity.IsAuthenticated.ToString().ToLower();
+    window.fbAsyncInit = function () {
 
-            FB.init({
-                appId: '1615798268744410',
-                xfbml: true,
-                version: 'v2.6'
-            });
-            FB.Event.subscribe('xfbml.render', function () {
-                finished_rendering();
-            });
-            FB.Event.subscribe('comment.create', function (response) {
-                onCommentCreate(response.commentID);
-            });
+        FB.init({
+            appId: '1615798268744410',
+            xfbml: true,
+            version: 'v2.6'
+        });
+        FB.Event.subscribe('xfbml.render', function () {
+            finished_rendering();
+        });
+        FB.Event.subscribe('comment.create', function (response) {
+            onCommentCreate(response.commentID);
+        });
 
-        };
+    };
 
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) { return; }
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/vi_VN/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/vi_VN/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
 
-        }(document, 'script', 'facebook-jssdk'));
+    }(document, 'script', 'facebook-jssdk'));
 
-    </script>
-<div class="ui grid">
-    <div class="only row">
-        <div class="ui main menu mainMenu">
-            <a href="@Url.Action("Index", "Home")" class="ui middle aligned item">
-                <img src="/Content/Icon/logo.PNG" class="ui avatar image" />
-                <span style="font-size: 2em; color: #FFFFFF">neVietnam</span>
-            </a>
-            @Html.ActionLink("Bản Đồ", "ShowMap", "Map", routeValues: null, htmlAttributes: new { @class = "ui item", style = "color: #FFFFFF; font-size: 1.2rem" })
-            @Html.ActionLink("Bảng Tin", "Index", "Newsfeed", routeValues: null, htmlAttributes: new { @class = "ui item", style = "color: #FFFFFF; font-size: 1.2rem" })
-            <div class="floating ui label" style="color: #DE5958">42+</div>
-            @if (Request.IsAuthenticated && (User.IsInRole(CustomRoles.Admin) || User.IsInRole(CustomRoles.Mod)))
+</script>
+    <div class="ui grid">
+        <div class="only row">
+            <div class="ui main menu mainMenu">
+                <a href="@Url.Action("Index", "Home")" class="ui middle aligned item">
+                    <img src="/Content/Icon/logo.PNG" class="ui avatar image" />
+                    <span style="font-size: 2em; color: #FFFFFF">neVietnam</span>
+                </a>
+                @Html.ActionLink("Bản Đồ", "ShowMap", "Map", routeValues: null, htmlAttributes: new { @class = "ui item", style = "color: #FFFFFF; font-size: 1.2rem" })
+                @Html.ActionLink("Bảng Tin", "Index", "Newsfeed", routeValues: null, htmlAttributes: new { @class = "ui item", style = "color: #FFFFFF; font-size: 1.2rem" })
+                <div class="floating ui label" style="color: #DE5958">42+</div>
+                @if (Request.IsAuthenticated && (User.IsInRole(CustomRoles.Admin) || User.IsInRole(CustomRoles.Mod)))
             {
-                @Html.ActionLink("Quản Trị", "Index", "Administration", routeValues: null, htmlAttributes: new { @class = "ui item", style = "color: #FFFFFF; font-size: 1.2rem" })
+            @Html.ActionLink("Quản Trị", "Index", "Administration", routeValues: null, htmlAttributes: new { @class = "ui item", style = "color: #FFFFFF; font-size: 1.2rem" })
             }
-            <div class="right menu">
-                <div class="item">
-                    <select class="ui dropdown searchType">
-                        <option value="SearchPosts" selected="selected">
-                            Bài Viết
-                        </option>
-                        <option value="SearchUsers">
-                            Bạn Bè
-                        </option>
-                    </select>
-                    <div class="ui search post" id="SearchPosts">
-                        <div class="ui left icon input" style="width: 300px !important">
-                            <i class="newspaper icon"></i>
-                            <input class="prompt" id="textPostSearch" type="text" placeholder="Tìm Kiếm...">
+                <div class="right menu">
+                    <div class="item">
+                        <select class="ui dropdown searchType">
+                            <option value="SearchPosts" selected="selected">
+                                Bài Viết
+                            </option>
+                            <option value="SearchUsers">
+                                Bạn Bè
+                            </option>
+                        </select>
+                        <div class="ui search post" id="SearchPosts">
+                            <div class="ui left icon input" style="width: 300px !important">
+                                <i class="newspaper icon"></i>
+                                <input class="prompt" id="textPostSearch" type="text" placeholder="Tìm Kiếm...">
+                            </div>
+                            <div class="force100 results"></div>
                         </div>
-                        <div class="force100 results"></div>
+                        <div class="ui search user " id="SearchUsers">
+                            <div class="ui left icon input" style="width: 300px !important">
+                                <i class="users icon"></i>
+                                <input class="prompt" id="textUsersSearch" type="text" placeholder="Tìm Kiếm...">
+                            </div>
+                            <div class="force100 results"></div>
+                        </div>
                     </div>
-                    <div class="ui search user " id="SearchUsers">
-                        <div class="ui left icon input" style="width: 300px !important">
-                            <i class="users icon"></i>
-                            <input class="prompt" id="textUsersSearch" type="text" placeholder="Tìm Kiếm...">
-                        </div>
-                        <div class="force100 results"></div>
+                    @if (User.Identity.IsAuthenticated)
+            {
+                <div class="item">
+                    <div class="ui blue button" style="background: #d63e5c" id="stamp-button2">
+                        <i class="write icon"></i>Đăng bài
+                    </div>
+                    <div class="ui blue button hides" style="background: #d63e5c" id="stamp-button">
+                        <i class="write icon"></i>Đăng bài
                     </div>
                 </div>
-                @if (User.Identity.IsAuthenticated)
-            {
-                    <div class="item">
-                        <div class="ui blue button" style="background: #d63e5c" id="stamp-button2">
-                            <i class="write icon"></i>Đăng bài
-                        </div>
-                        <div class="ui blue button hides" style="background: #d63e5c" id="stamp-button">
-                            <i class="write icon"></i>Đăng bài
-                        </div>
-                    </div>
                 }
                 else
                 {
-                    <div class="item">
-                        <a href="@Url.Action("Login", "Account", new {ReturnUrl = "/Newsfeed"})">
-                            <div class="ui blue button" style="background: #d63e5c">
-                                <i class="write icon"></i>Đăng bài
-                            </div>
-                        </a>
-                    </div>
+                <div class="item">
+                    <a href="@Url.Action("Login", "Account", new {ReturnUrl = "/Newsfeed"})">
+                        <div class="ui blue button" style="background: #d63e5c">
+                            <i class="write icon"></i>Đăng bài
+                        </div>
+                    </a>
+                </div>
                 }
-                @Html.Partial("_LoginPartial")
+                    @Html.Partial("_LoginPartial")
+                </div>
             </div>
         </div>
-    </div>    
-</div>
+    </div>
     <div class="ui fluid container" style="height: 90%; background-color: #F8F8F8;" id="bodypage">
 
         @RenderBody()
@@ -121,7 +122,7 @@
                         }
                         else
                         {
-                       
+
                         }
                     </div>
 
@@ -187,11 +188,11 @@
 
         @if (Request.IsAuthenticated)
         {
-            <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
-            <script src="~/signalr/hubs"></script>
-            <script type="text/javascript" src="~/Scripts/Chat.js"></script>
-            <script type="text/javascript" src="~/Scripts/Notification.js"></script>
-            <script>
+        <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+        <script src="~/signalr/hubs"></script>
+        <script type="text/javascript" src="~/Scripts/Chat.js"></script>
+        <script type="text/javascript" src="~/Scripts/Notification.js"></script>
+            <script>                
                 var myHub;
                 $(function () {
                     // Reference the auto-generated proxy for the hub.
@@ -207,7 +208,7 @@
                         if (document.getElementById(id) != null) {
                             // Add the message to the page.
                             $("#" + id + "Conversation")
-                            .append('<div class="item"><div class="content" style="margin-left:0.5em"><p class="receiveMessage">' + htmlEncode(message) + '</p></div></div>');
+                                .append('<div class="item"><div class="content" style="margin-left:0.5em"><p class="receiveMessage">' + htmlEncode(message) + '</p></div></div>');
                             $("#" + id + "Conversation").scrollTop(document.getElementById(id + "Conversation").scrollHeight);
                         }
                     };
@@ -266,8 +267,8 @@
                     });
                 });
             </script>
-            <div id="ChatZone">
-            </div>
+        <div id="ChatZone">
+        </div>
         }
 
 

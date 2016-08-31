@@ -410,3 +410,10 @@ $('#MessageButton').dropdown({
 });
 $('.ui.pointing.dropdown').dropdown({
 });
+function CallRegisterPopUp(userId, username, avatar) {
+    if (window.userAuthorized == true) {        
+        register_popup(userId, username, avatar);
+    } else {        
+        window.location.href = "/Account/Login";
+    }
+};

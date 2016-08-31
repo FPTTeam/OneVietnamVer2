@@ -479,7 +479,7 @@ namespace OneVietnam.Controllers
         [System.Web.Mvc.Authorize]        
         public async Task<ActionResult> DeletePost(string postId)
         {        
-            // Delete physicaly
+            // TaiLM Delete physicaly
             await PostManager.DeleteByIdAsync(postId);
             //var post = await PostManager.FindByIdAsync(postId);
             //post.DeletedFlag = true;
