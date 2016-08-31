@@ -453,6 +453,29 @@ namespace OneVietnam.Controllers
             await ReportManager.CreateAsync(report);
             return PartialView("../Timeline/_ReportUser", new ReportViewModel(model.UserId));
         }
-
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && _userManager != null)
+            {
+                _userManager.Dispose();
+                _userManager = null;
+            }            
+            if (disposing && _iconManager != null)
+            {
+                _iconManager.Dispose();
+                _iconManager = null;
+            }
+            if (disposing && _postManager != null)
+            {
+                _postManager.Dispose();
+                _postManager = null;
+            }
+            if (disposing && _reportManager != null)
+            {
+                _reportManager.Dispose();
+                _reportManager = null;
+            }
+            base.Dispose(disposing);
+        }
     }
 }

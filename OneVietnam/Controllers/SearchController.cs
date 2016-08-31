@@ -250,6 +250,14 @@ namespace OneVietnam.Controllers
             };
             return Json(searchResult, JsonRequestBehavior.AllowGet);
         }
-
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && _userManager != null)
+            {
+                _userManager.Dispose();
+                _userManager = null;
+            }            
+            base.Dispose(disposing);
+        }
     }
 }
