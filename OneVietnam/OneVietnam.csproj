@@ -394,6 +394,11 @@
     <Content Include="Content\Icon\warning2.png" />
     <Content Include="Content\Images\Avatar_Default.jpg" />
     <Content Include="Content\Images\Cover_Default.jpg" />
+    <Content Include="Content\Images\m1.png" />
+    <Content Include="Content\Images\m2.png" />
+    <Content Include="Content\Images\m3.png" />
+    <Content Include="Content\Images\m4.png" />
+    <Content Include="Content\Images\m5.png" />
     <Content Include="Content\Images\no-image.png" />
     <Content Include="Content\Map\mappagecustom.css" />
     <Content Include="Content\Map\scrollbar.css" />
