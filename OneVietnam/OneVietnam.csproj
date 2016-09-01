@@ -425,6 +425,8 @@
     <None Include="Properties\PublishProfiles\OneVietnam - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\OneVietnam - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\onevietnam893 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\onevietnamfortest - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\onevietnamfortest - Web Deploy.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -468,10 +470,15 @@
     <Content Include="Scripts\timeline.js" />
     <Content Include="Scripts\wowslider.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="semantic\dist\themes\default\assets\fonts\icons.eot" />
+    <Content Include="semantic\dist\themes\default\assets\fonts\icons.ttf" />
+    <Content Include="semantic\dist\themes\default\assets\fonts\icons.woff" />
+    <Content Include="semantic\dist\themes\default\assets\fonts\icons.woff2" />
     <None Include="Service References\ASPSMSX2\configuration91.svcinfo" />
     <None Include="Service References\ASPSMSX2\configuration.svcinfo" />
     <Content Include="semantic\dist\semantic.css" />
     <Content Include="semantic\dist\semantic.js" />
+    <Content Include="semantic\dist\themes\default\assets\fonts\icons.svg" />
     <Content Include="Service References\ASPSMSX2\OneVietnam.ASPSMSX2.vouchers.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
